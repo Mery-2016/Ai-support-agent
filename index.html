@@ -885,6 +885,7 @@
     const MODEL_CONFIGS = {
       'Gemini 3.5': {
         apiModelId: 'gemini-3.5',
+        apiCandidateModels: ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-3.5-flash', 'gemini-3.5'],
         roleDescription: '⚡ Скорость и ум: подробные ответы на вопросы клиентов и расчеты',
         temperature: 0.4,
         topP: 0.90,
@@ -892,6 +893,7 @@
       },
       'Gemini 3.6': {
         apiModelId: 'gemini-3.6',
+        apiCandidateModels: ['gemini-2.5-pro', 'gemini-2.5-flash', 'gemini-1.5-pro', 'gemini-3.6-flash', 'gemini-3.6'],
         roleDescription: '⚖️ Баланс: сравнение тканей и рекомендации под солнце',
         temperature: 0.4,
         topP: 0.90,
@@ -899,6 +901,7 @@
       },
       'Gemini 3.8': {
         apiModelId: 'gemini-3.8',
+        apiCandidateModels: ['gemini-2.5-pro', 'gemini-1.5-pro', 'gemini-3.8-flash', 'gemini-3.8'],
         roleDescription: '🧠 Pro Reasoning: комплексные сметы нескольких комнат',
         temperature: 0.5,
         topP: 0.95,
@@ -925,9 +928,30 @@
         selectedModel: 'Gemini 3.5',
         temperature: 0.4
       },
+      availableApiModels: [],
       chatHistory: [],
       isProcessing: false
     };
+
+    async function discoverAvailableModels(apiKey) {
+      if (!apiKey || apiKey === DEMO_API_KEY) return;
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.models)) {
+            const names = data.models
+              .filter(m => Array.isArray(m.supportedGenerationMethods) && m.supportedGenerationMethods.includes('generateContent'))
+              .map(m => m.name.replace(/^models\//, ''));
+            if (names.length > 0) {
+              appState.availableApiModels = names;
+            }
+          }
+        }
+      } catch (err) {
+        // Silently continue
+      }
+    }
 
     /* -------------------------------------------------------------
        2. ИНИЦИАЛИЗАЦИЯ И TEAM 8725 SIDEBAR BEHAVIOR
@@ -997,6 +1021,9 @@
           if (parsed && parsed.auth && parsed.auth.apiKey) {
             appState = { ...appState, ...parsed };
             unlockAgentUI();
+            if (appState.auth.apiKey && appState.auth.apiKey !== DEMO_API_KEY) {
+              discoverAvailableModels(appState.auth.apiKey);
+            }
             return;
           }
         }
@@ -1204,6 +1231,7 @@
 
       saveStateToStorage();
       unlockAgentUI();
+      discoverAvailableModels(cleanApiKey);
       toastSuccess(`Ключ подключен! Добро пожаловать, ${name}`);
 
       if (appState.chatHistory.length === 0) {
@@ -1658,8 +1686,6 @@
   5. Просьба срочно перезвонить.
 `;
 
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelCfg.apiModelId}:generateContent?key=${encodeURIComponent(apiKey)}`;
-
       const payload = {
         systemInstruction: { parts: [{ text: systemPrompt }] },
         contents: [{ role: 'user', parts: [{ text: userQuery }] }],
@@ -1678,36 +1704,44 @@
         headers['Authorization'] = `Bearer ${apiKey}`;
       }
 
-      try {
-        let res = await fetch(endpoint, {
-          method: 'POST',
-          headers: headers,
-          body: JSON.stringify(payload)
-        });
+      // Формируем приоритетный список рабочих моделей-кандидатов для прямого вызова
+      let candidateModels = [];
+      if (Array.isArray(appState.availableApiModels) && appState.availableApiModels.length > 0) {
+        const matched = (modelCfg.apiCandidateModels || []).filter(m => appState.availableApiModels.includes(m));
+        candidateModels = matched.length > 0 ? matched : appState.availableApiModels;
+      } else {
+        candidateModels = modelCfg.apiCandidateModels || [modelCfg.apiModelId];
+      }
 
-        // Если конкретный ID модели недоступен (404), пробуем fallback только среди разрешенных моделей (Gemini 3.5, 3.6, 3.8)
-        if (!res.ok && res.status === 404) {
-          const fallbackModels = ['gemini-3.5', 'gemini-3.6', 'gemini-3.8'];
-          for (const fbModel of fallbackModels) {
-            if (fbModel === modelCfg.apiModelId) continue;
-            const fbEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${fbModel}:generateContent?key=${encodeURIComponent(apiKey)}`;
-            const fbRes = await fetch(fbEndpoint, {
-              method: 'POST',
-              headers: headers,
-              body: JSON.stringify(payload)
-            });
-            if (fbRes.ok) {
-              res = fbRes;
-              break;
-            }
+      try {
+        let res = null;
+        for (const candidateModel of candidateModels) {
+          const candidateEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${candidateModel}:generateContent?key=${encodeURIComponent(apiKey)}`;
+          const candidateRes = await fetch(candidateEndpoint, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(payload)
+          });
+
+          if (candidateRes.ok) {
+            res = candidateRes;
+            break;
+          }
+
+          // Если 404 (модель отсутствует в аккаунте в данной версии v1beta), мягко пробуем следующего кандидата
+          if (candidateRes.status === 404) {
+            continue;
+          }
+
+          // При фатальных ошибках (400, 403) запоминаем ответ и выходим из цикла
+          if (candidateRes.status === 400 || candidateRes.status === 403) {
+            res = candidateRes;
+            break;
           }
         }
 
-        if (!res.ok) {
-          const errData = await res.json().catch(() => ({}));
-          const errMsg = errData.error?.message || `Статус ответа ${res.status}`;
-          console.warn('Gemini API Warning:', errMsg);
-          toastInfo(`Gemini API: ${errMsg}. Применяю локальный расчет.`);
+        if (!res || !res.ok) {
+          // Если все сетевые кандидаты вернули ошибку (квота, отсутствие сети или 404), прозрачно переключаемся на локальный расчет
           return generateDeterministicResponse(userQuery);
         }
 

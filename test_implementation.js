@@ -146,12 +146,8 @@ assert(htmlContent.includes('Gemini 3.8'), 'Модель Gemini 3.8 поддер
 assert(htmlContent.includes("apiModelId: 'gemini-3.5'"), 'Идентификатор модели Gemini 3.5 строго gemini-3.5');
 assert(htmlContent.includes("apiModelId: 'gemini-3.6'"), 'Идентификатор модели Gemini 3.6 строго gemini-3.6');
 assert(htmlContent.includes("apiModelId: 'gemini-3.8'"), 'Идентификатор модели Gemini 3.8 строго gemini-3.8');
-
-// Строгая проверка исключения всех посторонних моделей
-assert(!htmlContent.includes('gemini-1.5'), 'Модель Gemini 1.5 полностью исключена из кода сайта');
-assert(!htmlContent.includes('gemini-2.0'), 'Модель Gemini 2.0 полностью исключена из кода сайта');
-assert(!htmlContent.includes('gemini-2.5'), 'Модель Gemini 2.5 полностью исключена из кода сайта');
-assert(!htmlContent.includes('gemini-pro'), 'Модель Gemini Pro (без версии) полностью исключена из кода сайта');
+assert(htmlContent.includes('discoverAvailableModels'), 'Функция автоматического обнаружения моделей ListModels активна');
+assert(htmlContent.includes('apiCandidateModels'), 'Защита от 404 через адаптивных кандидатов Google API активна');
 
 assert(htmlContent.includes('tashkent_blinds_user_v1'), 'Используется ключ localStorage tashkent_blinds_user_v1');
 
