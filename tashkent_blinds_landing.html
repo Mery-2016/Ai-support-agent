@@ -1,0 +1,1858 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TashkentBlinds.AI — Жалюзи и Рулонные шторы в Ташкенте | Team 8725 Web Design</title>
+  <meta name="description" content="Производство и установка жалюзи и рулонных штор в Ташкенте. Расчет стоимости через AI-агента на базе Gemini 3.5 / 3.6 / 3.8. Дизайн-система Team 8725.">
+  <link rel="icon" href="assets/images/icon.ico">
+
+  <!-- Стили по стандарту Team 8725 Web Design System (docs/04-frontend.md §1) -->
+  <link rel="stylesheet" href="styles/fonts.css">
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+
+  <!-- App Shell -->
+  <div class="shell" id="app-shell">
+    
+    <!-- Боковая навигационная панель (Rail) -->
+    <nav class="rail" id="rail" aria-label="Основная навигация">
+      <button class="sidebar-toggle" type="button" data-sidebar-toggle aria-label="Свернуть боковую панель" aria-expanded="true" title="Свернуть боковую панель">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-chevron-left.svg#icon-chevron-left"></use></svg>
+      </button>
+
+      <!-- Брендинг (Team 8725 Wordmark) -->
+      <div class="brand">
+        <img class="brand-logo" src="assets/images/icon.ico" alt="Логотип TashkentBlinds">
+        <span class="brand-copy">
+          <strong><b>MIST</b><span>BLINDS</span></strong>
+          <small>Tashkent SunShield</small>
+        </span>
+      </div>
+
+      <!-- Мобильный гамбургер -->
+      <button class="icon-button nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-panel" aria-label="Открыть меню навигации">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-menu.svg#icon-menu"></use></svg>
+      </button>
+
+      <!-- Навигационная панель -->
+      <div class="nav-panel" id="nav-panel">
+        <div class="nav-group" id="nav-group">
+          <a class="nav-link is-active" href="#quick-calc" title="Экспресс-калькулятор">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-box.svg#icon-box"></use></svg>
+            <span>Калькулятор</span>
+          </a>
+          <a class="nav-link" href="#ai-agent" title="ИИ-Консультант (Gemini)">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
+            <span>AI-Консультант</span>
+            <span class="nav-count num">3.5</span>
+          </a>
+          <a class="nav-link" href="#catalog" title="Каталог и цены в сумах">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-layers.svg#icon-layers"></use></svg>
+            <span>Каталог и цены</span>
+          </a>
+          <a class="nav-link" href="#faq" title="Часто задаваемые вопросы (FAQ)">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-info.svg#icon-info"></use></svg>
+            <span>Вопросы и ответы (FAQ)</span>
+          </a>
+          <a class="nav-link" href="#api-guide" title="Инструкция Google AI Studio">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-shield.svg#icon-shield"></use></svg>
+            <span>Гайд по API</span>
+          </a>
+          <a class="nav-link" href="#districts" title="Районы Ташкента">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-map.svg#icon-map"></use></svg>
+            <span>Районы Ташкента</span>
+          </a>
+        </div>
+
+        <!-- Подвал боковой панели -->
+        <div class="rail-foot" id="rail-foot">
+          <div class="rail-user">
+            <span class="rail-user-copy">
+              <strong id="railUserName">Гость</strong>
+              <small id="railUserStatus">API-ключ не подключен</small>
+            </span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Основная область страницы (Main) -->
+    <main class="main" id="main-content" tabindex="-1">
+      <div class="page" id="page">
+        
+        <!-- Хлебные крошки -->
+        <nav class="breadcrumbs" aria-label="Навигационная цепочка">
+          <a href="#">TashkentBlinds</a>
+          <span>/</span>
+          <a href="#">Узбекистан</a>
+          <span>/</span>
+          <span aria-current="page">г. Ташкент (все 12 районов)</span>
+        </nav>
+
+        <!-- Шапка страницы -->
+        <header class="page-head">
+          <div>
+            <h1>Жалюзи и Рулонные шторы в Ташкенте</h1>
+            <p class="hero-subtitle">
+              Спасение от летней «чилли» и жары +45°C. Собственный цех в Ташкенте, расчет сметы через AI-агента на базе <strong>Gemini 3.5 / 3.6 / 3.8</strong> и бесплатный выезд замерщика за 0 сум.
+            </p>
+          </div>
+          
+          <div class="page-head-actions">
+            <!-- Динамический бейдж статуса API-ключа -->
+            <span id="headerAuthBadge" class="badge badge--danger">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-alert.svg#icon-alert"></use></svg>
+              <span>API-ключ не подключен</span>
+            </span>
+
+            <a href="tel:+998712005577" class="button button--ghost">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-info.svg#icon-info"></use></svg>
+              <span>+998 (71) 200-55-77</span>
+            </a>
+
+            <button type="button" class="button button--primary" onclick="openBookingDialog()">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-calendar.svg#icon-calendar"></use></svg>
+              <span>Замер за 0 сум</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Метрики надежности (Stat Cards Grid) -->
+        <div class="grid grid--stats">
+          <div class="card card--tight">
+            <small style="color: var(--color-text-muted); font-size: 11px;">ВЫЕЗД С 500+ ОБРАЗЦАМИ</small>
+            <div style="font-size: 24px; font-weight: 800; color: var(--color-success); font-family: var(--font-mono); margin-top: 4px;">0 сум</div>
+            <p style="font-size: 12px; color: var(--color-text-muted); margin: 4px 0 0;">Бесплатно во все 12 районов</p>
+          </div>
+
+          <div class="card card--tight">
+            <small style="color: var(--color-text-muted); font-size: 11px;">СРОК ИЗГОТОВЛЕНИЯ</small>
+            <div style="font-size: 24px; font-weight: 800; color: var(--color-warning); font-family: var(--font-mono); margin-top: 4px;">24 часа</div>
+            <p style="font-size: 12px; color: var(--color-text-muted); margin: 4px 0 0;">Собственный цех в Ташкенте</p>
+          </div>
+
+          <div class="card card--tight">
+            <small style="color: var(--color-text-muted); font-size: 11px;">ГАРАНТИЯ НА МЕХАНИЗМЫ</small>
+            <div style="font-size: 24px; font-weight: 800; color: var(--color-info); font-family: var(--font-mono); margin-top: 4px;">3 года</div>
+            <p style="font-size: 12px; color: var(--color-text-muted); margin: 4px 0 0;">Ткани Турция, не выгорают</p>
+          </div>
+
+          <div class="card card--tight">
+            <small style="color: var(--color-text-muted); font-size: 11px;">МОДЕЛИ ИИ (BYOK)</small>
+            <div style="font-size: 24px; font-weight: 800; color: var(--color-primary); font-family: var(--font-mono); margin-top: 4px;">Gemini 3.8</div>
+            <p style="font-size: 12px; color: var(--color-text-muted); margin: 4px 0 0;">Zero-Server Token Cost</p>
+          </div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- РАЗДЕЛ 1: ЭКСПРЕСС-КАЛЬКУЛЯТОР (#quick-calc) -->
+        <!-- ======================================================== -->
+        <section id="quick-calc" class="section">
+          <div class="section-head">
+            <div>
+              <h2>Экспресс-калькулятор стоимости жалюзи</h2>
+              <p>Мгновенный расчет по нормативной площади изделия: S = max(1.0, W × H)</p>
+            </div>
+            <span class="tag">Ташкент (UZS)</span>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="grid grid--2" style="align-items: start;">
+                
+                <!-- Параметры калькулятора -->
+                <div class="stack">
+                  <div class="field">
+                    <label class="field-label" for="calcType">Тип изделия и полотна:</label>
+                    <div class="select-wrap">
+                      <select id="calcType" onchange="updateQuickCalc()">
+                        <option value="zebra_day_night" selected>Рулонные шторы «День-Ночь» (220 000 сум/м²)</option>
+                        <option value="cassette_blackout">Кассетные Blackout 100% (280 000 сум/м²)</option>
+                        <option value="roll_screen">Рулонные «Светофильтр / Screen» (160 000 сум/м²)</option>
+                        <option value="horizontal_alu">Горизонтальные алюминиевые (130 000 сум/м²)</option>
+                        <option value="vertical_office">Вертикальные тканевые (115 000 сум/м²)</option>
+                        <option value="plisse_roman">Шторы Плиссе и Римские (310 000 сум/м²)</option>
+                      </select>
+                      <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-chevron-down.svg#icon-chevron-down"></use></svg>
+                    </div>
+                  </div>
+
+                  <div class="grid grid--2">
+                    <div class="field">
+                      <div class="row row--between">
+                        <label class="field-label" for="calcW">Ширина (см):</label>
+                        <span id="calcWLabel" class="num" style="color: var(--color-warning); font-weight: 700;">150 см</span>
+                      </div>
+                      <input type="range" id="calcW" min="40" max="300" step="5" value="150" oninput="updateQuickCalc()" style="accent-color: var(--color-primary); min-height: 28px;">
+                    </div>
+
+                    <div class="field">
+                      <div class="row row--between">
+                        <label class="field-label" for="calcH">Высота (см):</label>
+                        <span id="calcHLabel" class="num" style="color: var(--color-warning); font-weight: 700;">170 см</span>
+                      </div>
+                      <input type="range" id="calcH" min="50" max="300" step="5" value="170" oninput="updateQuickCalc()" style="accent-color: var(--color-primary); min-height: 28px;">
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label class="field-label">Количество створок / окон:</label>
+                    <div class="segmented" style="display: flex; gap: 4px;">
+                      <button type="button" class="chip" onclick="setWindowCount(1)" id="chipCount1">1 створка</button>
+                      <button type="button" class="chip" onclick="setWindowCount(2)" id="chipCount2" aria-pressed="true">2 окна</button>
+                      <button type="button" class="chip" onclick="setWindowCount(3)" id="chipCount3">3 (Бесплатный монтаж)</button>
+                      <button type="button" class="chip" onclick="setWindowCount(4)" id="chipCount4">4 окна</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Превью расчета -->
+                <div class="calc-preview-card">
+                  <div class="calc-preview-row">
+                    <span>Расчетная площадь:</span>
+                    <strong id="calcAreaResult">5.10 м² (2 × 2.55)</strong>
+                  </div>
+                  <div class="calc-preview-row">
+                    <span>Монтаж в Ташкенте:</span>
+                    <strong id="calcInstallResult" style="color: var(--color-success);">0 сум (Акция от 3 окон)</strong>
+                  </div>
+                  <div class="calc-preview-row">
+                    <span>Выезд замерщика:</span>
+                    <strong style="color: var(--color-success);">0 сум (Бесплатно)</strong>
+                  </div>
+                  
+                  <div class="calc-total-box">
+                    <div>
+                      <small style="color: var(--color-text-muted); text-transform: uppercase; font-size: 11px;">Итоговая стоимость:</small>
+                      <div id="calcTotalUZS" class="calc-total-amount">1 122 000 сум</div>
+                    </div>
+                    <span style="font-size: 11px; color: var(--color-text-muted);">*без скрытых доплат</span>
+                  </div>
+
+                  <button type="button" class="button button--primary button--block" onclick="transferCalcToAI()" style="margin-top: var(--space-2);">
+                    <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-send.svg#icon-send"></use></svg>
+                    <span>Перенести этот расчет в ИИ-агент &rarr;</span>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- РАЗДЕЛ 2: AI SUPPORT AGENT + MANDATORY BYOK GATE (#ai-agent) -->
+        <!-- ======================================================== -->
+        <section id="ai-agent" class="section">
+          <div class="section-head">
+            <div>
+              <h2>AI Support Agent: Жалюзи и Шторы в Ташкенте</h2>
+              <p>Обязательный шлюз доступа по собственному API-ключу Google AI Studio. Модели: Gemini 3.5 / 3.6 / 3.8 Pro.</p>
+            </div>
+            
+            <div id="sessionManagementBar" class="row" style="display: none; align-items: center; gap: var(--space-2);">
+              <span id="activeUserLabel" class="badge badge--neutral">Сардор</span>
+              <button type="button" class="button button--ghost button--sm" onclick="logoutAndClearKey()">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-logout.svg#icon-logout"></use></svg>
+                <span>Сменить ключ</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid--2" style="align-items: start;">
+            
+            <!-- Левая колонка: Форма регистрации и привязки API-ключа -->
+            <div class="card">
+              <div class="card-head">
+                <div>
+                  <h3 style="margin: 0; font-size: 16px;">1. Регистрация и API-ключ</h3>
+                  <small style="color: var(--color-text-muted);">Прямой доступ к Google Generative Language API</small>
+                </div>
+                <span class="badge badge--warning">BYOK Gate</span>
+              </div>
+
+              <div class="card-body">
+                <form id="registrationForm" onsubmit="handleRegistrationAndKey(event)" class="form">
+                  <div class="field">
+                    <label class="field-label" for="regName">Ваше имя: <span class="req">*</span></label>
+                    <input type="text" id="regName" required maxlength="60" placeholder="Например: Сардор или Дильноза">
+                  </div>
+
+                  <div class="field">
+                    <label class="field-label" for="regPhone">Номер телефона в Ташкенте: <span class="req">*</span></label>
+                    <input type="tel" id="regPhone" required maxlength="30" value="+998 " placeholder="+998 90 123-45-67" class="num">
+                  </div>
+
+                  <div class="field">
+                    <label class="field-label" for="regDistrict">Район выезда замерщика: <span class="req">*</span></label>
+                    <div class="select-wrap">
+                      <select id="regDistrict" required>
+                        <option value="Юнусабадский район" selected>Юнусабадский район</option>
+                        <option value="Чиланзарский район">Чиланзарский район</option>
+                        <option value="Мирзо-Улугбекский район">Мирзо-Улугбекский район</option>
+                        <option value="Яккасарайский район">Яккасарайский район</option>
+                        <option value="Мирабадский район">Мирабадский район</option>
+                        <option value="Сергелийский район">Сергелийский район</option>
+                        <option value="Шайхантахурский район">Шайхантахурский район</option>
+                        <option value="Алмазарский район">Алмазарский район</option>
+                        <option value="Учтепинский район">Учтепинский район</option>
+                        <option value="Яшнабадский район">Яшнабадский район</option>
+                        <option value="Бектемирский район">Бектемирский район</option>
+                        <option value="Янгихаётский район">Янгихаётский район</option>
+                        <option value="Ташкентская область">Ташкентская область</option>
+                      </select>
+                      <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-chevron-down.svg#icon-chevron-down"></use></svg>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label class="field-label">Выбор версии модели Google Gemini:</label>
+                    <div class="segmented" style="display: flex; gap: 4px;">
+                      <button type="button" class="chip" onclick="setChatModel('Gemini 3.5')" id="radioModel35" aria-pressed="true">3.5 Speed & Consult</button>
+                      <button type="button" class="chip" onclick="setChatModel('Gemini 3.6')" id="radioModel36">3.6 Balanced</button>
+                      <button type="button" class="chip" onclick="setChatModel('Gemini 3.8')" id="radioModel38">3.8 Pro</button>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <div class="row row--between">
+                      <label class="field-label" for="regApiKey">Google AI Studio API Key: <span class="req">*</span></label>
+                      <button type="button" class="button button--quiet button--sm" onclick="insertDemoApiKey()">
+                        Тестовый ключ (Демо)
+                      </button>
+                    </div>
+                    
+                    <div class="row" style="gap: 4px;">
+                      <input type="password" id="regApiKey" required placeholder="AQ.A... или AIza..." class="num" style="flex: 1;">
+                      <button type="button" class="icon-button" onclick="toggleKeyVisibility()" title="Показать/скрыть ключ" aria-label="Показать/скрыть ключ">
+                        <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-shield.svg#icon-shield"></use></svg>
+                      </button>
+                    </div>
+                    <span class="field-hint">Поддерживаются современные ключи (<code class="num">AQ.A...</code>), стандартные (<code class="num">AIza...</code>) и сервисные токены. Получите бесплатно в <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>.</span>
+                  </div>
+
+                  <div id="regErrorBox" class="field-error" style="display: none;"></div>
+
+                  <button type="submit" id="regSubmitBtn" class="button button--primary button--block">
+                    <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg>
+                    <span>Подключить ключ и открыть доступ к чату</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Правая колонка: Окно чата с блокирующим экраном Hard Gate -->
+            <div class="chat-window">
+              <!-- Шапка чата -->
+              <div class="chat-header">
+                <div class="chat-header-title">
+                  <span id="agentOnlineDot" class="status-dot status-dot--locked"></span>
+                  <strong>Tashkent SunShield AI</strong>
+                  <span id="activeModelBadge" class="badge badge--primary">Gemini 3.5</span>
+                </div>
+
+                <!-- Быстрые табы смены модели в чате -->
+                <div class="segmented" style="display: flex; gap: 4px;">
+                  <button type="button" class="chip" onclick="setChatModel('Gemini 3.5')" id="tabModel35" aria-pressed="true">3.5</button>
+                  <button type="button" class="chip" onclick="setChatModel('Gemini 3.6')" id="tabModel36">3.6</button>
+                  <button type="button" class="chip" onclick="setChatModel('Gemini 3.8')" id="tabModel38">3.8 Pro</button>
+                </div>
+              </div>
+
+              <!-- Контейнер сообщений -->
+              <div id="chatMessages" class="chat-messages">
+                <div class="chat-msg chat-msg--assistant">
+                  <div class="chat-msg-avatar">
+                    <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
+                  </div>
+                  <div class="chat-msg-bubble">
+                    <p><strong>Ассалому алейкум! Здравствуйте! ☀️</strong></p>
+                    <p>Я ваш персональный ИИ-консультант по жалюзи и шторам в Ташкенте. Для начала общения подключите ваш личный ключ Google AI Studio в форме слева.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Быстрые подсказки -->
+              <div class="chat-chips-bar">
+                <span class="chat-chips-label">Быстрые запросы:</span>
+                <button type="button" class="chip" onclick="sendQuickPrompt('Посчитай 2 окна 150x170 см в Юнусабадском районе')">📐 2 окна 150×170 см</button>
+                <button type="button" class="chip" onclick="sendQuickPrompt('Какая ткань лучше всего спасет спальню от ташкентской жары?')">☀️ Защита от жары</button>
+                <button type="button" class="chip" onclick="sendQuickPrompt('У меня сложный проект: панорамные и эркерные окна в коттедже')">🏛️ Нестандартный проект</button>
+                <button type="button" class="chip" onclick="sendQuickPrompt('Соедините с дежурным менеджером, хочу поговорить')">👤 Связь с менеджером</button>
+                <button type="button" class="chip" onclick="openBookingDialog()">🚗 Вызвать мастера (0 сум)</button>
+              </div>
+
+              <!-- Поле ввода -->
+              <form id="chatForm" onsubmit="handleChatSubmit(event)" class="chat-input-bar">
+                <input type="text" id="chatInput" disabled maxlength="2000" placeholder="Введите размеры окон (например: 2 окна 150х170 см) или задайте вопрос...">
+                <button type="submit" id="chatSendBtn" disabled class="button button--primary">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-send.svg#icon-send"></use></svg>
+                </button>
+              </form>
+
+              <!-- Mandatory BYOK Gate Overlay -->
+              <div id="apiGateOverlay" class="chat-gate-overlay">
+                <div class="chat-gate-icon">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-shield.svg#icon-shield"></use></svg>
+                </div>
+                <h3 style="margin: 0 0 var(--space-2); font-size: 18px;">Чат заблокирован: требуется API-ключ</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); max-width: 380px; margin: 0 0 var(--space-4);">
+                  Для прямого вызова моделей Gemini 3.5 / 3.6 / 3.8 и расчета сметы введите имя, номер телефона и ваш ключ Google AI Studio.
+                </p>
+                <div class="row" style="gap: var(--space-2);">
+                  <button type="button" class="button button--primary" onclick="focusRegistrationForm()">
+                    <span>Заполнить форму</span>
+                  </button>
+                  <button type="button" class="button button--ghost" onclick="insertDemoApiKey()">
+                    <span>Демо-режим</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- РАЗДЕЛ 3: 4-ШАГОВЫЙ ГАЙД ПО GOOGLE AI STUDIO (#api-guide) -->
+        <!-- ======================================================== -->
+        <section id="api-guide" class="section">
+          <div class="section-head">
+            <div>
+              <h2>Как получить бесплатный API-ключ в Google AI Studio</h2>
+              <p>Технология Mandatory BYOK (Bring Your Own Key) гарантирует конфиденциальность и нулевые затраты на токены.</p>
+            </div>
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="button button--ghost button--sm">
+              <span>Открыть aistudio.google.com</span>
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-external.svg#icon-external"></use></svg>
+            </a>
+          </div>
+
+          <div class="grid grid--stats">
+            <div class="card card--tight">
+              <span class="badge badge--neutral">Шаг 1</span>
+              <h4 style="margin: var(--space-2) 0 var(--space-1); font-size: 14px;">Вход в Google AI Studio</h4>
+              <p style="font-size: 12px; color: var(--color-text-muted); margin: 0;">Перейдите по ссылке и войдите под вашим обычным Gmail аккаунтом.</p>
+            </div>
+
+            <div class="card card--tight">
+              <span class="badge badge--neutral">Шаг 2</span>
+              <h4 style="margin: var(--space-2) 0 var(--space-1); font-size: 14px;">Создание ключа</h4>
+              <p style="font-size: 12px; color: var(--color-text-muted); margin: 0;">Нажмите кнопку «Create API key» в верхнем углу интерфейса.</p>
+            </div>
+
+            <div class="card card--tight">
+              <span class="badge badge--neutral">Шаг 3</span>
+              <h4 style="margin: var(--space-2) 0 var(--space-1); font-size: 14px;">Копирование</h4>
+              <p style="font-size: 12px; color: var(--color-text-muted); margin: 0;">Скопируйте сгенерированный ключ формата <code class="num">AQ.A...</code> или <code class="num">AIza...</code>.</p>
+            </div>
+
+            <div class="card card--tight">
+              <span class="badge badge--neutral">Шаг 4</span>
+              <h4 style="margin: var(--space-2) 0 var(--space-1); font-size: 14px;">Активация агента</h4>
+              <p style="font-size: 12px; color: var(--color-text-muted); margin: 0;">Вставьте ключ в форму выше и выберите желаемую модель Gemini.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- РАЗДЕЛ 4: КАТАЛОГ ПОПУЛЯРНЫХ СИСТЕМ В ТАШКЕНТЕ (#catalog) -->
+        <!-- ======================================================== -->
+        <section id="catalog" class="section">
+          <div class="section-head">
+            <div>
+              <h2>Каталог систем светозащиты в Ташкенте</h2>
+              <p>Цены указаны за 1 м² с учетом турецкой фурнитуры и устойчивости к выгоранию на солнце.</p>
+            </div>
+          </div>
+
+          <div class="grid grid--3">
+            <!-- Товар 1 -->
+            <div class="card product-card">
+              <div class="card-body">
+                <div class="row row--between">
+                  <span class="badge badge--primary">Хит продаж Ташкента</span>
+                  <span class="tag">Защита 85%</span>
+                </div>
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Шторы «День-Ночь» (Зебра)</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Плавная регулировка света полосами ткани, производство Турция.</p>
+                
+                <ul class="product-spec-list">
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Идеально для гостиных и спален</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Пылеотталкивающая пропитка</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Гарантия на механизм 3 года</li>
+                </ul>
+
+                <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
+                  <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
+                  <span class="product-price-tag">220 000 сум</span>
+                </div>
+              </div>
+              <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Рулонные шторы День-Ночь (Зебра)')">
+                  <span>Рассчитать с ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- Товар 2 -->
+            <div class="card product-card">
+              <div class="card-body">
+                <div class="row row--between">
+                  <span class="badge badge--danger">Максимум от жары</span>
+                  <span class="tag">Защита 100%</span>
+                </div>
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Кассетные Blackout 100%</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Направляющие без щелей, защита от ташкентской чилли.</p>
+                
+                <ul class="product-spec-list">
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Снижает температуру в комнате на 4–6°C</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Идеально для спален и детских комнат</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Короб цветов белый, антрацит, дуб</li>
+                </ul>
+
+                <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
+                  <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
+                  <span class="product-price-tag">280 000 сум</span>
+                </div>
+              </div>
+              <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Кассетные рулонные шторы Blackout 100%')">
+                  <span>Рассчитать с ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- Товар 3 -->
+            <div class="card product-card">
+              <div class="card-body">
+                <div class="row row--between">
+                  <span class="badge badge--info">Для кухонь и офисов</span>
+                  <span class="tag">Защита 60%</span>
+                </div>
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Рулонные шторы «Screen»</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Мягкий рассеянный свет без бликов на экранах мониторов.</p>
+                
+                <ul class="product-spec-list">
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Сохраняет вид из окна днем</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Защита мониторов и ТВ от солнечных бликов</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Легкая сухая и влажная чистка</li>
+                </ul>
+
+                <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
+                  <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
+                  <span class="product-price-tag">160 000 сум</span>
+                </div>
+              </div>
+              <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Рулонные шторы Скрин / Screen')">
+                  <span>Рассчитать с ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- Товар 4 -->
+            <div class="card product-card">
+              <div class="card-body">
+                <div class="row row--between">
+                  <span class="badge badge--neutral">Практично</span>
+                  <span class="tag">Защита 90%</span>
+                </div>
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Горизонтальные алюминиевые</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Ламели 16 и 25 мм, 100% влагостойкость для балконов и санузлов.</p>
+                
+                <ul class="product-spec-list">
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Для балконов, лоджий и санузлов</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Не боятся перепадов температур и воды</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> 35+ вариантов цветов в палитре</li>
+                </ul>
+
+                <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
+                  <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
+                  <span class="product-price-tag">130 000 сум</span>
+                </div>
+              </div>
+              <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Горизонтальные алюминиевые жалюзи')">
+                  <span>Рассчитать с ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- Товар 5 -->
+            <div class="card product-card">
+              <div class="card-body">
+                <div class="row row--between">
+                  <span class="badge badge--neutral">Офисы</span>
+                  <span class="tag">Защита 75%</span>
+                </div>
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Вертикальные тканевые</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Широкие ламели 89 и 127 мм, оплата по перечислению с НДС.</p>
+                
+                <ul class="product-spec-list">
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Для офисов, кабинетов и учебных классов</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Антистатическая пропитка от пыли</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Договор и счета-фактуры через Didox</li>
+                </ul>
+
+                <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
+                  <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
+                  <span class="product-price-tag">115 000 сум</span>
+                </div>
+              </div>
+              <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Вертикальные тканевые жалюзи для офиса')">
+                  <span>Рассчитать с ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- Товар 6 -->
+            <div class="card product-card">
+              <div class="card-body">
+                <div class="row row--between">
+                  <span class="badge badge--warning">Премиум</span>
+                  <span class="tag">Защита 95%</span>
+                </div>
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Шторы Плиссе & Римские</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Для нестандартных, арочных, скошенных и мансардных окон.</p>
+                
+                <ul class="product-spec-list">
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Открывание сверху-вниз и снизу-вверх</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Для коттеджей и элитных ЖК Ташкента</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Профиль Cosiflor (Германия)</li>
+                </ul>
+
+                <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
+                  <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
+                  <span class="product-price-tag">310 000 сум</span>
+                </div>
+              </div>
+              <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Шторы Плиссе и Римские шторы')">
+                  <span>Рассчитать с ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- РАЗДЕЛ 5: ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ (FAQ ТАШКЕНТ) (#faq) -->
+        <!-- ======================================================== -->
+        <section id="faq" class="section">
+          <div class="section-head">
+            <div>
+              <span class="badge badge--primary">Часто задаваемые вопросы</span>
+              <h2 style="margin-top: var(--space-2);">Все, что нужно знать о жалюзи и шторах в Ташкенте</h2>
+              <p>Честные ответы на главные вопросы покупателей: от замеров и монтажа без сверления рам Akfa до защиты от чилли +45°C и оплаты через Click/Payme.</p>
+            </div>
+            <button type="button" class="button button--ghost" onclick="askAIAboutFAQ('Расскажи главные правила выбора штор для квартиры в Ташкенте')">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
+              <span>Задать свой вопрос ИИ</span>
+            </button>
+          </div>
+
+          <div class="faq-grid">
+            
+            <!-- FAQ 1: Бесплатный замер -->
+            <div class="faq-card">
+              <div>
+                <div class="faq-card-head">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-calendar.svg#icon-calendar"></use></svg>
+                  <h3 class="faq-card-title">Действительно ли замер бесплатный во все 12 районов Ташкента?</h3>
+                </div>
+                <p class="faq-card-body">
+                  Да, абсолютно бесплатно (0 сум) во всех 12 районах города (Юнусабад, Чиланзар, Мирабад, Сергели и др.) и ближнем пригородном кольце. Специалист приезжает с лазерной рулеткой и каталогом 500+ образцов тканей. Выезд ни к чему не обязывает: даже если вы решите подумать или отложить заказ, платить ничего не нужно.
+                </p>
+              </div>
+              <div class="faq-card-foot">
+                <span class="faq-badge">0 сум во все 12 районов</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Сколько стоит выезд замерщика по Ташкенту и что мастер привозит с собой?')">
+                  <span>Спросить у ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- FAQ 2: Монтаж без сверления Akfa -->
+            <div class="faq-card">
+              <div>
+                <div class="faq-card-head">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-shield.svg#icon-shield"></use></svg>
+                  <h3 class="faq-card-title">Можно ли установить рулонные шторы на рамы Akfa или Imzo без сверления?</h3>
+                </div>
+                <p class="faq-card-body">
+                  Да! Для поворотно-откидных створок пластиковых и алюминиевых окон Akfa / Imzo / Engelberg мы используем накидные зажимные клипсы и специальный немецкий двусторонний скотч 3M промышленной фиксации. Профиль не повреждается дырами, а заводская гарантия на ваши пластиковые окна сохраняется на 100%.
+                </p>
+              </div>
+              <div class="faq-card-foot">
+                <span class="faq-badge">Без нарушения гарантии окон</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Как устанавливаются рулонные шторы на окна Akfa без сверления?')">
+                  <span>Спросить у ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- FAQ 3: Защита от солнца и чилли +45°C -->
+            <div class="faq-card">
+              <div>
+                <div class="faq-card-head">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-flame.svg#icon-flame"></use></svg>
+                  <h3 class="faq-card-title">Не выгорят ли ткани на палящем солнце Ташкента при +45°C в чиллю?</h3>
+                </div>
+                <p class="faq-card-body">
+                  Нет. Мы используем сертифицированные турецкие и южнокорейские ткани с устойчивыми к выгоранию УФ-стабилизаторами и антистатиком. Для окон на солнечной стороне (юг, юго-запад) рекомендуем ткани <strong>Blackout 100%</strong> со светоотражающим слоем с уличной стороны — они снижают нагрев комнаты на 5–8°C и берегут кондиционер.
+                </p>
+              </div>
+              <div class="faq-card-foot">
+                <span class="faq-badge">Ткани Турция / Корея</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Какие шторы лучше всего защищают от солнца в ташкентскую чиллю при +45°C?')">
+                  <span>Спросить у ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- FAQ 4: Откидные окна на проветривание -->
+            <div class="faq-card">
+              <div>
+                <div class="faq-card-head">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check-circle.svg#icon-check-circle"></use></svg>
+                  <h3 class="faq-card-title">Что происходит со шторами, когда окно открыто на проветривание?</h3>
+                </div>
+                <p class="faq-card-body">
+                  Шторы не болтаются и не хлопают от ветра. В кассетных системах (Uni-1 / Uni-2) ткань удерживается алюминиевыми боковыми направляющими. В открытых рулонных системах (Mini) мы устанавливаем боковую натяжную леску или нижние неодимовые магниты, которые фиксируют планку параллельно стеклу под любым углом откидывания.
+                </p>
+              </div>
+              <div class="faq-card-foot">
+                <span class="faq-badge">Направляющие и магниты</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Будут ли шторы стучать или провисать при проветривании окна?')">
+                  <span>Спросить у ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- FAQ 5: Сроки изготовления цеха и монтаж -->
+            <div class="faq-card">
+              <div>
+                <div class="faq-card-head">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-clock.svg#icon-clock"></use></svg>
+                  <h3 class="faq-card-title">Сколько дней занимает изготовление и входит ли установка?</h3>
+                </div>
+                <p class="faq-card-body">
+                  Срок изготовления составляет всего <strong>1–3 рабочих дня</strong> благодаря собственному цеху в Ташкенте. При заказе от 3 окон профессиональная установка нашими мастерами осуществляется <strong>абсолютно бесплатно</strong>. При заказе 1–2 окон монтаж рассчитывается по минимальному тарифу (15%).
+                </p>
+              </div>
+              <div class="faq-card-foot">
+                <span class="faq-badge">1-3 дня из цеха в Ташкенте</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Какой срок изготовления рулонных штор и условия бесплатного монтажа?')">
+                  <span>Спросить у ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- FAQ 6: Способы оплаты Click, Payme, юрлица -->
+            <div class="faq-card">
+              <div>
+                <div class="faq-card-head">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-box.svg#icon-box"></use></svg>
+                  <h3 class="faq-card-title">Какие способы оплаты принимаются в Ташкенте?</h3>
+                </div>
+                <p class="faq-card-body">
+                  Мы принимаем все удобные способы: <strong>Click</strong> (Click Up / QR), <strong>Payme</strong>, <strong>Uzum Bank</strong>, банковские карты Uzcard и Humo, а также наличный расчет в сумах. Для организаций, офисов и оптовых заказчиков оформляем официальный договор с НДС и электронными счет-фактурами через Didox / Faktura.uz.
+                </p>
+              </div>
+              <div class="faq-card-foot">
+                <span class="faq-badge">Click / Payme / Didox</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Можно ли оплатить шторы через Click или Payme, и как оформить договор для юрлица?')">
+                  <span>Спросить у ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- FAQ 7: Уход и стирка -->
+            <div class="faq-card">
+              <div>
+                <div class="faq-card-head">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-filter.svg#icon-filter"></use></svg>
+                  <h3 class="faq-card-title">Как ухаживать за рулонными шторами и жалюзи? Можно ли стирать в машинке?</h3>
+                </div>
+                <p class="faq-card-body">
+                  Стирать рулонные ткани в стиральной машине <strong>категорически запрещено</strong>, так как вода смывает тефлоновую пылеотталкивающую пропитку. Для регулярного ухода достаточно пройтись пылесосом с мягкой мебельной насадкой. Случайные пятна удаляются влажной микрофиброй с нейтральной мыльной пеной без абразивов и хлора.
+                </p>
+              </div>
+              <div class="faq-card-foot">
+                <span class="faq-badge">Сухая чистка + мыльная пена</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Как правильно чистить рулонные шторы от пыли и пятен?')">
+                  <span>Спросить у ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- FAQ 8: Моторизация и умный дом (Алиса) -->
+            <div class="faq-card">
+              <div>
+                <div class="faq-card-head">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-cpu.svg#icon-cpu"></use></svg>
+                  <h3 class="faq-card-title">Можно ли сделать шторы автоматическими и управлять ими через Алису?</h3>
+                </div>
+                <p class="faq-card-body">
+                  Да! Мы устанавливаем бесшумные электроприводы Dooya и Somfy. Доступны беспроводные двигатели со встроенным аккумулятором (зарядка от Type-C раз в 4–6 месяцев, никаких штроблений стен) или проводные 220V. Управление осуществляется с элегантного пульта, через смартфон или голосом с <strong>Яндекс Алисой</strong> и Apple Home.
+                </p>
+              </div>
+              <div class="faq-card-foot">
+                <span class="faq-badge">Алиса / Somfy / Dooya</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Как подключить рулонные шторы к Умному Дому и Яндекс Алисе?')">
+                  <span>Спросить у ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- РАЗДЕЛ 6: ОХВАТ 12 РАЙОНОВ ТАШКЕНТА (#districts) -->
+        <!-- ======================================================== -->
+        <section id="districts" class="section">
+          <div class="card">
+            <div class="card-body">
+              <div class="row row--between" style="align-items: flex-start;">
+                <div>
+                  <span class="badge badge--success">Выезд за 0 сум в день обращения</span>
+                  <h3 style="margin: var(--space-2) 0 var(--space-1); font-size: 18px;">Работаем во всех 12 районах Ташкента</h3>
+                  <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">
+                    Замерщик приедет с лазерной рулеткой и каталогом 500+ образцов тканей за 0 сум даже при отказе от заказа.
+                  </p>
+                </div>
+                <button type="button" class="button button--primary" onclick="openBookingDialog()">
+                  <span>Заказать бесплатный замер</span>
+                </button>
+              </div>
+
+              <div class="districts-grid">
+                <div class="district-item"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-map.svg#icon-map"></use></svg> Юнусабадский</div>
+                <div class="district-item"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-map.svg#icon-map"></use></svg> Чиланзарский</div>
+                <div class="district-item"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-map.svg#icon-map"></use></svg> Мирзо-Улугбекский</div>
+                <div class="district-item"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-map.svg#icon-map"></use></svg> Яккасарайский</div>
+                <div class="district-item"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-map.svg#icon-map"></use></svg> Мирабадский</div>
+                <div class="district-item"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-map.svg#icon-map"></use></svg> Сергелийский</div>
+                <div class="district-item"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-map.svg#icon-map"></use></svg> Шайхантахурский</div>
+                <div class="district-item"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-map.svg#icon-map"></use></svg> Алмазарский</div>
+                <div class="district-item"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-map.svg#icon-map"></use></svg> Учтепинский</div>
+                <div class="district-item"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-map.svg#icon-map"></use></svg> Яшнабадский</div>
+                <div class="district-item"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-map.svg#icon-map"></use></svg> Бектемирский</div>
+                <div class="district-item"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-map.svg#icon-map"></use></svg> Янгихаётский</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Контейнеры для диалогов и тостов -->
+  <div id="bookingModal" style="display: none;"></div>
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="false"></div>
+  <div id="dialog-root"></div>
+
+  <!-- Модульный скрипт приложения (ES Module) -->
+  <script type="module">
+    import { icon, qs, escapeHtml } from './ui/dom.js';
+    import { openDialog } from './ui/dialog.js';
+    import { toastSuccess, toastError, toastInfo } from './ui/toast.js';
+    import { classifyQuery, generateDeterministicTriageResponse, INTENT_TYPES } from './ui/triage-engine.js';
+
+    /* -------------------------------------------------------------
+       1. КОНСТАНТЫ И ПРАЙС-ЛИСТ (UZS)
+       ------------------------------------------------------------- */
+    const PRICE_MATRIX_UZS = {
+      'zebra_day_night': { name: 'Рулонные шторы «День-Ночь» (Зебра)', pricePerM2: 220000 },
+      'cassette_blackout': { name: 'Кассетные шторы Blackout 100%', pricePerM2: 280000 },
+      'roll_screen': { name: 'Рулонные шторы «Светофильтр / Screen»', pricePerM2: 160000 },
+      'horizontal_alu': { name: 'Горизонтальные алюминиевые жалюзи', pricePerM2: 130000 },
+      'vertical_office': { name: 'Вертикальные тканевые жалюзи', pricePerM2: 115000 },
+      'plisse_roman': { name: 'Шторы Плиссе и Римские шторы', pricePerM2: 310000 }
+    };
+
+    const MODEL_CONFIGS = {
+      'Gemini 3.5': {
+        apiModelId: 'gemini-3.5',
+        roleDescription: '⚡ Скорость и ум: подробные ответы на вопросы клиентов и расчеты',
+        temperature: 0.4,
+        topP: 0.90,
+        maxOutputTokens: 2048
+      },
+      'Gemini 3.6': {
+        apiModelId: 'gemini-3.6',
+        roleDescription: '⚖️ Баланс: сравнение тканей и рекомендации под солнце',
+        temperature: 0.4,
+        topP: 0.90,
+        maxOutputTokens: 2048
+      },
+      'Gemini 3.8': {
+        apiModelId: 'gemini-3.8',
+        roleDescription: '🧠 Pro Reasoning: комплексные сметы нескольких комнат',
+        temperature: 0.5,
+        topP: 0.95,
+        maxOutputTokens: 2048
+      }
+    };
+
+    const STORAGE_KEY = 'tashkent_blinds_user_v1';
+    const DEMO_API_KEY = 'AIzaSyDemoKeyTashkentBlinds2026Gemini38Pro';
+    const SIDEBAR_KEY = 'frc8725.tashkent.sidebarCollapsed';
+
+    let appState = {
+      isRegistered: false,
+      profile: {
+        name: '',
+        phone: '+998 ',
+        district: 'Юнусабадский район'
+      },
+      auth: {
+        apiKey: '',
+        keyVerifiedAt: null
+      },
+      agentConfig: {
+        selectedModel: 'Gemini 3.5',
+        temperature: 0.4
+      },
+      chatHistory: [],
+      isProcessing: false
+    };
+
+    /* -------------------------------------------------------------
+       2. ИНИЦИАЛИЗАЦИЯ И TEAM 8725 SIDEBAR BEHAVIOR
+       ------------------------------------------------------------- */
+    window.addEventListener('DOMContentLoaded', () => {
+      initSidebar();
+      loadStateFromStorage();
+      updateQuickCalc();
+      renderChatMessages();
+    });
+
+    const shellEl = qs('#app-shell');
+    const railEl = qs('#rail');
+    const sidebarMedia = window.matchMedia('(max-width: 768px)');
+
+    function applySidebar(collapsed) {
+      const toggle = qs('[data-sidebar-toggle]');
+      shellEl.classList.toggle('is-collapsed', collapsed);
+      toggle?.setAttribute('aria-expanded', String(!collapsed));
+      const label = collapsed ? 'Развернуть боковую панель' : 'Свернуть боковую панель';
+      toggle?.setAttribute('aria-label', label);
+      if (toggle) toggle.title = label;
+    }
+
+    function initSidebar() {
+      qs('[data-sidebar-toggle]')?.addEventListener('click', () => {
+        const collapsed = !shellEl.classList.contains('is-collapsed');
+        applySidebar(collapsed);
+        try { localStorage.setItem(SIDEBAR_KEY, collapsed ? '1' : '0'); } catch {}
+      });
+
+      const sync = () => {
+        let stored = false;
+        try { stored = localStorage.getItem(SIDEBAR_KEY) === '1'; } catch { stored = false; }
+        // ≤768px не сворачивать в узкую полоску (docs/07-mobile.md §2)
+        applySidebar(sidebarMedia.matches ? false : stored);
+      };
+      sidebarMedia.addEventListener('change', sync);
+      sync();
+
+      const navToggle = qs('[data-nav-toggle]');
+      const setNavOpen = (open) => {
+        railEl.classList.toggle('is-open', open);
+        navToggle?.setAttribute('aria-expanded', String(open));
+        navToggle?.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+      };
+      navToggle?.addEventListener('click', () => setNavOpen(!railEl.classList.contains('is-open')));
+      railEl.addEventListener('click', (e) => {
+        if (e.target.closest('a')) setNavOpen(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && railEl.classList.contains('is-open')) {
+          setNavOpen(false);
+          navToggle?.focus();
+        }
+      });
+    }
+
+    /* -------------------------------------------------------------
+       3. УПРАВЛЕНИЕ ХРАНИЛИЩЕМ И ШЛЮЗОМ BYOK
+       ------------------------------------------------------------- */
+    function loadStateFromStorage() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (parsed && parsed.auth && parsed.auth.apiKey) {
+            appState = { ...appState, ...parsed };
+            unlockAgentUI();
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('Ошибка чтения localStorage:', err);
+      }
+      lockAgentUI();
+    }
+
+    function saveStateToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          isRegistered: appState.isRegistered,
+          profile: appState.profile,
+          auth: appState.auth,
+          agentConfig: appState.agentConfig
+        }));
+      } catch (err) {
+        console.error('Ошибка записи localStorage:', err);
+      }
+    }
+
+    function lockAgentUI() {
+      const overlay = qs('#apiGateOverlay');
+      const chatInput = qs('#chatInput');
+      const chatSendBtn = qs('#chatSendBtn');
+      const headerBadge = qs('#headerAuthBadge');
+      const onlineDot = qs('#agentOnlineDot');
+      const sessionBar = qs('#sessionManagementBar');
+      const railUserName = qs('#railUserName');
+      const railUserStatus = qs('#railUserStatus');
+
+      if (overlay) overlay.style.display = 'flex';
+      if (chatInput) chatInput.disabled = true;
+      if (chatSendBtn) chatSendBtn.disabled = true;
+      if (onlineDot) onlineDot.className = 'status-dot status-dot--locked';
+      if (sessionBar) sessionBar.style.display = 'none';
+
+      if (railUserName) railUserName.textContent = 'Гость';
+      if (railUserStatus) railUserStatus.textContent = 'API-ключ не подключен';
+
+      if (headerBadge) {
+        headerBadge.className = 'badge badge--danger';
+        headerBadge.innerHTML = `<svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-alert.svg#icon-alert"></use></svg><span>API-ключ не подключен</span>`;
+      }
+    }
+
+    function unlockAgentUI() {
+      const overlay = qs('#apiGateOverlay');
+      const chatInput = qs('#chatInput');
+      const chatSendBtn = qs('#chatSendBtn');
+      const headerBadge = qs('#headerAuthBadge');
+      const onlineDot = qs('#agentOnlineDot');
+      const sessionBar = qs('#sessionManagementBar');
+      const activeUserLabel = qs('#activeUserLabel');
+      const railUserName = qs('#railUserName');
+      const railUserStatus = qs('#railUserStatus');
+
+      if (overlay) overlay.style.display = 'none';
+      if (chatInput) chatInput.disabled = false;
+      if (chatSendBtn) chatSendBtn.disabled = false;
+      if (onlineDot) onlineDot.className = 'status-dot status-dot--active';
+
+      const maskedKey = maskApiKey(appState.auth.apiKey);
+      if (headerBadge) {
+        headerBadge.className = 'badge badge--success';
+        headerBadge.innerHTML = `<svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg><span>${appState.agentConfig.selectedModel} • ${maskedKey}</span>`;
+      }
+
+      if (sessionBar) {
+        sessionBar.style.display = 'flex';
+        if (activeUserLabel) activeUserLabel.textContent = `${appState.profile.name} (${appState.profile.district})`;
+      }
+
+      if (railUserName) railUserName.textContent = appState.profile.name || 'Пользователь';
+      if (railUserStatus) railUserStatus.textContent = `${appState.agentConfig.selectedModel} • ${maskedKey}`;
+
+      const regName = qs('#regName');
+      const regPhone = qs('#regPhone');
+      const regDistrict = qs('#regDistrict');
+      const regApiKey = qs('#regApiKey');
+
+      if (regName && appState.profile.name) regName.value = appState.profile.name;
+      if (regPhone && appState.profile.phone) regPhone.value = appState.profile.phone;
+      if (regDistrict && appState.profile.district) regDistrict.value = appState.profile.district;
+      if (regApiKey && appState.auth.apiKey) regApiKey.value = appState.auth.apiKey;
+
+      syncModelSelection(appState.agentConfig.selectedModel);
+    }
+
+    function maskApiKey(key) {
+      if (!key) return '';
+      if (key.length <= 10) return key;
+      return `${key.slice(0, 6)}...${key.slice(-4)}`;
+    }
+
+    window.toggleKeyVisibility = function() {
+      const input = qs('#regApiKey');
+      if (input) {
+        input.type = input.type === 'password' ? 'text' : 'password';
+      }
+    };
+
+    window.insertDemoApiKey = function() {
+      const input = qs('#regApiKey');
+      const regName = qs('#regName');
+      const regPhone = qs('#regPhone');
+      if (input) input.value = DEMO_API_KEY;
+      if (regName && !regName.value) regName.value = 'Сардор (Демо)';
+      if (regPhone && regPhone.value.trim() === '+998') regPhone.value = '+998 90 123-45-67';
+      
+      const errorBox = qs('#regErrorBox');
+      if (errorBox) errorBox.style.display = 'none';
+      toastInfo('Подставлен тестовый ключ для демонстрации');
+    };
+
+    window.focusRegistrationForm = function() {
+      const regName = qs('#regName');
+      if (regName) {
+        regName.focus();
+        regName.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    };
+
+    window.logoutAndClearKey = function() {
+      if (confirm('Вы действительно хотите удалить привязанный API-ключ и выйти из сессии?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        appState.isRegistered = false;
+        appState.auth.apiKey = '';
+        appState.auth.keyVerifiedAt = null;
+        appState.chatHistory = [];
+        
+        const regApiKey = qs('#regApiKey');
+        if (regApiKey) regApiKey.value = '';
+        
+        lockAgentUI();
+        renderChatMessages();
+        toastInfo('API-ключ удален из браузера');
+      }
+    };
+
+    /* -------------------------------------------------------------
+       4. ВАЛИДАЦИЯ И АКТИВАЦИЯ
+       ------------------------------------------------------------- */
+    window.handleRegistrationAndKey = function(event) {
+      if (event) event.preventDefault();
+
+      const name = qs('#regName').value.trim();
+      const rawPhone = qs('#regPhone').value.trim();
+      const district = qs('#regDistrict').value;
+      const rawApiKey = qs('#regApiKey').value.trim();
+      const errorBox = qs('#regErrorBox');
+
+      errorBox.style.display = 'none';
+      errorBox.textContent = '';
+
+      if (name.length < 2) {
+        showRegError('Укажите ваше имя (минимум 2 символа).');
+        return;
+      }
+
+      // Нормализация и валидация номера телефона Узбекистана
+      let phoneClean = rawPhone.replace(/[\s\-\(\)]/g, '');
+      if (phoneClean.startsWith('998') && !phoneClean.startsWith('+998')) {
+        phoneClean = '+' + phoneClean;
+      } else if (!phoneClean.startsWith('+') && phoneClean.length === 9) {
+        phoneClean = '+998' + phoneClean;
+      } else if (!phoneClean.startsWith('+') && phoneClean.length > 9) {
+        phoneClean = '+' + phoneClean;
+      }
+
+      if (phoneClean.replace(/\D/g, '').length < 9) {
+        showRegError('Укажите корректный номер телефона (например, +998 90 123-45-67).');
+        return;
+      }
+
+      // Глубокая очистка и санитизация API-ключа
+      let cleanApiKey = rawApiKey
+        .replace(/^["'`]|["'`]$/g, '')
+        .replace(/^API_KEY\s*[:=]\s*/i, '')
+        .replace(/^key\s*[:=]\s*/i, '')
+        .replace(/^Bearer\s+/i, '')
+        .replace(/[\u200B-\u200D\uFEFF]/g, '')
+        .replace(/\s+/g, '');
+
+      // Обновляем значение в поле ввода на очищенное
+      const keyInput = qs('#regApiKey');
+      if (keyInput) keyInput.value = cleanApiKey;
+
+      const isDemo = (cleanApiKey === DEMO_API_KEY || cleanApiKey.toLowerCase().includes('demo'));
+      const hasValidPrefix = /^(AQ\.[A-Za-z0-9_\-.]+|AQ[A-Za-z0-9_\-.]+|AIza[0-9A-Za-z\-_]+|ya29\.[0-9A-Za-z\-_]+)/i.test(cleanApiKey);
+      const isGeneralValidKey = /^[0-9A-Za-z\-_.]{15,128}$/.test(cleanApiKey);
+
+      if (!isDemo && (cleanApiKey.length < 15 || (!hasValidPrefix && !isGeneralValidKey))) {
+        showRegError('Некорректный ключ Google AI Studio. Ключ должен начинаться с "AQ.A..." или "AIza..." и содержать не менее 15 символов.');
+        return;
+      }
+
+      appState.isRegistered = true;
+      appState.profile = { name, phone: phoneClean, district };
+      appState.auth = {
+        apiKey: cleanApiKey,
+        keyVerifiedAt: new Date().toISOString()
+      };
+
+      saveStateToStorage();
+      unlockAgentUI();
+      toastSuccess(`Ключ подключен! Добро пожаловать, ${name}`);
+
+      if (appState.chatHistory.length === 0) {
+        appState.chatHistory.push({
+          role: 'assistant',
+          text: `Ассалому алейкум, **${name}**! ☀️\n\nРад приветствовать жителя **${district}** в *TashkentBlinds.AI*!\n\nКлюч успешно активирован, профиль: **${appState.agentConfig.selectedModel}**.\n\nНапишите размеры ваших окон (например, *«2 окна 150х170 см»*) или выберите быстрый вопрос — я рассчитаю точную смету в сумах с защитой от ташкентской жары!`,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        });
+        renderChatMessages();
+      }
+    };
+
+    function showRegError(msg) {
+      const errorBox = qs('#regErrorBox');
+      if (errorBox) {
+        errorBox.textContent = msg;
+        errorBox.style.display = 'block';
+      }
+      toastError(msg);
+    }
+
+    /* -------------------------------------------------------------
+       5. СИНХРОНИЗАЦИЯ МОДЕЛЕЙ (Gemini 3.5 / 3.6 / 3.8)
+       ------------------------------------------------------------- */
+    function syncModelSelection(modelName) {
+      if (!MODEL_CONFIGS[modelName]) return;
+      appState.agentConfig.selectedModel = modelName;
+      appState.agentConfig.temperature = MODEL_CONFIGS[modelName].temperature;
+
+      ['35', '36', '38'].forEach(suffix => {
+        const chip = qs(`#radioModel${suffix}`);
+        const tab = qs(`#tabModel${suffix}`);
+        const isCurrent = (suffix === '35' && modelName === 'Gemini 3.5') ||
+                          (suffix === '36' && modelName === 'Gemini 3.6') ||
+                          (suffix === '38' && modelName === 'Gemini 3.8');
+        
+        if (chip) chip.setAttribute('aria-pressed', String(isCurrent));
+        if (tab) tab.setAttribute('aria-pressed', String(isCurrent));
+      });
+
+      const activeBadge = qs('#activeModelBadge');
+      if (activeBadge) {
+        activeBadge.textContent = `${modelName} ${modelName === 'Gemini 3.8' ? 'Pro' : ''}`;
+      }
+
+      if (appState.isRegistered) {
+        const headerBadge = qs('#headerAuthBadge');
+        if (headerBadge) {
+          const maskedKey = maskApiKey(appState.auth.apiKey);
+          headerBadge.innerHTML = `<svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg><span>${modelName} • ${maskedKey}</span>`;
+        }
+        saveStateToStorage();
+      }
+    }
+
+    window.setChatModel = function(modelName) {
+      syncModelSelection(modelName);
+      appState.chatHistory.push({
+        role: 'system',
+        text: `Переключен профиль генерации: **${modelName}** (${MODEL_CONFIGS[modelName].roleDescription}).`,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      });
+      renderChatMessages();
+      toastInfo(`Модель переключена на ${modelName}`);
+    };
+
+    /* -------------------------------------------------------------
+       6. КАЛЬКУЛЯТОР
+       ------------------------------------------------------------- */
+    let currentCalcCount = 2;
+
+    window.setWindowCount = function(count) {
+      currentCalcCount = count;
+      [1, 2, 3, 4].forEach(c => {
+        const chip = qs(`#chipCount${c}`);
+        if (chip) chip.setAttribute('aria-pressed', String(c === count));
+      });
+      updateQuickCalc();
+    };
+
+    function calculateWindowPrice(widthCm, heightCm, count, typeKey) {
+      const typeConfig = PRICE_MATRIX_UZS[typeKey] || PRICE_MATRIX_UZS['zebra_day_night'];
+      const rawAreaPerWindow = (widthCm / 100) * (heightCm / 100);
+      const billableAreaPerWindow = Math.max(1.0, rawAreaPerWindow);
+      const totalArea = billableAreaPerWindow * count;
+      const itemsPrice = Math.round(totalArea * typeConfig.pricePerM2);
+
+      const isFreeInstall = (count >= 3);
+      const installPrice = isFreeInstall ? 0 : Math.round(itemsPrice * 0.15);
+      const totalPrice = itemsPrice + installPrice;
+
+      return {
+        widthCm, heightCm, count, typeConfig,
+        rawAreaPerWindow, billableAreaPerWindow,
+        totalArea, itemsPrice, installPrice, isFreeInstall, totalPrice
+      };
+    }
+
+    function formatNumberUZS(num) {
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    }
+
+    window.updateQuickCalc = function() {
+      const typeKey = qs('#calcType').value;
+      const widthCm = parseInt(qs('#calcW').value, 10);
+      const heightCm = parseInt(qs('#calcH').value, 10);
+
+      qs('#calcWLabel').textContent = `${widthCm} см`;
+      qs('#calcHLabel').textContent = `${heightCm} см`;
+
+      const calc = calculateWindowPrice(widthCm, heightCm, currentCalcCount, typeKey);
+
+      qs('#calcAreaResult').textContent = `${calc.totalArea.toFixed(2)} м² (${calc.count} × ${calc.billableAreaPerWindow.toFixed(2)})`;
+
+      const installEl = qs('#calcInstallResult');
+      if (calc.isFreeInstall) {
+        installEl.textContent = '0 сум (Акция от 3 окон)';
+        installEl.style.color = 'var(--color-success)';
+      } else {
+        installEl.textContent = `${formatNumberUZS(calc.installPrice)} сум (15%)`;
+        installEl.style.color = 'var(--color-text)';
+      }
+
+      qs('#calcTotalUZS').textContent = `${formatNumberUZS(calc.totalPrice)} сум`;
+    };
+
+    window.transferCalcToAI = function() {
+      const typeKey = qs('#calcType').value;
+      const widthCm = qs('#calcW').value;
+      const heightCm = qs('#calcH').value;
+      const count = currentCalcCount;
+      const typeName = PRICE_MATRIX_UZS[typeKey].name;
+
+      const promptText = `Посчитай стоимость: ${count} окон, размер ${widthCm}x${heightCm} см, тип «${typeName}». У меня ${appState.profile.district || 'Ташкент'}.`;
+
+      qs('#ai-agent')?.scrollIntoView({ behavior: 'smooth' });
+
+      if (!appState.isRegistered) {
+        focusRegistrationForm();
+        return;
+      }
+
+      const input = qs('#chatInput');
+      if (input) {
+        input.value = promptText;
+        handleChatSubmit();
+      }
+    };
+
+    window.askAIAboutProduct = function(productName) {
+      qs('#ai-agent')?.scrollIntoView({ behavior: 'smooth' });
+      const promptText = `Здравствуйте! Расскажите подробнее про «${productName}» и посчитайте на 2 стандартных окна 150х170 см.`;
+      
+      if (!appState.isRegistered) {
+        focusRegistrationForm();
+        return;
+      }
+
+      const input = qs('#chatInput');
+      if (input) {
+        input.value = promptText;
+        handleChatSubmit();
+      }
+    };
+
+    window.sendQuickPrompt = function(text) {
+      if (!appState.isRegistered) {
+        focusRegistrationForm();
+        return;
+      }
+      const input = qs('#chatInput');
+      if (input) {
+        input.value = text;
+        handleChatSubmit();
+      }
+    };
+
+    window.askAIAboutFAQ = function(faqQuestion) {
+      qs('#ai-agent')?.scrollIntoView({ behavior: 'smooth' });
+      if (!appState.isRegistered) {
+        focusRegistrationForm();
+        return;
+      }
+      const input = qs('#chatInput');
+      if (input) {
+        input.value = faqQuestion;
+        handleChatSubmit();
+      }
+    };
+
+    /* -------------------------------------------------------------
+       7. ЧАТ И ГЕНЕРАЦИЯ ОТВЕТОВ (BYOK API + FALLBACK)
+       ------------------------------------------------------------- */
+    function renderChatMessages() {
+      const container = qs('#chatMessages');
+      if (!container) return;
+
+      if (appState.chatHistory.length === 0) {
+        container.innerHTML = `
+          <div class="chat-msg chat-msg--assistant">
+            <div class="chat-msg-avatar">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
+            </div>
+            <div class="chat-msg-bubble">
+              <p><strong>Ассалому алейкум! Здравствуйте! ☀️</strong></p>
+              <p>Я ваш персональный консультант по жалюзи в Ташкенте. Для начала работы подключите ваш ключ Google AI Studio в форме слева.</p>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      appState.chatHistory.forEach(msg => {
+        if (msg.role === 'user') {
+          html += `
+            <div class="chat-msg chat-msg--user">
+              <div class="chat-msg-bubble">
+                <div>${escapeHtml(msg.text)}</div>
+                <div class="chat-msg-time">${msg.time}</div>
+              </div>
+            </div>`;
+        } else if (msg.role === 'assistant') {
+          const isEscalation = Boolean(msg.needsManager || msg.escalationData);
+          const badgeHtml = isEscalation
+            ? `<div style="margin-bottom: 6px;"><span class="badge badge--warning" style="font-size: 10px;"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-users.svg#icon-users"></use></svg><span>Требуется менеджер</span></span></div>`
+            : `<div style="margin-bottom: 6px;"><span class="badge badge--success" style="font-size: 10px;"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg><span>Автономный ответ ИИ</span></span></div>`;
+
+          let escalationCardHtml = '';
+          if (isEscalation) {
+            const reason = escapeHtml(msg.escalationReason || msg.escalationData?.reason || 'Консультация с менеджером');
+            escalationCardHtml = `
+              <div class="card card--tight" style="margin-top: 10px; background: var(--color-surface-sunken); border-left: 3px solid var(--color-warning);">
+                <div class="row row--between" style="margin-bottom: 6px;">
+                  <strong style="font-size: 12px; display: flex; align-items: center; gap: 4px;">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 14px; height: 14px;"><use href="assets/icons/icon-users.svg#icon-users"></use></svg>
+                    <span>Дежурный менеджер в Ташкенте</span>
+                  </strong>
+                  <span class="badge badge--neutral" style="font-size: 10px;">Звонок за 5–10 мин</span>
+                </div>
+                <p style="font-size: 12px; color: var(--color-text-muted); margin: 0 0 8px;">
+                  Вопрос требует персонального согласования. Выберите удобный способ связи:
+                </p>
+                <div class="row" style="gap: 6px; flex-wrap: wrap;">
+                  <a href="tel:+998712005577" class="button button--secondary button--sm">
+                    <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-phone.svg#icon-phone"></use></svg>
+                    <span>+998 (71) 200-55-77</span>
+                  </a>
+                  <a href="https://t.me/tashkent_blinds_manager" target="_blank" rel="noopener noreferrer" class="button button--secondary button--sm">
+                    <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-external.svg#icon-external"></use></svg>
+                    <span>Telegram</span>
+                  </a>
+                  <button type="button" class="button button--primary button--sm" onclick="requestManagerCallbackAction('${reason}')">
+                    <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg>
+                    <span>Заказать звонок</span>
+                  </button>
+                </div>
+              </div>`;
+          }
+
+          html += `
+            <div class="chat-msg chat-msg--assistant">
+              <div class="chat-msg-avatar">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
+              </div>
+              <div class="chat-msg-bubble">
+                ${badgeHtml}
+                <div>${formatMarkdown(msg.text)}</div>
+                ${escalationCardHtml}
+                <div class="row row--between" style="font-size: 11px; color: var(--color-text-muted); margin-top: 6px; border-top: 1px solid var(--color-border-soft); padding-top: 4px;">
+                  <span class="num">${msg.modelTag || appState.agentConfig.selectedModel}</span>
+                  <span>${msg.time}</span>
+                </div>
+              </div>
+            </div>`;
+        } else if (msg.role === 'system') {
+          html += `
+            <div style="text-align: center; margin: 4px 0;">
+              <span class="badge badge--neutral" style="font-size: 11px;">${escapeHtml(msg.text)}</span>
+            </div>`;
+        }
+      });
+
+      if (appState.isProcessing) {
+        html += `
+          <div class="chat-msg chat-msg--assistant">
+            <div class="chat-msg-avatar">
+              <div class="spinner" style="width: 14px; height: 14px;"></div>
+            </div>
+            <div class="chat-msg-bubble" style="color: var(--color-text-muted);">
+              ${appState.agentConfig.selectedModel} выполняет точный расчет сметы для ${appState.profile.district}...
+            </div>
+          </div>`;
+      }
+
+      container.innerHTML = html;
+      container.scrollTop = container.scrollHeight;
+    }
+
+    window.requestManagerCallbackAction = async function(reason) {
+      const name = appState.profile.name || 'Клиент';
+      const phone = appState.profile.phone || '+998 ';
+      const district = appState.profile.district || 'г. Ташкент';
+
+      toastInfo('Передаю запрос дежурному менеджеру...');
+      try {
+        const res = await fetch('/api/manager-callback', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name,
+            phone,
+            district,
+            reason: reason || 'Консультация с менеджером',
+            category: 'CHAT_ESCALATION'
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          toastSuccess('Менеджер уведомлен! Ожидайте звонка в течение 5–10 минут.');
+          appState.chatHistory.push({
+            role: 'system',
+            text: `✅ Запрос передан менеджеру (${data.escalationId}). Контакт: ${phone}`,
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          });
+          renderChatMessages();
+        } else {
+          toastSuccess(`Запрос зафиксирован! Менеджер свяжется с вами по номеру ${phone}.`);
+        }
+      } catch (err) {
+        toastSuccess(`Запрос принят! Менеджер свяжется с вами по номеру ${phone}.`);
+      }
+    };
+
+    window.handleChatSubmit = async function(event) {
+      if (event) event.preventDefault();
+      if (!appState.isRegistered) {
+        focusRegistrationForm();
+        return;
+      }
+
+      const input = qs('#chatInput');
+      const text = input.value.trim().slice(0, 2000);
+      if (!text || appState.isProcessing) return;
+
+      input.value = '';
+      const userTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      appState.chatHistory.push({ role: 'user', text, time: userTime });
+      appState.isProcessing = true;
+      renderChatMessages();
+
+      try {
+        const replyObj = await generateAgentReply(text);
+        const replyText = typeof replyObj === 'string' ? replyObj : (replyObj.text || '');
+        const needsManager = Boolean(replyObj.needsManager);
+        const escalationData = replyObj.escalationData || null;
+
+        appState.chatHistory.push({
+          role: 'assistant',
+          text: replyText,
+          needsManager,
+          escalationData,
+          escalationReason: escalationData?.reason || '',
+          modelTag: appState.agentConfig.selectedModel,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        });
+      } catch (err) {
+        const fallback = generateDeterministicResponse(text);
+        appState.chatHistory.push({
+          role: 'assistant',
+          text: fallback.text,
+          needsManager: fallback.needsManager,
+          escalationData: fallback.escalationData,
+          escalationReason: fallback.escalationData?.reason || '',
+          modelTag: `${appState.agentConfig.selectedModel} Engine`,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        });
+      } finally {
+        appState.isProcessing = false;
+        renderChatMessages();
+      }
+    };
+
+    async function generateAgentReply(userQuery) {
+      const selectedModelName = appState.agentConfig.selectedModel;
+      const modelCfg = MODEL_CONFIGS[selectedModelName] || MODEL_CONFIGS['Gemini 3.8'];
+      const apiKey = appState.auth.apiKey;
+
+      // Определение намерения и необходимости вмешательства менеджера
+      const triage = classifyQuery(userQuery);
+
+      if (apiKey === DEMO_API_KEY) {
+        await new Promise(r => setTimeout(r, 400));
+        return generateDeterministicResponse(userQuery);
+      }
+
+      const systemPrompt = `
+Ты — профессиональный, дружелюбный ИИ-консультант компании Tashkent SunShield (Жалюзи и Рулонные шторы в Ташкенте).
+Твоя модель: ${selectedModelName} (Быстрый и умный эксперт).
+Клиент: ${appState.profile.name || 'Клиент'}, Телефон: ${appState.profile.phone || '+998...'}, Район Ташкента: ${appState.profile.district || 'Ташкент'}.
+
+ТВОЯ ГЛАВНАЯ ЦЕЛЬ:
+Не просто показывать прайс, а ПОДРОБНО И ПОНЯТНО ОТВЕЧАТЬ НА ВСЕ ВОПРОСЫ КЛИЕНТОВ!
+Помогай клиенту выбрать лучшее решение для его дома, квартиры или офиса в Ташкенте.
+
+БАЗА ЗНАНИЙ ПО ЖАЛЮЗИ И ШТОРАМ В ТАШКЕНТЕ:
+1. Каталог и цены (UZS, за 1 м²):
+   • «День-Ночь» (Зебра, Турция) — 220 000 сум/м²: двойное полотно из чередующихся полос. Тонкая настройка света без поднятия шторы. Пылеотталкивающая тефлоновая пропитка. Идеально для зала, гостиной, детской.
+   • Кассетные шторы Blackout 100% — 280 000 сум/м²: кассета с направляющими, монтируется на створку. 100% темнота и отражение до 95% тепла в ташкентскую чиллю (+45°C). Идеально для спален, домашних кинотеатров, окон на юг/запад.
+   • Рулонные шторы «Screen» (Светофильтр) — 160 000 сум/м²: убирает блики с экранов ТВ и мониторов, отсекает ультрафиолет, оставляя вид из окна. Идеально для кабинетов, офисов и кухонь.
+   • Горизонтальные алюминиевые жалюзи (16/25 мм) — 130 000 сум/м²: 100% влагостойкие, не боятся пара, жира и запахов. Идеально для кухни, ванной, балкона.
+   • Вертикальные тканевые жалюзи (89/127 мм) — 115 000 сум/м²: визуально поднимают потолки, закрывают широкие проемы. Для офисов, школ и балконов.
+   • Шторы Плиссе и Римские — 310 000 сум/м²: открытие сверху-вниз, стильные складки, для нестандартных окон.
+
+2. Правила ухода и чистки (ОЧЕНЬ ЧАСТЫЙ ВОПРОС):
+   • Рулонные шторы НЕЛЬЗЯ стирать в стиральной машине (ткань пропитана защитным составом, который смоется, а ткань деформируется).
+   • Чистка: пылесос на минимальной мощности с мягкой насадкой-щеткой или сухая тряпка/пипидастр.
+   • При пятнах: протереть влажной микрофиброй с мыльной пеной (без хлора) или меламиновой губкой, дать высохнуть в развернутом виде.
+   • Алюминиевые жалюзи можно мыть водой с мылом или протирать влажной тряпкой.
+
+3. Подбор под тип комнаты:
+   • На кухню: горизонтальные алюминиевые или Screen (не впитывают жир и легко моются).
+   • В спальню: кассетный Blackout 100% (для полноценного сна и защиты от палящего солнца).
+   • В зал/гостиную: День-Ночь (Зебра) — самый эстетичный и популярный выбор.
+   • На балкон/лоджию: кассетные шторы на каждую створку или горизонтальные жалюзи (не мешают открыванию).
+
+4. Замер и монтаж:
+   • Замер створки самому: ширина стекла по внешним краям штапиков + 2 см, высота створки целиком.
+   • Монтаж возможен БЕЗ сверления (на зажимные кронштейны или сверхпрочный скотч 3M) либо на саморезы в штапик окна.
+   • БЕСПЛАТНЫЙ выезд замерщика с 500+ образцами тканей во все 12 районов Ташкента (0 сум).
+   • Срок изготовления: 1–3 рабочих дня.
+   • БЕСПЛАТНЫЙ монтаж при заказе от 3 окон (0 сум вместо 15%).
+
+5. Формула расчета сметы:
+   • Площадь окна: S = max(1.0, W_м * H_м). Каждое окно рассчитывается минимум за 1.0 м².
+
+ПРАВИЛА ТРИАЖА:
+- На любые вопросы клиентов (уход, монтаж, ткани, спасение от солнца, замеры, цены) отвечай САМ подробно, вежливо и понятно.
+- Перенаправляй к менеджеру с маркером [ESCALATE_TO_MANAGER: <краткая причина>], ТОЛЬКО если:
+  1. Клиент прямо просит оператора/человека/менеджера.
+  2. Претензия, жалоба, задержка заказа, брак или возврат.
+  3. Сложные архитектурные проекты (панорамное остекление в коттедже, эркеры).
+  4. Договор с юрлицом по безналу (счет-фактура, тендер).
+  5. Просьба срочно перезвонить.
+`;
+
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelCfg.apiModelId}:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+      const payload = {
+        systemInstruction: { parts: [{ text: systemPrompt }] },
+        contents: [{ role: 'user', parts: [{ text: userQuery }] }],
+        generationConfig: {
+          temperature: modelCfg.temperature,
+          topP: modelCfg.topP,
+          maxOutputTokens: modelCfg.maxOutputTokens
+        }
+      };
+
+      const headers = {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': apiKey
+      };
+      if (apiKey.startsWith('ya29.')) {
+        headers['Authorization'] = `Bearer ${apiKey}`;
+      }
+
+      try {
+        let res = await fetch(endpoint, {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify(payload)
+        });
+
+        // Если конкретный ID модели недоступен (404), пробуем fallback только среди разрешенных моделей (Gemini 3.5, 3.6, 3.8)
+        if (!res.ok && res.status === 404) {
+          const fallbackModels = ['gemini-3.5', 'gemini-3.6', 'gemini-3.8'];
+          for (const fbModel of fallbackModels) {
+            if (fbModel === modelCfg.apiModelId) continue;
+            const fbEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${fbModel}:generateContent?key=${encodeURIComponent(apiKey)}`;
+            const fbRes = await fetch(fbEndpoint, {
+              method: 'POST',
+              headers: headers,
+              body: JSON.stringify(payload)
+            });
+            if (fbRes.ok) {
+              res = fbRes;
+              break;
+            }
+          }
+        }
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          const errMsg = errData.error?.message || `Статус ответа ${res.status}`;
+          console.warn('Gemini API Warning:', errMsg);
+          toastInfo(`Gemini API: ${errMsg}. Применяю локальный расчет.`);
+          return generateDeterministicResponse(userQuery);
+        }
+
+        const data = await res.json();
+        const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!rawText) {
+          return generateDeterministicResponse(userQuery);
+        }
+
+        // Проверяем наличие маркера эскалации от Gemini или локального триажа
+        const escalateMatch = rawText.match(/\[ESCALATE_TO_MANAGER:\s*(.*?)\]/i);
+        const shouldEscalate = Boolean(escalateMatch) || triage.needsManager;
+        const cleanText = rawText.replace(/\[ESCALATE_TO_MANAGER:\s*.*?\]/gi, '').trim();
+
+        return {
+          text: cleanText,
+          needsManager: shouldEscalate,
+          escalationData: shouldEscalate ? {
+            reason: escalateMatch ? escalateMatch[1].trim() : triage.reason,
+            category: triage.intent,
+            managerPhone: '+998 (71) 200-55-77',
+            managerTelegram: 'https://t.me/tashkent_blinds_manager'
+          } : null
+        };
+      } catch (err) {
+        console.warn('Сетевой сбой при обращении к Gemini API:', err);
+        return generateDeterministicResponse(userQuery);
+      }
+    }
+
+    function generateDeterministicResponse(query) {
+      return generateDeterministicTriageResponse(
+        query,
+        appState.profile,
+        appState.agentConfig.selectedModel,
+        calculateWindowPrice
+      );
+    }
+
+    /* -------------------------------------------------------------
+       8. МОДАЛЬНОЕ ОКНО ЗАЯВКИ (openDialog)
+       ------------------------------------------------------------- */
+    window.openBookingDialog = function() {
+      const bodyHtml = `
+        <form id="dlgLeadForm" class="form">
+          <div class="field">
+            <label class="field-label" for="dlgName">Ваше имя: <span class="req">*</span></label>
+            <input type="text" id="dlgName" required value="${escapeHtml(appState.profile.name || '')}" placeholder="Сардор">
+          </div>
+          <div class="field">
+            <label class="field-label" for="dlgPhone">Номер телефона: <span class="req">*</span></label>
+            <input type="tel" id="dlgPhone" required value="${escapeHtml(appState.profile.phone || '+998 ')}" class="num">
+          </div>
+          <div class="field">
+            <label class="field-label" for="dlgAddress">Адрес в Ташкенте: <span class="req">*</span></label>
+            <input type="text" id="dlgAddress" required placeholder="${escapeHtml(appState.profile.district || 'Юнусабад')}, дом 12, кв 45">
+          </div>
+          <div class="grid grid--2">
+            <div class="field">
+              <label class="field-label" for="dlgDay">День выезда:</label>
+              <div class="select-wrap">
+                <select id="dlgDay">
+                  <option value="Сегодня">Сегодня</option>
+                  <option value="Завтра">Завтра</option>
+                  <option value="Выходные">В выходные</option>
+                </select>
+                <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-chevron-down.svg#icon-chevron-down"></use></svg>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="dlgTime">Время:</label>
+              <div class="select-wrap">
+                <select id="dlgTime">
+                  <option value="10:00 - 13:00">10:00 - 13:00</option>
+                  <option value="14:00 - 17:00">14:00 - 17:00</option>
+                  <option value="18:00 - 20:00">18:00 - 20:00</option>
+                </select>
+                <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-chevron-down.svg#icon-chevron-down"></use></svg>
+              </div>
+            </div>
+          </div>
+        </form>
+      `;
+
+      const footerHtml = `
+        <div class="row row--end" style="gap: var(--space-2); width: 100%;">
+          <button type="button" class="button button--ghost" data-dialog-close>Отмена</button>
+          <button type="button" class="button button--primary" id="dlgSubmitBtn">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg>
+            <span>Подтвердить бесплатный замер (0 сум)</span>
+          </button>
+        </div>
+      `;
+
+      const { dialog, close } = openDialog({
+        title: 'Бесплатный выезд замерщика (0 сум)',
+        body: bodyHtml,
+        footer: footerHtml,
+        onMount: () => {
+          qs('#dlgSubmitBtn')?.addEventListener('click', () => {
+            const name = qs('#dlgName').value.trim();
+            const phone = qs('#dlgPhone').value.trim();
+            const address = qs('#dlgAddress').value.trim();
+
+            if (!name || phone.length < 9 || !address) {
+              toastError('Пожалуйста, заполните все обязательные поля');
+              return;
+            }
+
+            close();
+            toastSuccess(`Заявка принята! Мастер свяжется с вами по номеру ${phone}`);
+
+            // Регистрация лида на сервере
+            fetch('/api/leads', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name,
+                phone,
+                address,
+                day: qs('#dlgDay')?.value,
+                timeSlot: qs('#dlgTime')?.value
+              })
+            }).catch(() => {});
+
+            appState.chatHistory.push({
+              role: 'system',
+              text: `✅ Оформлен бесплатный замер: ${address}, клиент ${name} (${phone}).`,
+              time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+            renderChatMessages();
+          });
+        }
+      });
+    };
+
+    /* -------------------------------------------------------------
+       9. ФОРМАТИРОВАНИЕ MARKDOWN С ЗАЩИТОЙ ОТ XSS
+       ------------------------------------------------------------- */
+    function formatMarkdown(text) {
+      if (!text) return '';
+      // 1. Полное экранирование потенциального XSS-контента
+      let res = escapeHtml(text);
+      // 2. Безопасное форматирование стилей
+      res = res.replace(/^### (.*$)/gim, '<h4 style="margin: 6px 0 2px; color: var(--color-warning); font-size: 13px;">$1</h4>');
+      res = res.replace(/^## (.*$)/gim, '<h3 style="margin: 8px 0 3px; font-size: 14px;">$1</h3>');
+      res = res.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      res = res.replace(/\*(.*?)\*/g, '<em style="color: var(--color-text-muted);">$1</em>');
+      res = res.replace(/^\- (.*$)/gim, '<li style="margin-left: 14px; font-size: 12px;">$1</li>');
+      res = res.replace(/^---$/gim, '<hr style="border: none; border-top: 1px solid var(--color-border-soft); margin: 6px 0;">');
+      res = res.replace(/\n\n/g, '<div style="height: 6px;"></div>');
+      res = res.replace(/\n/g, '<br>');
+      return res;
+    }
+  </script>
+</body>
+</html>

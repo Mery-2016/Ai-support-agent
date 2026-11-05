@@ -1,0 +1,20 @@
+{
+  "meta": { "name": "Team 8725 Web App Typography", "version": "1.1.0" },
+  "fontFamily": {
+    "ui": ["TASA Explorer", "TASA Orbiter", "IBM Plex Sans JP", "sans-serif"],
+    "mono": ["Cascadia Code", "Consolas", "ui-monospace", "monospace"]
+  },
+  "styles": {
+    "pageTitle": { "fontSize": "26px", "lineHeight": "34px", "fontWeight": 800 },
+    "sectionTitle": { "fontSize": "18px", "lineHeight": "26px", "fontWeight": 700 },
+    "cardTitle": { "fontSize": "13px", "lineHeight": "20px", "fontWeight": 700, "letterSpacing": "0.04em" },
+    "body": { "fontSize": "15px", "lineHeight": "22.5px", "fontWeight": 400 },
+    "compact": { "fontSize": "13px", "lineHeight": "19.5px", "fontWeight": 600 },
+    "meta": { "fontSize": "12px", "lineHeight": "18px", "fontWeight": 400 }
+  },
+  "rules": {
+    "minimumBodySize": "13px",
+    "minimumTouchTarget": "44px",
+    "numericVariant": "tabular-nums"
+  }
+}

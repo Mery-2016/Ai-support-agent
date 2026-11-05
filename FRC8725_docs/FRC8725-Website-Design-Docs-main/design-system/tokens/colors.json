@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "name": "Team 8725 Web App Colors",
+    "version": "1.0.0",
+    "mode": "dark"
+  },
+  "color": {
+    "base": { "white": "#ffffff", "black": "#000000" },
+    "primary": { "0": "#c6543d", "10": "#ce6651", "20": "#d57864", "30": "#dc8977", "40": "#e29a8a", "50": "#e8ab9d" },
+    "surface": { "0": "#121212", "10": "#252525", "20": "#393939", "30": "#4f4f4f", "40": "#666666", "50": "#7d7d7d" },
+    "success": { "0": "#7dff95", "10": "#9dffac", "20": "#b8ffc1" },
+    "warning": { "0": "#ffbc5e", "10": "#ffca83", "20": "#ffd8a4" },
+    "danger": { "0": "#ff8080", "10": "#ff9b99", "20": "#ffb5b2" },
+    "info": { "0": "#87d1ff", "10": "#a1dbff", "20": "#b9e4ff" }
+  },
+  "semantic": {
+    "background": "{color.surface.0}",
+    "navigation": "{color.surface.10}",
+    "card": "{color.surface.10}",
+    "cardAlt": "{color.surface.20}",
+    "border": "{color.surface.30}",
+    "text": "{color.base.white}",
+    "textMuted": "{color.surface.50}",
+    "action": "{color.primary.0}",
+    "focus": "{color.info.0}"
+  }
+}

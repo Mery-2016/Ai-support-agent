@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="610" viewBox="0 0 1200 610" role="img" aria-labelledby="title desc">
+  <title id="title">品牌、側邊欄與頂部導覽尺寸示意</title>
+  <desc id="desc">展示 260 像素展開側欄、76 像素收合側欄與 72 像素手機頂部導覽</desc>
+  <rect width="1200" height="610" fill="#121212"/>
+  <style>text{font-family:Segoe UI,Microsoft JhengHei,sans-serif;fill:#f7f7f7}.muted{fill:#b8b8b8;font-size:15px}.panel{fill:#252525;stroke:#4f4f4f}.logo{fill:#fff;stroke:#4f4f4f}.nav{fill:#393939}.line{stroke:#87d1ff;stroke-width:2;fill:none}.dim{fill:#87d1ff;font-size:14px}</style>
+  <text x="40" y="46" font-size="26" font-weight="700">導覽尺寸與資訊保留順序</text>
+  <text x="40" y="82" class="muted">正式畫面使用 icon.ico；圖中白色區塊代表 Logo 安全範圍。</text>
+
+  <text x="40" y="130" font-size="19" font-weight="700">展開側邊欄</text>
+  <rect class="panel" x="40" y="150" width="260" height="300"/>
+  <rect class="logo" x="62" y="174" width="44" height="44" rx="10"/>
+  <text x="118" y="191" font-size="15" font-weight="700">Team 8725</text><text x="118" y="210" class="muted" font-size="11">Misty Panther · Workshop</text>
+  <circle cx="300" cy="187" r="13" fill="#393939" stroke="#4f4f4f"/>
+  <rect class="nav" x="56" y="248" width="228" height="40" rx="6"/><circle cx="78" cy="268" r="8" fill="none" stroke="#c6543d" stroke-width="2"/><text x="100" y="274" font-size="13" fill="#c6543d">平面圖總覽</text>
+  <rect class="nav" x="56" y="294" width="228" height="40" rx="6"/><rect x="71" y="317" width="14" height="12" fill="none" stroke="#b8b8b8"/><text x="100" y="320" class="muted" font-size="13">作業</text>
+  <path class="line" d="M40 470v22m260-22v22M40 482h260"/><text class="dim" x="154" y="514">260 px</text>
+
+  <text x="390" y="130" font-size="19" font-weight="700">收合側邊欄</text>
+  <rect class="panel" x="390" y="150" width="76" height="300"/>
+  <rect class="logo" x="406" y="174" width="44" height="44" rx="10"/>
+  <circle cx="466" cy="187" r="13" fill="#393939" stroke="#4f4f4f"/>
+  <rect class="nav" x="400" y="248" width="56" height="40" rx="6"/><circle cx="428" cy="268" r="8" fill="none" stroke="#c6543d" stroke-width="2"/>
+  <rect class="nav" x="400" y="294" width="56" height="40" rx="6"/><rect x="421" y="311" width="14" height="12" fill="none" stroke="#b8b8b8"/>
+  <path class="line" d="M390 470v22m76-22v22M390 482h76"/><text class="dim" x="407" y="514">76 px</text>
+
+  <text x="550" y="130" font-size="19" font-weight="700">手機頂部導覽</text>
+  <rect class="panel" x="550" y="150" width="610" height="72"/>
+  <rect class="logo" x="564" y="167" width="38" height="38" rx="10"/><text x="610" y="190" font-size="13" font-weight="700">Team 8725</text>
+  <rect class="nav" x="820" y="164" width="44" height="44" rx="6"/><circle cx="842" cy="186" r="8" fill="none" stroke="#c6543d" stroke-width="2"/>
+  <rect class="nav" x="870" y="164" width="44" height="44" rx="6"/><rect x="885" y="180" width="14" height="12" fill="none" stroke="#b8b8b8"/>
+  <circle cx="1124" cy="186" r="17" fill="none" stroke="#b8b8b8"/><path d="m1120 180 6 6-6 6m6-6h-10" stroke="#b8b8b8" fill="none"/>
+  <path class="line" d="M1176 150h-22m22 72h-22M1166 150v72"/><text class="dim" x="1123" y="247">72 px</text>
+  <text x="550" y="288" class="muted">≤768 px：品牌靠左、導覽 icon 化、登出靠右；不顯示使用者頭像。</text>
+  <text x="40" y="576" class="muted">資訊縮減順序：副標 → 導覽文字 → 品牌文字。Logo、目前頁辨識與必要帳號操作必須保留。</text>
+</svg>

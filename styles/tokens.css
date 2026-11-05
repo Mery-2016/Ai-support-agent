@@ -1,0 +1,55 @@
+:root {
+  --color-white: #fff;
+  --color-black: #000;
+  --color-transparent: transparent;
+  --color-bg: #121212;
+  --color-surface-1: #252525;
+  --color-surface-2: #393939;
+  --color-border-soft: #393939;
+  --color-border: #4f4f4f;
+  --color-text: #fff;
+  --color-text-muted: #7d7d7d;
+  --color-primary: #c6543d;
+  --color-primary-hover: #ce6651;
+  --color-info: #87d1ff;
+  --color-info-text: #b9e4ff;
+  --color-info-surface: rgb(135 209 255 / 10%);
+  --color-info-surface-strong: rgb(135 209 255 / 18%);
+  --color-info-border: rgb(135 209 255 / 22%);
+  --color-success: #7dff95;
+  --color-warning: #ffbc5e;
+  --color-danger: #ff8080;
+  --color-backdrop: rgb(0 0 0 / 60%);
+
+  --font-family: "TASA Explorer", "TASA Orbiter", "IBM Plex Sans JP", sans-serif;
+  --font-mono: "Cascadia Code", Consolas, ui-monospace, monospace;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  --duration-fast: 120ms;
+  --duration-normal: 150ms;
+  --duration-layout: 180ms;
+  --focus-ring: 0 0 0 2px var(--color-info);
+  --shadow-floating: 0 4px 20px rgb(0 0 0 / 35%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}

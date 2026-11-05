@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="330" viewBox="0 0 1200 330" role="img" aria-labelledby="title desc">
+  <title id="title">工作坊介面色票</title><desc id="desc">品牌、表面、文字與語意色彩</desc>
+  <rect width="1200" height="330" fill="#121212"/>
+  <style>text{font-family:Segoe UI,Microsoft JhengHei,sans-serif;fill:#f7f7f7}.dark{fill:#121212}.muted{fill:#b8b8b8;font-size:15px}</style>
+  <text x="40" y="48" font-size="26" font-weight="700">核心色票</text>
+  <g transform="translate(40 80)"><rect width="160" height="130" rx="8" fill="#c6543d"/><text x="16" y="92" font-weight="700">品牌主色</text><text x="16" y="116">#C6543D</text></g>
+  <g transform="translate(220 80)"><rect width="160" height="130" rx="8" fill="#252525" stroke="#4f4f4f"/><text x="16" y="92" font-weight="700">容器表面</text><text x="16" y="116">#252525</text></g>
+  <g transform="translate(400 80)"><rect width="160" height="130" rx="8" fill="#393939"/><text x="16" y="92" font-weight="700">列項表面</text><text x="16" y="116">#393939</text></g>
+  <g transform="translate(580 80)"><rect width="160" height="130" rx="8" fill="#87d1ff"/><text class="dark" x="16" y="92" font-weight="700">資訊</text><text class="dark" x="16" y="116">#87D1FF</text></g>
+  <g transform="translate(760 80)"><rect width="160" height="130" rx="8" fill="#7dff95"/><text class="dark" x="16" y="92" font-weight="700">成功</text><text class="dark" x="16" y="116">#7DFF95</text></g>
+  <g transform="translate(940 80)"><rect width="160" height="130" rx="8" fill="#ffbc5e"/><text class="dark" x="16" y="92" font-weight="700">警告</text><text class="dark" x="16" y="116">#FFBC5E</text></g>
+  <text class="muted" x="40" y="268">危險色 #FF8080 僅用於錯誤與破壞性操作；位置標籤採低彩度資訊色，文字必須維持可讀對比。</text>
+</svg>

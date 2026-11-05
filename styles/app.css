@@ -1,0 +1,411 @@
+/* =============================================================
+   TashkentBlinds.AI — Product Stylesheet (app.css)
+   Built on Team 8725 Web Design System
+   
+   RULE: Absolute zero literal color codes (hex/rgb/hsl).
+   All colors MUST reference var(--color-*) tokens.
+   All normal text uses var(--font-family).
+   Breakpoints: 1100 / 900 / 768 / 480 only.
+   ============================================================= */
+
+/* Page layout & hero accents */
+.blinds-hero-card {
+  position: relative;
+  overflow: hidden;
+  border-left: 3px solid var(--color-primary);
+  background: var(--color-surface-1);
+}
+
+.hero-subtitle {
+  color: var(--color-text-muted);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: var(--space-2) 0 var(--space-4);
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Quick Calculator styles */
+.calc-preview-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.calc-preview-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.calc-preview-row strong {
+  color: var(--color-text);
+  font-family: var(--font-mono);
+}
+
+.calc-total-box {
+  border-top: 1px solid var(--color-border-soft);
+  padding-top: var(--space-3);
+  margin-top: var(--space-1);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.calc-total-amount {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--color-warning);
+  font-family: var(--font-mono);
+  letter-spacing: -0.02em;
+}
+
+/* AI Agent Chat Shell */
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  height: 620px;
+  position: relative;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-1);
+  border-bottom: 1px solid var(--color-border-soft);
+  z-index: 2;
+}
+
+.chat-header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  display: inline-block;
+}
+
+.status-dot--active {
+  background: var(--color-success);
+}
+
+.status-dot--locked {
+  background: var(--color-danger);
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  background: var(--color-bg);
+}
+
+.chat-msg {
+  display: flex;
+  gap: var(--space-3);
+  max-width: 90%;
+  animation: fadeIn var(--duration-normal) ease;
+}
+
+.chat-msg--assistant {
+  align-self: flex-start;
+}
+
+.chat-msg--user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.chat-msg-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  flex-shrink: 0;
+  border: 1px solid var(--color-border-soft);
+}
+
+.chat-msg-bubble {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.chat-msg--assistant .chat-msg-bubble {
+  background: var(--color-surface-1);
+  color: var(--color-text);
+  border: 1px solid var(--color-border-soft);
+}
+
+.chat-msg--user .chat-msg-bubble {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: 1px solid var(--color-primary-border);
+}
+
+.chat-msg-time {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+  text-align: right;
+  font-family: var(--font-mono);
+}
+
+.chat-chips-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-surface-1);
+  border-top: 1px solid var(--color-border-soft);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.chat-chips-label {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.chat-input-bar {
+  padding: var(--space-3);
+  background: var(--color-surface-1);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* Mandatory BYOK Gate Overlay */
+.chat-gate-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--color-backdrop);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  text-align: center;
+}
+
+.chat-gate-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-surface);
+  border: 1px solid var(--color-primary-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+}
+
+/* Product cards grid & specifications */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-top: 2px solid var(--color-border);
+  transition: border-color var(--duration-normal) ease;
+}
+
+.product-card:hover {
+  border-top-color: var(--color-primary);
+}
+
+.product-price-tag {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-warning);
+  font-family: var(--font-mono);
+}
+
+.product-spec-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-3) 0;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.product-spec-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.product-spec-list li svg {
+  color: var(--color-success);
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* District chips grid */
+.districts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.district-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.district-item svg {
+  color: var(--color-info);
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* FAQ Component Styles */
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.faq-card {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color var(--duration-fast) ease;
+}
+
+.faq-card:hover {
+  border-color: var(--color-primary);
+}
+
+.faq-card-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.faq-card-head svg {
+  color: var(--color-primary);
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.faq-card-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.faq-card-body {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0 0 var(--space-3);
+}
+
+.faq-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border-soft);
+  gap: var(--space-2);
+}
+
+.faq-badge {
+  font-size: 11px;
+  color: var(--color-info);
+  background: var(--color-info-surface);
+  border: 1px solid var(--color-info-border);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments respecting canonical 1100 / 900 / 768 / 480 breakpoints */
+@media (max-width: 1100px) {
+  .chat-window {
+    height: 560px;
+  }
+}
+
+@media (max-width: 768px) {
+  .chat-window {
+    height: 500px;
+  }
+  .chat-msg {
+    max-width: 100%;
+  }
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-window {
+    height: 460px;
+  }
+  .calc-total-box {
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+}

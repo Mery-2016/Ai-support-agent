@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>元件展示 | Team 8725 Design System</title>
+  <meta name="description" content="Team 8725 App 系列共用元件層的實際樣貌，同時是新 App 的外殼範本。">
+  <link rel="icon" href="../assets/images/icon.ico">
+
+  <!-- 樣式分層，順序不可調換。這三份是 canonical 檔案，直接引用而不是另抄一份。 -->
+  <link rel="stylesheet" href="../assets/fonts/fonts.css">
+  <link rel="stylesheet" href="../tokens/tokens.css">
+  <link rel="stylesheet" href="../base/base.css">
+  <!-- 產品層：新 App 在這裡放自己的領域元件。展示頁沒有領域元件，所以沒有 app.css。 -->
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到主要內容</a>
+
+  <!-- 啟動畫面。實際的 App 拿到工作階段後會把它 hidden 起來（見 docs/04-frontend.md §2）。 -->
+  <div class="boot" id="boot-view" hidden>
+    <div class="boot-card">
+      <img class="boot-logo" src="../assets/images/icon.ico" alt="">
+      <p class="boot-title">Team 8725 產品名</p>
+      <p class="boot-text" role="status">正在確認登入狀態…</p>
+      <div class="spinner" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <!-- 錯誤畫面：無法完成登入或讀不到帳號資料時。 -->
+  <div class="auth" id="auth-view" hidden></div>
+
+  <!-- App 外殼 -->
+  <div class="shell" id="app-shell">
+    <nav class="rail" id="rail" aria-label="主要導覽">
+      <button class="sidebar-toggle" type="button" data-sidebar-toggle
+              aria-label="收合側邊欄" aria-expanded="true" title="收合側邊欄">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <use href="../assets/icons/icon-chevron-left.svg#icon-chevron-left"></use>
+        </svg>
+      </button>
+
+      <div class="brand">
+        <img class="brand-logo" src="../assets/images/icon.ico" alt="">
+        <span class="brand-copy">
+          <strong><b>MIST</b><span>STARTER</span></strong>
+          <small>Design System</small>
+        </span>
+      </div>
+
+      <button class="icon-button nav-toggle" type="button" data-nav-toggle
+              aria-expanded="false" aria-controls="nav-panel" aria-label="開啟導覽選單">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <use href="../assets/icons/icon-menu.svg#icon-menu"></use>
+        </svg>
+      </button>
+
+      <div class="nav-panel" id="nav-panel">
+        <div class="nav-group" id="nav-group"></div>
+        <div class="rail-foot" id="rail-foot"></div>
+      </div>
+    </nav>
+
+    <main class="main" id="main-content" tabindex="-1">
+      <div class="page" id="page"></div>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="false"></div>
+  <div id="dialog-root"></div>
+
+  <script type="module" src="starter.js"></script>
+  <noscript>
+    <p class="noscript">這個頁面需要 JavaScript 才能運作。請在瀏覽器設定中啟用後重新整理。</p>
+  </noscript>
+</body>
+</html>

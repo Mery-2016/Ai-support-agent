@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">響應式版面配置</title>
+  <desc id="desc">桌面、平板與手機的介面區塊排列示意</desc>
+  <rect width="1200" height="600" fill="#121212"/>
+  <style>
+    text{font-family:Segoe UI,Microsoft JhengHei,sans-serif;fill:#f7f7f7}.label{fill:#b8b8b8;font-size:18px}.panel{fill:#252525;stroke:#4f4f4f}.accent{fill:#c6543d}.map{fill:#191919;stroke:#4f4f4f}
+  </style>
+  <text x="40" y="52" font-size="26" font-weight="700">桌面 ≥ 1200 px</text>
+  <rect class="panel" x="40" y="76" width="650" height="220" rx="8"/>
+  <rect class="accent" x="40" y="76" width="110" height="220" rx="8"/>
+  <rect class="panel" x="166" y="96" width="150" height="180" rx="6"/>
+  <rect class="map" x="332" y="96" width="338" height="180" rx="6"/>
+  <text class="label" x="371" y="192">搜尋＋平面圖＋摘要並排</text>
+
+  <text x="735" y="52" font-size="26" font-weight="700">平板 768–1199 px</text>
+  <rect class="panel" x="735" y="76" width="425" height="220" rx="8"/>
+  <rect class="accent" x="735" y="76" width="425" height="42" rx="8"/>
+  <rect class="panel" x="755" y="136" width="120" height="140" rx="6"/>
+  <rect class="map" x="891" y="136" width="249" height="140" rx="6"/>
+  <text class="label" x="930" y="212">雙欄內容</text>
+
+  <text x="40" y="363" font-size="26" font-weight="700">手機 &lt; 768 px</text>
+  <rect class="panel" x="40" y="386" width="1120" height="170" rx="8"/>
+  <rect class="accent" x="40" y="386" width="1120" height="40" rx="8"/>
+  <rect class="panel" x="60" y="445" width="350" height="90" rx="6"/>
+  <rect class="map" x="430" y="445" width="350" height="90" rx="6"/>
+  <rect class="panel" x="800" y="445" width="340" height="90" rx="6"/>
+  <text class="label" x="355" y="505">單欄依序堆疊；主要操作保持可見</text>
+</svg>
