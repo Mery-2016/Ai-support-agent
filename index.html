@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TashkentBlinds.AI — Жалюзи и Рулонные шторы в Ташкенте | Team 8725 Web Design</title>
+  <title>COMBO.UZ — Жалюзи и Рулонные шторы в Ташкенте | Team 8725 Web Design</title>
   <meta name="description" content="Производство и установка жалюзи и рулонных штор в Ташкенте. Расчет стоимости через AI-агента на базе Gemini 3.5 / 3.6 / 3.8. Дизайн-система Team 8725.">
   <link rel="icon" href="assets/images/icon.ico">
 
@@ -27,10 +27,10 @@
 
       <!-- Брендинг (Team 8725 Wordmark) -->
       <div class="brand">
-        <img class="brand-logo" src="assets/images/icon.ico" alt="Логотип TashkentBlinds">
+        <img class="brand-logo" src="assets/images/icon.ico" alt="Логотип COMBO.UZ">
         <span class="brand-copy">
-          <strong><b>MIST</b><span>BLINDS</span></strong>
-          <small>Tashkent SunShield</small>
+          <strong><b>COMBO</b><span>.UZ</span></strong>
+          <small>Жалюзи и шторы в Ташкенте</small>
         </span>
       </div>
 
@@ -45,6 +45,15 @@
           <a class="nav-link is-active" href="#quick-calc" title="Экспресс-калькулятор">
             <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-box.svg#icon-box"></use></svg>
             <span>Калькулятор</span>
+          </a>
+          <a class="nav-link" href="test_sales_chat.html" title="Тестовый AI-чат продаж (RU/UZ)">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
+            <span>💬 Чат продаж</span>
+            <span class="nav-count num">AI</span>
+          </a>
+          <a class="nav-link" href="admin.html" title="Панель администратора (100 Q&A и Заявки)">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-edit.svg#icon-edit"></use></svg>
+            <span>⚙️ Админ-панель</span>
           </a>
           <a class="nav-link" href="#ai-agent" title="ИИ-Консультант (Gemini)">
             <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
@@ -87,7 +96,7 @@
         
         <!-- Хлебные крошки -->
         <nav class="breadcrumbs" aria-label="Навигационная цепочка">
-          <a href="#">TashkentBlinds</a>
+          <a href="#">COMBO.UZ</a>
           <span>/</span>
           <a href="#">Узбекистан</a>
           <span>/</span>
@@ -113,6 +122,16 @@
             <a href="tel:+998712005577" class="button button--ghost">
               <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-info.svg#icon-info"></use></svg>
               <span>+998 (71) 200-55-77</span>
+            </a>
+
+            <a href="test_sales_chat.html" class="button button--secondary">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
+              <span>💬 Чат продаж</span>
+            </a>
+
+            <a href="admin.html" class="button button--secondary">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-edit.svg#icon-edit"></use></svg>
+              <span>⚙️ Админка</span>
             </a>
 
             <button type="button" class="button button--primary" onclick="openBookingDialog()">
@@ -171,12 +190,18 @@
                     <label class="field-label" for="calcType">Тип изделия и полотна:</label>
                     <div class="select-wrap">
                       <select id="calcType" onchange="updateQuickCalc()">
-                        <option value="zebra_day_night" selected>Рулонные шторы «День-Ночь» (220 000 сум/м²)</option>
-                        <option value="cassette_blackout">Кассетные Blackout 100% (280 000 сум/м²)</option>
-                        <option value="roll_screen">Рулонные «Светофильтр / Screen» (160 000 сум/м²)</option>
-                        <option value="horizontal_alu">Горизонтальные алюминиевые (130 000 сум/м²)</option>
-                        <option value="vertical_office">Вертикальные тканевые (115 000 сум/м²)</option>
-                        <option value="plisse_roman">Шторы Плиссе и Римские (310 000 сум/м²)</option>
+                        <option value="zebra_day_night" selected>1. Рулонные шторы День и Ночь (220 000 сум/м²)</option>
+                        <option value="roll_screen">2. Рулонные шторы Ролло (160 000 сум/м²)</option>
+                        <option value="double">3. Рулонные шторы Double (330 000 сум/м²)</option>
+                        <option value="dikey">4. Жалюзи Dikey (290 000 сум/м²)</option>
+                        <option value="tulle">5. Тюлевые жалюзи (290 000 сум/м²)</option>
+                        <option value="vertical_tulle">6. Вертикальные тюлевые жалюзи (290 000 сум/м²)</option>
+                        <option value="plisse">7. Жалюзи плиссе (310 000 сум/м²)</option>
+                        <option value="cassette_blackout">8. Кассетные жалюзи (280 000 сум/м²)</option>
+                        <option value="mini">9. Мини-жалюзи (160 000 сум/м²)</option>
+                        <option value="horizontal_alu">10. Горизонтальные алюминиевые жалюзи (130 000 сум/м²)</option>
+                        <option value="photo_print">11. Рулонные шторы с фотонанесением (250 000 сум/м²)</option>
+                        <option value="plisse_roman">12. Римские шторы (310 000 сум/м²)</option>
                       </select>
                       <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-chevron-down.svg#icon-chevron-down"></use></svg>
                     </div>
@@ -352,7 +377,7 @@
               <div class="chat-header">
                 <div class="chat-header-title">
                   <span id="agentOnlineDot" class="status-dot status-dot--locked"></span>
-                  <strong>Tashkent SunShield AI</strong>
+                  <strong>COMBO.UZ AI</strong>
                   <span id="activeModelBadge" class="badge badge--primary">Gemini 3.5</span>
                 </div>
 
@@ -468,112 +493,261 @@
         <section id="catalog" class="section">
           <div class="section-head">
             <div>
-              <h2>Каталог систем светозащиты в Ташкенте</h2>
-              <p>Цены указаны за 1 м² с учетом турецкой фурнитуры и устойчивости к выгоранию на солнце.</p>
+              <span class="badge badge--primary">12 основных категорий</span>
+              <h2 style="margin-top: var(--space-2);">Каталог систем светозащиты COMBO.UZ в Ташкенте</h2>
+              <p>Официальный каталог из 12 категорий жалюзи и штор. Цены указаны за 1 м² с учетом турецкой фурнитуры и устойчивости к выгоранию на солнце.</p>
             </div>
           </div>
 
           <div class="grid grid--3">
-            <!-- Товар 1 -->
+            <!-- 1. Рулонные шторы День и Ночь -->
             <div class="card product-card">
               <div class="card-body">
                 <div class="row row--between">
-                  <span class="badge badge--primary">Хит продаж Ташкента</span>
+                  <span class="badge badge--primary">Хит продаж</span>
                   <span class="tag">Защита 85%</span>
                 </div>
-                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Шторы «День-Ночь» (Зебра)</h3>
-                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Плавная регулировка света полосами ткани, производство Турция.</p>
-                
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Рулонные шторы День и Ночь</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Плавная регулировка света полосами ткани, чередование прозрачных и плотных полос.</p>
                 <ul class="product-spec-list">
                   <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Идеально для гостиных и спален</li>
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Пылеотталкивающая пропитка</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Двойное полотно «Зебра» (Турция)</li>
                   <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Гарантия на механизм 3 года</li>
                 </ul>
-
                 <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
                   <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
                   <span class="product-price-tag">220 000 сум</span>
                 </div>
               </div>
               <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
-                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Рулонные шторы День-Ночь (Зебра)')">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Рулонные шторы День и Ночь')">
                   <span>Рассчитать с ИИ</span> &rarr;
                 </button>
               </div>
             </div>
 
-            <!-- Товар 2 -->
+            <!-- 2. Рулонные шторы Ролло -->
             <div class="card product-card">
               <div class="card-body">
                 <div class="row row--between">
-                  <span class="badge badge--danger">Максимум от жары</span>
-                  <span class="tag">Защита 100%</span>
+                  <span class="badge badge--info">Классика</span>
+                  <span class="tag">Защита 60-90%</span>
                 </div>
-                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Кассетные Blackout 100%</h3>
-                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Направляющие без щелей, защита от ташкентской чилли.</p>
-                
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Рулонные шторы Ролло</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Классическое цельное рулонное полотно, светофильтры и плотные ткани.</p>
                 <ul class="product-spec-list">
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Снижает температуру в комнате на 4–6°C</li>
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Идеально для спален и детских комнат</li>
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Короб цветов белый, антрацит, дуб</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Для окон любых размеров и створок</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Ткани Screen, светофильтры и Dimout</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Защита мебели и мониторов от бликов</li>
                 </ul>
-
-                <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
-                  <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
-                  <span class="product-price-tag">280 000 сум</span>
-                </div>
-              </div>
-              <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
-                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Кассетные рулонные шторы Blackout 100%')">
-                  <span>Рассчитать с ИИ</span> &rarr;
-                </button>
-              </div>
-            </div>
-
-            <!-- Товар 3 -->
-            <div class="card product-card">
-              <div class="card-body">
-                <div class="row row--between">
-                  <span class="badge badge--info">Для кухонь и офисов</span>
-                  <span class="tag">Защита 60%</span>
-                </div>
-                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Рулонные шторы «Screen»</h3>
-                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Мягкий рассеянный свет без бликов на экранах мониторов.</p>
-                
-                <ul class="product-spec-list">
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Сохраняет вид из окна днем</li>
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Защита мониторов и ТВ от солнечных бликов</li>
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Легкая сухая и влажная чистка</li>
-                </ul>
-
                 <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
                   <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
                   <span class="product-price-tag">160 000 сум</span>
                 </div>
               </div>
               <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
-                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Рулонные шторы Скрин / Screen')">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Рулонные шторы Ролло')">
                   <span>Рассчитать с ИИ</span> &rarr;
                 </button>
               </div>
             </div>
 
-            <!-- Товар 4 -->
+            <!-- 3. Рулонные шторы Double -->
+            <div class="card product-card">
+              <div class="card-body">
+                <div class="row row--between">
+                  <span class="badge badge--primary">Система 2-в-1</span>
+                  <span class="tag">Защита 100%</span>
+                </div>
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Рулонные шторы Double</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Рулонные шторы Double (Дабл) — система с двумя полотнами: одно плотное, второе прозрачное, как тюль.</p>
+                <ul class="product-spec-list">
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Заменяет комплект «тюль + ночные портьеры»</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Два независимых вала управления</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Мягкий свет днем + темнота ночью</li>
+                </ul>
+                <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
+                  <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
+                  <span class="product-price-tag">330 000 сум</span>
+                </div>
+              </div>
+              <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Рулонные шторы Double')">
+                  <span>Рассчитать с ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- 4. Жалюзи Dikey -->
+            <div class="card product-card">
+              <div class="card-body">
+                <div class="row row--between">
+                  <span class="badge badge--warning">Новинка</span>
+                  <span class="tag">Дизайнерские</span>
+                </div>
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Жалюзи Dikey</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Жалюзи Dikey (Дикей) — тюлевая система, в которой сочетаются плотные тканевые участки по бокам и прозрачная тюлевая часть посередине.</p>
+                <ul class="product-spec-list">
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Отдельная инновационная категория</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Смыкание плотных боковых частей для защиты</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Воздушный прозрачный тюль в центре</li>
+                </ul>
+                <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
+                  <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
+                  <span class="product-price-tag">290 000 сум</span>
+                </div>
+              </div>
+              <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Жалюзи Dikey')">
+                  <span>Рассчитать с ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- 5. Тюлевые жалюзи -->
+            <div class="card product-card">
+              <div class="card-body">
+                <div class="row row--between">
+                  <span class="badge badge--primary">Уют и изящество</span>
+                  <span class="tag">Мягкий свет</span>
+                </div>
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Тюлевые жалюзи</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Изящное сочетание нежного струящегося тюля и функциональных поворотных тканевых ламелей.</p>
+                <ul class="product-spec-list">
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Отдельная интерьерная категория</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Ламели скрыты внутри нежной вуали</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Плавная регулировка приватности</li>
+                </ul>
+                <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
+                  <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
+                  <span class="product-price-tag">290 000 сум</span>
+                </div>
+              </div>
+              <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Тюлевые жалюзи')">
+                  <span>Рассчитать с ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- 6. Вертикальные тюлевые жалюзи -->
+            <div class="card product-card">
+              <div class="card-body">
+                <div class="row row--between">
+                  <span class="badge badge--neutral">Панорамы</span>
+                  <span class="tag">Для витражей</span>
+                </div>
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Вертикальные тюлевые жалюзи</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Вертикальная тюлевая система для больших окон, панорамных проемов и выходов на балкон.</p>
+                <ul class="product-spec-list">
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Отдельная категория для широких проемов</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Свободный проход сквозь ткань без сдвига</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Идеально для гостиных, залов и террас</li>
+                </ul>
+                <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
+                  <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
+                  <span class="product-price-tag">290 000 сум</span>
+                </div>
+              </div>
+              <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Вертикальные тюлевые жалюзи')">
+                  <span>Рассчитать с ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- 7. Жалюзи плиссе -->
+            <div class="card product-card">
+              <div class="card-body">
+                <div class="row row--between">
+                  <span class="badge badge--warning">Премиум</span>
+                  <span class="tag">Любые формы</span>
+                </div>
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Жалюзи плиссе</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Компактные складчатые шторы (гофре) с открыванием сверху вниз и снизу вверх.</p>
+                <ul class="product-spec-list">
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Для арок, треугольников и мансард</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Двустороннее открытие сверху и снизу</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Немецкий профиль Cosiflor</li>
+                </ul>
+                <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
+                  <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
+                  <span class="product-price-tag">310 000 сум</span>
+                </div>
+              </div>
+              <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Жалюзи плиссе')">
+                  <span>Рассчитать с ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- 8. Кассетные жалюзи -->
+            <div class="card product-card">
+              <div class="card-body">
+                <div class="row row--between">
+                  <span class="badge badge--danger">Максимум от жары</span>
+                  <span class="tag">Защита 100%</span>
+                </div>
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Кассетные жалюзи</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Система в защитном коробе с боковыми направляющими для плотного прилегания к створке.</p>
+                <ul class="product-spec-list">
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> 100% темнота Blackout в чиллю +45°C</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Ткань защищена коробом от пыли и жира</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Не провисает при откидывании окна</li>
+                </ul>
+                <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
+                  <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
+                  <span class="product-price-tag">280 000 сум</span>
+                </div>
+              </div>
+              <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Кассетные жалюзи')">
+                  <span>Рассчитать с ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- 9. Мини-жалюзи -->
+            <div class="card product-card">
+              <div class="card-body">
+                <div class="row row--between">
+                  <span class="badge badge--neutral">Компакт</span>
+                  <span class="tag">На створку</span>
+                </div>
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Мини-жалюзи</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Аккуратная открытая система для монтажа непосредственно на оконные створки без утяжеления.</p>
+                <ul class="product-spec-list">
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Компактный открытый вал Mini</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Боковая фиксация леской или магнитами</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Экономичное и надежное решение</li>
+                </ul>
+                <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
+                  <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
+                  <span class="product-price-tag">160 000 сум</span>
+                </div>
+              </div>
+              <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Мини-жалюзи')">
+                  <span>Рассчитать с ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- 10. Горизонтальные алюминиевые жалюзи -->
             <div class="card product-card">
               <div class="card-body">
                 <div class="row row--between">
                   <span class="badge badge--neutral">Практично</span>
-                  <span class="tag">Защита 90%</span>
+                  <span class="tag">Влагостойкость</span>
                 </div>
-                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Горизонтальные алюминиевые</h3>
-                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Ламели 16 и 25 мм, 100% влагостойкость для балконов и санузлов.</p>
-                
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Горизонтальные алюминиевые жалюзи</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Классические практичные влагостойкие жалюзи из алюминиевой ленты 16 и 25 мм.</p>
                 <ul class="product-spec-list">
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Для балконов, лоджий и санузлов</li>
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Не боятся перепадов температур и воды</li>
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> 35+ вариантов цветов в палитре</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> 100% не боятся пара, воды и жира</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Для кухонь, санузлов, балконов и офисов</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Палитра из 35+ цветов и оттенков</li>
                 </ul>
-
                 <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
                   <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
                   <span class="product-price-tag">130 000 сум</span>
@@ -586,57 +760,53 @@
               </div>
             </div>
 
-            <!-- Товар 5 -->
+            <!-- 11. Рулонные шторы с фотонанесением -->
             <div class="card product-card">
               <div class="card-body">
                 <div class="row row--between">
-                  <span class="badge badge--neutral">Офисы</span>
-                  <span class="tag">Защита 75%</span>
+                  <span class="badge badge--info">Индивидуально</span>
+                  <span class="tag">УФ-печать</span>
                 </div>
-                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Вертикальные тканевые</h3>
-                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Широкие ламели 89 и 127 мм, оплата по перечислению с НДС.</p>
-                
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Рулонные шторы с фотонанесением</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Индивидуальная фотопечать рисунков, пейзажей или логотипов на светозащитном полотне.</p>
                 <ul class="product-spec-list">
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Для офисов, кабинетов и учебных классов</li>
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Антистатическая пропитка от пыли</li>
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Договор и счета-фактуры через Didox</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Стойкая экологичная УФ-печать без запаха</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Любые пейзажи, детские принты и брендинг</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Не выгорает на ярком солнце в чиллю</li>
                 </ul>
-
                 <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
                   <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
-                  <span class="product-price-tag">115 000 сум</span>
+                  <span class="product-price-tag">250 000 сум</span>
                 </div>
               </div>
               <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
-                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Вертикальные тканевые жалюзи для офиса')">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Рулонные шторы с фотонанесением')">
                   <span>Рассчитать с ИИ</span> &rarr;
                 </button>
               </div>
             </div>
 
-            <!-- Товар 6 -->
+            <!-- 12. Римские шторы -->
             <div class="card product-card">
               <div class="card-body">
                 <div class="row row--between">
-                  <span class="badge badge--warning">Премиум</span>
-                  <span class="tag">Защита 95%</span>
+                  <span class="badge badge--warning">12-я категория</span>
+                  <span class="tag">Складки</span>
                 </div>
-                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Шторы Плиссе & Римские</h3>
-                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Для нестандартных, арочных, скошенных и мансардных окон.</p>
-                
+                <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Римские шторы</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Римские шторы — тканевые шторы, которые при подъёме собираются в горизонтальные складки.</p>
                 <ul class="product-spec-list">
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Открывание сверху-вниз и снизу-вверх</li>
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Для коттеджей и элитных ЖК Ташкента</li>
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Профиль Cosiflor (Германия)</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Ровные глубокие горизонтальные складки</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Специальный надежный цепочный карниз</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Элегантный текстильный уют в интерьере</li>
                 </ul>
-
                 <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
                   <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
                   <span class="product-price-tag">310 000 сум</span>
                 </div>
               </div>
               <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
-                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Шторы Плиссе и Римские шторы')">
+                <button type="button" class="button button--ghost button--block" onclick="askAIAboutProduct('Римские шторы')">
                   <span>Рассчитать с ИИ</span> &rarr;
                 </button>
               </div>
@@ -874,12 +1044,23 @@
        1. КОНСТАНТЫ И ПРАЙС-ЛИСТ (UZS)
        ------------------------------------------------------------- */
     const PRICE_MATRIX_UZS = {
-      'zebra_day_night': { name: 'Рулонные шторы «День-Ночь» (Зебра)', pricePerM2: 220000 },
-      'cassette_blackout': { name: 'Кассетные шторы Blackout 100%', pricePerM2: 280000 },
-      'roll_screen': { name: 'Рулонные шторы «Светофильтр / Screen»', pricePerM2: 160000 },
+      'zebra_day_night': { name: 'Рулонные шторы День и Ночь', pricePerM2: 220000 },
+      'day_night': { name: 'Рулонные шторы День и Ночь', pricePerM2: 220000 },
+      'roll_screen': { name: 'Рулонные шторы Ролло', pricePerM2: 160000 },
+      'rollo': { name: 'Рулонные шторы Ролло', pricePerM2: 160000 },
+      'double': { name: 'Рулонные шторы Double', pricePerM2: 330000 },
+      'dikey': { name: 'Жалюзи Dikey', pricePerM2: 290000 },
+      'tulle': { name: 'Тюлевые жалюзи', pricePerM2: 290000 },
+      'vertical_tulle': { name: 'Вертикальные тюлевые жалюзи', pricePerM2: 290000 },
+      'plisse': { name: 'Жалюзи плиссе', pricePerM2: 310000 },
+      'cassette_blackout': { name: 'Кассетные жалюзи', pricePerM2: 280000 },
+      'cassette': { name: 'Кассетные жалюзи', pricePerM2: 280000 },
+      'mini': { name: 'Мини-жалюзи', pricePerM2: 160000 },
       'horizontal_alu': { name: 'Горизонтальные алюминиевые жалюзи', pricePerM2: 130000 },
+      'photo_print': { name: 'Рулонные шторы с фотонанесением', pricePerM2: 250000 },
       'vertical_office': { name: 'Вертикальные тканевые жалюзи', pricePerM2: 115000 },
-      'plisse_roman': { name: 'Шторы Плиссе и Римские шторы', pricePerM2: 310000 }
+      'plisse_roman': { name: 'Римские шторы', pricePerM2: 310000 },
+      'roman': { name: 'Римские шторы', pricePerM2: 310000 }
     };
 
     const MODEL_CONFIGS = {
@@ -1237,7 +1418,7 @@
       if (appState.chatHistory.length === 0) {
         appState.chatHistory.push({
           role: 'assistant',
-          text: `Ассалому алейкум, **${name}**! ☀️\n\nРад приветствовать жителя **${district}** в *TashkentBlinds.AI*!\n\nКлюч успешно активирован, профиль: **${appState.agentConfig.selectedModel}**.\n\nНапишите размеры ваших окон (например, *«2 окна 150х170 см»*) или выберите быстрый вопрос — я рассчитаю точную смету в сумах с защитой от ташкентской жары!`,
+          text: `Ассалому алейкум, **${name}**! ☀️\n\nРад приветствовать жителя **${district}** в *COMBO.UZ*!\n\nКлюч успешно активирован, профиль: **${appState.agentConfig.selectedModel}**.\n\nНапишите размеры ваших окон (например, *«2 окна 150х170 см»*) или выберите быстрый вопрос — я рассчитаю точную смету в сумах с защитой от ташкентской жары!`,
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         });
         renderChatMessages();
@@ -1369,11 +1550,6 @@
 
       qs('#ai-agent')?.scrollIntoView({ behavior: 'smooth' });
 
-      if (!appState.isRegistered) {
-        focusRegistrationForm();
-        return;
-      }
-
       const input = qs('#chatInput');
       if (input) {
         input.value = promptText;
@@ -1384,11 +1560,6 @@
     window.askAIAboutProduct = function(productName) {
       qs('#ai-agent')?.scrollIntoView({ behavior: 'smooth' });
       const promptText = `Здравствуйте! Расскажите подробнее про «${productName}» и посчитайте на 2 стандартных окна 150х170 см.`;
-      
-      if (!appState.isRegistered) {
-        focusRegistrationForm();
-        return;
-      }
 
       const input = qs('#chatInput');
       if (input) {
@@ -1398,10 +1569,6 @@
     };
 
     window.sendQuickPrompt = function(text) {
-      if (!appState.isRegistered) {
-        focusRegistrationForm();
-        return;
-      }
       const input = qs('#chatInput');
       if (input) {
         input.value = text;
@@ -1411,10 +1578,6 @@
 
     window.askAIAboutFAQ = function(faqQuestion) {
       qs('#ai-agent')?.scrollIntoView({ behavior: 'smooth' });
-      if (!appState.isRegistered) {
-        focusRegistrationForm();
-        return;
-      }
       const input = qs('#chatInput');
       if (input) {
         input.value = faqQuestion;
@@ -1480,7 +1643,7 @@
                     <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-phone.svg#icon-phone"></use></svg>
                     <span>+998 (71) 200-55-77</span>
                   </a>
-                  <a href="https://t.me/tashkent_blinds_manager" target="_blank" rel="noopener noreferrer" class="button button--secondary button--sm">
+                  <a href="https://t.me/combouz_manager" target="_blank" rel="noopener noreferrer" class="button button--secondary button--sm">
                     <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-external.svg#icon-external"></use></svg>
                     <span>Telegram</span>
                   </a>
@@ -1568,14 +1731,22 @@
 
     window.handleChatSubmit = async function(event) {
       if (event) event.preventDefault();
-      if (!appState.isRegistered) {
-        focusRegistrationForm();
-        return;
-      }
 
       const input = qs('#chatInput');
       const text = input.value.trim().slice(0, 2000);
       if (!text || appState.isProcessing) return;
+
+      // Detect contact info if client provides it during conversation
+      const phoneMatch = text.match(/(?:\+?998[\s-]?)?\(?\d{2}\)?[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}/);
+      if (phoneMatch) {
+        let clean = phoneMatch[0].replace(/[^\d+]/g, '');
+        if (!clean.startsWith('+')) clean = '+' + clean;
+        appState.profile.phone = clean;
+      }
+      const nameMatch = text.match(/(?:меня зовут|я|ismim)\s+([А-ЯЁA-Z][а-яёa-z]+)/i);
+      if (nameMatch && nameMatch[1]) {
+        appState.profile.name = nameMatch[1];
+      }
 
       input.value = '';
       const userTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -1629,7 +1800,7 @@
       }
 
       const systemPrompt = `
-Ты — профессиональный, дружелюбный ИИ-консультант компании Tashkent SunShield (Жалюзи и Рулонные шторы в Ташкенте).
+Ты — профессиональный, дружелюбный ИИ-консультант компании COMBO.UZ (Жалюзи и Рулонные шторы в Ташкенте).
 Твоя модель: ${selectedModelName} (Быстрый и умный эксперт).
 Клиент: ${appState.profile.name || 'Клиент'}, Телефон: ${appState.profile.phone || '+998...'}, Район Ташкента: ${appState.profile.district || 'Ташкент'}.
 
@@ -1763,7 +1934,7 @@
             reason: escalateMatch ? escalateMatch[1].trim() : triage.reason,
             category: triage.intent,
             managerPhone: '+998 (71) 200-55-77',
-            managerTelegram: 'https://t.me/tashkent_blinds_manager'
+            managerTelegram: 'https://t.me/combouz_manager'
           } : null
         };
       } catch (err) {
@@ -1855,15 +2026,31 @@
             toastSuccess(`Заявка принята! Мастер свяжется с вами по номеру ${phone}`);
 
             // Регистрация лида на сервере
+            const typeKey = qs('#calcType')?.value;
+            const wVal = parseInt(qs('#calcW')?.value, 10) || 150;
+            const hVal = parseInt(qs('#calcH')?.value, 10) || 170;
+            const cntVal = (typeof currentCalcCount === 'number' && currentCalcCount > 0) ? currentCalcCount : 1;
+            const modelName = (typeKey && PRICE_MATRIX_UZS[typeKey]) ? PRICE_MATRIX_UZS[typeKey].name : 'Рулонные шторы День и Ночь';
+            const calcObj = (typeof calculateWindowPrice === 'function') ? calculateWindowPrice(wVal, hVal, cntVal, typeKey || 'day_night') : null;
+            const estCost = calcObj ? calcObj.totalPrice : 0;
+
             fetch('/api/leads', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
                 name,
                 phone,
+                district: appState?.profile?.district || 'Ташкент',
                 address,
+                model: modelName,
+                fabricCollection: 'Базовая',
+                corniceType: 'Общий карниз',
+                dimensions: `${wVal}×${hVal} см`,
+                quantity: cntVal,
+                totalEstimateUZS: estCost,
                 day: qs('#dlgDay')?.value,
-                timeSlot: qs('#dlgTime')?.value
+                timeSlot: qs('#dlgTime')?.value,
+                source: 'LANDING_BOOKING_MODAL'
               })
             }).catch(() => {});
 

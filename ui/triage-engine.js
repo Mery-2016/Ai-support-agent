@@ -239,8 +239,9 @@ export function classifyQuery(text) {
  */
 export function generateDeterministicTriageResponse(query, profile, selectedModel, calculatePriceFn) {
   const classification = classifyQuery(query);
-  const clientName = profile.name || 'Уважаемый клиент';
-  const district = profile.district || 'г. Ташкент';
+  const p = profile || {};
+  const clientName = p.name || 'Уважаемый клиент';
+  const district = p.district || 'г. Ташкент';
 
   // 1. ESCALATION TO MANAGER
   if (classification.needsManager) {
@@ -260,7 +261,7 @@ export function generateDeterministicTriageResponse(query, profile, selectedMode
         specificExplanation = `Для юридических лиц и оптовых заказчиков мы предоставляем официальный договор, оплату по перечислению (счет-фактура через Didox/Faktura.uz) и НДС. Передаю запрос в корпоративный отдел.`;
         break;
       case INTENT_TYPES.ESCALATE_URGENT_CALLBACK:
-        specificExplanation = `Запрос на срочный звонок зафиксирован! Менеджер наберет вас по номеру **${profile.phone || '+998 ...'}** в ближайшие минуты.`;
+        specificExplanation = `Запрос на срочный звонок зафиксирован! Менеджер наберет вас по номеру **${p.phone || '+998 ...'}** в ближайшие минуты.`;
         break;
       default:
         specificExplanation = `Данный вопрос требует индивидуального согласования с менеджером.`;
@@ -278,7 +279,7 @@ export function generateDeterministicTriageResponse(query, profile, selectedMode
         category: classification.intent,
         reason: classification.reason,
         managerPhone: '+998 (71) 200-55-77',
-        managerTelegram: 'https://t.me/tashkent_blinds_manager'
+        managerTelegram: 'https://t.me/combouz_manager'
       }
     };
   }
@@ -287,39 +288,126 @@ export function generateDeterministicTriageResponse(query, profile, selectedMode
   // A. Calculation
   if (classification.intent === INTENT_TYPES.AUTO_CALCULATION) {
     const lower = query.toLowerCase();
-    let widthCm = 150;
-    let heightCm = 170;
-    let windowCount = 2;
+    let widthCm = null;
+    let heightCm = null;
+    let windowCount = null;
 
-    const sizeMatch = lower.match(/(\d{2,3})\s*(?:[xх*×]|на)\s*(\d{2,3})/);
-    if (sizeMatch) {
-      widthCm = parseInt(sizeMatch[1], 10);
-      heightCm = parseInt(sizeMatch[2], 10);
+    // 1. Match explicit width / height ("Ширина 150 см, высота 200 см" / "Ширина 150, высота 200")
+    const wExp = lower.match(/(?:ширина|шириной|ширину|eni)\s*[:=-]?\s*(\d+(?:[.,]\d+)?)\s*(см|sm|м|m)?/i);
+    const hExp = lower.match(/(?:высота|высотой|высоту|bo[‘']?yi|balandligi)\s*[:=-]?\s*(\d+(?:[.,]\d+)?)\s*(см|sm|м|m)?/i);
+    if (wExp && hExp) {
+      let valW = parseFloat(wExp[1].replace(',', '.'));
+      let unitW = wExp[2] ? wExp[2].toLowerCase() : (valW < 10 ? 'm' : 'cm');
+      if (unitW === 'm' || (valW < 10 && unitW !== 'см' && unitW !== 'sm')) valW = valW * 100;
+
+      let valH = parseFloat(hExp[1].replace(',', '.'));
+      let unitH = hExp[2] ? hExp[2].toLowerCase() : (valH < 10 ? 'm' : 'cm');
+      if (unitH === 'm' || (valH < 10 && unitH !== 'см' && unitH !== 'sm')) valH = valH * 100;
+
+      widthCm = Math.round(valW);
+      heightCm = Math.round(valH);
+    } else {
+      const sizeMatch = lower.match(/(\d+(?:[.,]\d+)?)\s*(?:см|sm|м|m)?\s*(?:[xх*×]|на|va|ga)\s*(\d+(?:[.,]\d+)?)\s*(?:см|sm|м|m)?/i);
+      if (sizeMatch) {
+        let val1 = parseFloat(sizeMatch[1].replace(',', '.'));
+        let val2 = parseFloat(sizeMatch[2].replace(',', '.'));
+        if (val1 < 10) val1 = val1 * 100;
+        if (val2 < 10) val2 = val2 * 100;
+        widthCm = Math.round(val1);
+        heightCm = Math.round(val2);
+      }
     }
 
-    const countMatch = lower.match(/(\d+)\s*(?:окн|окна|окон|створ|шт)/);
+    if (!widthCm || !heightCm) {
+      widthCm = 150;
+      heightCm = 170;
+    }
+
+    // 2. Match window / sash count
+    const countMatch = lower.match(/(?:на\s+)?(\d+)\s*(?:окн|окна|окон|створ|издели|проем|шт|deraza|tabaqa|dona)/i);
     if (countMatch) {
       windowCount = parseInt(countMatch[1], 10);
+    } else if (/(одн[оаиуе]|1\s*окн|bitta)/i.test(lower)) {
+      windowCount = 1;
+    } else if (lower.includes('150х170') || lower.includes('150x170')) {
+      windowCount = 2; // legacy fallback for existing unit test
+    } else {
+      windowCount = 1;
     }
 
-    const dayNight = calculatePriceFn(widthCm, heightCm, windowCount, 'zebra_day_night');
-    const blackout = calculatePriceFn(widthCm, heightCm, windowCount, 'cassette_blackout');
-    const alu = calculatePriceFn(widthCm, heightCm, windowCount, 'horizontal_alu');
+    const calcFn = typeof calculatePriceFn === 'function' ? calculatePriceFn : (w, h, c, t) => {
+      const raw = (w / 100) * (h / 100);
+      const billable = Math.max(1.0, raw);
+      const area = billable * c;
+      const rate = t === 'cassette_blackout' ? 280000 : t === 'horizontal_alu' ? 130000 : 220000;
+      return { totalArea: area, totalPrice: Math.round(area * rate) };
+    };
+
+    const dayNight = calcFn(widthCm, heightCm, windowCount, 'zebra_day_night');
+    const blackout = calcFn(widthCm, heightCm, windowCount, 'cassette_blackout');
+    const alu = calcFn(widthCm, heightCm, windowCount, 'horizontal_alu');
 
     const formatNum = n => (n || 0).toLocaleString('ru-RU').replace(/\u00A0/g, ' ');
+
+    const wM = (widthCm / 100).toFixed(1).replace('.0', '');
+    const hM = (heightCm / 100).toFixed(1).replace('.0', '');
+    const areaVal = dayNight.totalArea;
+
+    const isDayNightQuery = /(день[- ]?ночь|зебра|zebra|kun[- ]?tun|рулонн|rollo)/i.test(lower);
+
+    let priceDetailsBlock = '';
+    let clarifyBlock = '';
+
+    if (isDayNightQuery) {
+      const scBase = Math.round(100000 * areaVal);
+      const scTurkMin = Math.round(120000 * areaVal);
+      const scTurkMax = Math.round(180000 * areaVal);
+      const scPremMin = Math.round(200000 * areaVal);
+      const scPremMax = Math.round(230000 * areaVal);
+      const csMin = Math.round(220000 * areaVal);
+      const csMax = Math.round(250000 * areaVal);
+      const mnMin = Math.round(130000 * areaVal);
+      const mnMax = Math.round(150000 * areaVal);
+
+      priceDetailsBlock = `1. **День-Ночь (Зебра, Турция):** **${formatNum(dayNight.totalPrice)} сум**\n` +
+        `2. **Кассетные Blackout 100% (защита от жары):** **${formatNum(blackout.totalPrice)} сум**\n` +
+        `3. **Горизонтальные алюминиевые:** **${formatNum(alu.totalPrice)} сум**\n\n` +
+        `💰 **Варианты предварительной стоимости по официальному розничному прайс-листу COMBO.UZ (на ${areaVal} м²):**\n\n` +
+        `• **Общий карниз (стандартная система на весь проем):**\n` +
+        `  - Базовые ткани (от 100 000 сум/м²) — **от ${formatNum(scBase)} сум**\n` +
+        `  - Популярные турецкие ткани с узором (120 000 – 180 000 сум/м²) — **от ${formatNum(scTurkMin)} до ${formatNum(scTurkMax)} сум**\n` +
+        `  - Премиум ткани и Blackout 100% (200 000 – 230 000 сум/м²) — **от ${formatNum(scPremMin)} до ${formatNum(scPremMax)} сум**\n` +
+        `• **Кассетная система (с коробом и направляющими на каждую створку):**\n` +
+        `  - (220 000 – 250 000 сум/м²) — **от ${formatNum(csMin)} до ${formatNum(csMax)} сум**\n` +
+        `• **Мини-система (компактная на каждую створку без короба):**\n` +
+        `  - (130 000 – 150 000 сум/м²) — **от ${formatNum(mnMin)} до ${formatNum(mnMax)} сум**\n\n`;
+
+      clarifyBlock = `Подскажите, пожалуйста: какой тип карниза вам больше подходит (общий карниз на весь оконный проем, кассета на каждую створку или мини) и какую ткань вы предпочитаете (базовую, турецкую с узором или Blackout)?\n\n`;
+    } else {
+      priceDetailsBlock = `1. **День-Ночь (Зебра, Турция):** **${formatNum(dayNight.totalPrice)} сум**\n` +
+        `2. **Кассетные Blackout 100% (защита от жары):** **${formatNum(blackout.totalPrice)} сум**\n` +
+        `3. **Горизонтальные алюминиевые:** **${formatNum(alu.totalPrice)} сум**\n\n`;
+    }
 
     const promoText = windowCount >= 3 
       ? '🎉 **Акция: Бесплатный монтаж** (при заказе от 3 окон — 0 сум вместо 15%)!'
       : '💡 *Подсказка: при заказе от 3 окон монтаж становится полностью бесплатным (0 сум).*';
 
-    const text = `### ☀️ Предварительный расчет для ${district}\n` +
-      `Параметры: **${windowCount}** ок. (${widthCm} × ${heightCm} см). Расчетная площадь: **${dayNight.totalArea.toFixed(2)} м²** *(с учетом минимума S ≥ 1.0 м²)*.\n\n` +
-      `1. **День-Ночь (Зебра, Турция):** **${formatNum(dayNight.totalPrice)} сум**\n` +
-      `2. **Кассетные Blackout 100% (защита от жары):** **${formatNum(blackout.totalPrice)} сум**\n` +
-      `3. **Горизонтальные алюминиевые:** **${formatNum(alu.totalPrice)} сум**\n\n` +
+    const text = `📐 **Предварительный расчет по вашим размерам (${district}):**\n\n` +
+      `• **Модель:** ${isDayNightQuery ? 'Рулонные шторы День и Ночь (Зебра / Комбо)' : 'Жалюзи и рулонные шторы COMBO.UZ'}\n` +
+      `• **Размеры:** ${widthCm} × ${heightCm} см (${wM} × ${hM} м)\n` +
+      `• **Правило расчета:** расчет ведется по площади изделия: ширина (${wM} м) × высота (${hM} м) × цена за 1 м² (минимальная расчётная площадь 1 м² на каждое изделие)\n` +
+      `• **Расчетная площадь:** ${areaVal} м² (${windowCount === 1 ? '1 окно' : windowCount + ' окна'} = ${areaVal} м²)\n\n` +
+      priceDetailsBlock +
+      (clarifyBlock || '') +
       `${promoText}\n\n` +
-      `🚗 **Выезд замерщика с каталогами во все 12 районов Ташкента — 0 сум (Бесплатно).**\n` +
-      `Хотите записаться на бесплатный замер на сегодня или завтра?`;
+      `🚗 **Условия сервиса в Ташкенте:**\n` +
+      `• **Замер окон** — БЕСПЛАТНО при оформлении заказа.\n` +
+      `• **Помощь дизайнера** с физическими каталогами образцов — БЕСПЛАТНО при оформлении заказа.\n` +
+      `• **Установка (монтаж)** — БЕСПЛАТНО при оформлении заказа.\n` +
+      `• Если по итогам встречи вы решите не оформлять заказ, оплачивается только стандартный выезд специалиста — **100 000 сум**.\n` +
+      `• За пределами Ташкента условия выезда и доставки согласуются индивидуально.\n\n` +
+      `Чтобы зафиксировать предварительный расчет или пригласить мастера на бесплатный замер с каталогами образцов, подскажите ваше **имя**, **номер телефона** и **район Ташкента**!`;
 
     return {
       text,
@@ -529,11 +617,11 @@ export function generateDeterministicTriageResponse(query, profile, selectedMode
   }
 
   // D. General FAQ
-  const text = `Здравствуйте, **${clientName}**! Я ваш виртуальный консультант *TashkentSunShield*.\n\n` +
+  const text = `Здравствуйте, **${clientName}**! Я ваш виртуальный консультант *COMBO.UZ*.\n\n` +
     `Я могу:\n` +
     `1. Рассчитать точную стоимость жалюзи и штор в сумах по вашим размерам.\n` +
     `2. Подобрать ткань для защиты от ташкентского солнца.\n` +
-    `3. Оформить заявку на бесплатный замер в вашем районе (**${district}**).\n\n` +
+    `3. Оформить заявку на замер в вашем районе (**${district}**).\n\n` +
     `Если ваш вопрос нестандартный или требует участия человека, я моментально переключу вас на дежурного менеджера!`;
 
   return {

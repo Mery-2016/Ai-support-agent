@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Тестовый AI-чат продаж — COMBO.UZ</title>
+  <meta name="description" content="Тестовый стенд AI-консультанта по продажам жалюзи и штор COMBO.UZ. Проверка 100 Q&A, отработки возражений и сбора заявок на русском и узбекском языках.">
+  <link rel="icon" href="assets/images/icon.ico">
+
+  <link rel="stylesheet" href="styles/fonts.css">
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/app.css">
+  <style>
+    .chat-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: var(--space-4);
+      min-height: calc(100vh - 120px);
+    }
+    @media (max-width: 900px) {
+      .chat-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .inspector-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .inspector-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: var(--space-2);
+    }
+    .inspector-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+    }
+    .inspector-row span:first-child {
+      color: var(--color-text-muted);
+    }
+    .inspector-row span:last-child {
+      font-weight: 600;
+      color: var(--color-text);
+      text-align: right;
+    }
+    .kb-match-pill {
+      background: var(--color-surface-hover);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 6px 10px;
+      font-size: 11px;
+      line-height: 1.4;
+    }
+    .lead-banner {
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid #22c55e;
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+      margin-bottom: var(--space-3);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell" id="app-shell">
+    <!-- Rail Sidebar -->
+    <nav class="rail" id="rail" aria-label="Основная навигация">
+      <div class="brand">
+        <img class="brand-logo" src="assets/images/icon.ico" alt="Логотип COMBO.UZ">
+        <span class="brand-copy">
+          <strong><b>COMBO</b><span>.UZ</span></strong>
+          <small>Жалюзи и шторы в Ташкенте</small>
+        </span>
+      </div>
+
+      <div class="nav-panel">
+        <div class="nav-group">
+          <a class="nav-link is-active" href="test_sales_chat.html">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
+            <span>💬 Тестовый чат продаж</span>
+          </a>
+          <a class="nav-link" href="admin.html">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-edit.svg#icon-edit"></use></svg>
+            <span>⚙️ Админ-панель (100 Q&A)</span>
+          </a>
+          <a class="nav-link" href="index.html">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-home.svg#icon-home"></use></svg>
+            <span>🌐 Основной лендинг</span>
+          </a>
+          <a class="nav-link" href="index.html#quick-calc">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-box.svg#icon-box"></use></svg>
+            <span>Калькулятор UZS</span>
+          </a>
+          <a class="nav-link" href="index.html#catalog">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-layers.svg#icon-layers"></use></svg>
+            <span>Каталог 12 категорий</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main" id="main-content">
+      <div class="page">
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs" aria-label="Навигационная цепочка">
+          <a href="index.html">COMBO.UZ</a>
+          <span>/</span>
+          <a href="admin.html">Управление</a>
+          <span>/</span>
+          <span aria-current="page">Тестовый AI-чат для продаж (RU / UZ)</span>
+        </nav>
+
+        <!-- Header -->
+        <header class="page-head" style="margin-bottom: var(--space-4);">
+          <div>
+            <h1>Тестовый стенд AI-агента продаж COMBO.UZ</h1>
+            <p style="color: var(--color-text-muted); margin-top: 4px;">
+              Проверка работы искусственного интеллекта до подключения каналов Telegram, Instagram и сайта. Консультация, подбор штор, отработка возражений и фиксация заявок.
+            </p>
+          </div>
+          <div style="display: flex; gap: var(--space-2); align-items: center;">
+            <div class="segmented">
+              <button type="button" class="chip" id="langBtnRu" onclick="setLanguage('ru')" aria-pressed="true">🇷🇺 Русский</button>
+              <button type="button" class="chip" id="langBtnUz" onclick="setLanguage('uz')">🇺🇿 O'zbekcha</button>
+            </div>
+            <a href="admin.html" class="button button--secondary button--sm">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-edit.svg#icon-edit"></use></svg>
+              <span>Панель админа</span>
+            </a>
+          </div>
+        </header>
+
+        <!-- Lead Banner (Appears when order is captured) -->
+        <div id="leadBanner" class="lead-banner">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <strong style="color: #22c55e;">🎉 Новая заявка зафиксирована!</strong>
+              <div id="leadBannerText" style="font-size: 13px; color: var(--color-text); margin-top: 2px;"></div>
+            </div>
+            <button type="button" class="button button--primary button--sm" onclick="location.href='admin.html#tab-leads'">
+              <span>Открыть в заявках админки →</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Chat Layout -->
+        <div class="chat-layout">
+          <!-- Left: Main Chat Window -->
+          <div class="chat-window" style="display: flex; flex-direction: column; height: 720px;">
+            <!-- Chat Header -->
+            <div class="chat-header">
+              <div class="chat-header-title">
+                <span class="status-dot status-dot--online"></span>
+                <strong>COMBO.UZ Sales Assistant</strong>
+                <span id="activeStageBadge" class="badge badge--primary">DISCOVERY</span>
+              </div>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <span style="font-size: 11px; color: var(--color-text-muted);" id="kbCounterBadge">База: 100 Q&A активна</span>
+                <button type="button" class="button button--secondary button--sm" onclick="resetChat()" title="Очистить историю">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-close.svg#icon-close"></use></svg>
+                  <span>Сброс</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Chat Messages Container -->
+            <div id="chatMessages" class="chat-messages" style="flex: 1; overflow-y: auto;">
+              <!-- Dynamic Messages injected here -->
+            </div>
+
+            <!-- Quick Scenario Test Chips -->
+            <div style="padding: 8px 12px; background: var(--color-surface); border-top: 1px solid var(--color-border);">
+              <div style="font-size: 11px; font-weight: 600; color: var(--color-text-muted); margin-bottom: 6px;">Быстрые тесты сценариев:</div>
+              <div class="chat-chips-scroll" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px;">
+                <button type="button" class="chip" onclick="sendQuick('Здравствуйте! Хочу заказать рулонные шторы День и Ночь. Ширина 150 см, высота 200 см. Сколько будет стоить?')">🎯 150х200 см День и Ночь (расчет + прайс)</button>
+                <button type="button" class="chip" onclick="sendQuick('Хочу вызвать замерщика на дом')">🚗 Хочу вызвать замерщика</button>
+                <button type="button" class="chip" onclick="sendQuick('Сколько стоят рулонные шторы?')">💰 Сколько стоят рулонные шторы?</button>
+                <button type="button" class="chip" onclick="sendQuick('Сколько стоит ткань Star?')">🏷️ Прайс на ткань Star</button>
+                <button type="button" class="chip" onclick="sendQuick('Сколько стоит замер и установка в Ташкенте?')">🚗 Замер и монтаж (Ташкент)</button>
+                <button type="button" class="chip" onclick="sendQuick('Работаете ли вы в Самарканде и по Узбекистану?')">🇺🇿 Работа по Узбекистану</button>
+                <button type="button" class="chip" onclick="sendQuick('Посчитай окно 80 на 90 см ткань Star')">📐 Окно < 1 м² (правило 1 м²)</button>
+                <button type="button" class="chip" onclick="sendQuick('Посоветуй шторы для спальни от яркого солнца')">☀️ Шторы в спальню от солнца</button>
+                <button type="button" class="chip" onclick="sendQuick('Assalomu alaykum! Kun va Tun rolikli pardalarga buyurtma bermoqchiman. Eni 150 sm, boyi 200 sm. Qancha boladi?')">🇺🇿 150x200 sm Kun va Tun</button>
+                <button type="button" class="chip" onclick="sendQuick('Rolikli pardalar qancha turadi?')">🇺🇿 Rolikli pardalar qancha?</button>
+                <button type="button" class="chip" onclick="sendQuick('Yotoqxona uchun quyoshdan qaysi pardani tavsiya qilasiz?')">🇺🇿 Yotoqxona uchun parda</button>
+                <button type="button" class="chip" onclick="sendQuick('Соедините с дежурным менеджером')">👤 Позвать менеджера</button>
+                <button type="button" class="chip" onclick="sendQuick('Почему у вас так дорого?')">💰 «Дорого!»</button>
+                <button type="button" class="chip" onclick="sendQuick('Спасибо, я подумаю')">🤔 «Я подумаю»</button>
+                <button type="button" class="chip" onclick="sendQuick('А у конкурентов на базаре дешевле!')">🏬 «У других дешевле»</button>
+                <button type="button" class="chip" onclick="sendQuick('Сделайте скидку, можно дешевле?')">🏷️ «Скидку можно?»</button>
+                <button type="button" class="chip" onclick="sendQuick('Посчитай 2 окна 150х170 день-ночь')">📐 Расчет 2 окон</button>
+                <button type="button" class="chip" onclick="sendQuick('Хочу заказать. Меня зовут Сардор, +998 90 123 45 67, Юнусабад')">🚗 Оформить заявку</button>
+              </div>
+            </div>
+
+            <!-- Chat Input Area -->
+            <div class="chat-input-area">
+              <textarea id="chatInput" class="chat-textarea" rows="2" placeholder="Напишите вопрос клиентом на русском или узбекском (Enter — отправить)..." onkeydown="handleInputKeyDown(event)"></textarea>
+              <button type="button" id="chatSendBtn" class="button button--primary" onclick="sendMessage()">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg>
+                <span>Отправить</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Diagnostic Inspector Panel -->
+          <div style="display: flex; flex-direction: column; gap: var(--space-3);">
+            <div class="inspector-card">
+              <div class="inspector-title">
+                <span>🔍 Инспектор AI-агента</span>
+                <span class="badge badge--neutral" id="langBadge">RU</span>
+              </div>
+
+              <div class="inspector-row">
+                <span>Этап воронки:</span>
+                <span id="inspectStage">GREETING</span>
+              </div>
+              <div class="inspector-row">
+                <span>Имя клиента:</span>
+                <span id="inspectName">—</span>
+              </div>
+              <div class="inspector-row">
+                <span>Телефон:</span>
+                <span id="inspectPhone">—</span>
+              </div>
+              <div class="inspector-row">
+                <span>Район:</span>
+                <span id="inspectDistrict">—</span>
+              </div>
+              <div class="inspector-row">
+                <span>Модель:</span>
+                <span id="inspectModel">—</span>
+              </div>
+              <div class="inspector-row">
+                <span>Размеры окон:</span>
+                <span id="inspectSizes">—</span>
+              </div>
+              <div class="inspector-row">
+                <span>Количество:</span>
+                <span id="inspectCount">1</span>
+              </div>
+              <div class="inspector-row">
+                <span>Оценка сметы:</span>
+                <span id="inspectTotal" style="color: #22c55e;">—</span>
+              </div>
+            </div>
+
+            <div class="inspector-card">
+              <div class="inspector-title">
+                <span>📚 Статья базы знаний</span>
+                <span id="kbAdminFlag" class="badge badge--warning" style="display: none;">Требует заполнения</span>
+              </div>
+              <div id="inspectKbArticle" class="kb-match-pill">
+                Статья не задействована. Задайте вопрос по моделям, ценам или возражениям.
+              </div>
+            </div>
+
+            <div class="inspector-card">
+              <div class="inspector-title">
+                <span>⚙️ Быстрые действия</span>
+              </div>
+              <button type="button" class="button button--secondary button--block" onclick="sendQuick('Хочу заказать замерщика')">
+                <span>📝 Симулировать готовность заказать</span>
+              </button>
+              <button type="button" class="button button--secondary button--block" onclick="sendQuick('У вас слишком дорого!')">
+                <span>⚡ Проверить отработку «Дорого»</span>
+              </button>
+              <button type="button" class="button button--secondary button--block" onclick="sendQuick('O‘lchovchi chaqirmoqchiman, ismim Alisher, +998901112233, Chilonzor')">
+                <span>🇺🇿 Проверить узбекский лид</span>
+              </button>
+              <a href="admin.html" class="button button--primary button--block" style="text-align: center; text-decoration: none;">
+                <span>Перейти в Админ-панель →</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toast-region"></div>
+
+  <script type="module">
+    import { toastSuccess, toastError, toastInfo } from './ui/toast.js';
+    import { SalesAgent, SALES_STAGES } from './ui/sales-agent.js';
+
+    let agent = null;
+    let knowledgeBase = [];
+    let currentChatLeadId = null;
+
+    async function init() {
+      try {
+        const res = await fetch('/api/knowledge-base');
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data)) {
+          knowledgeBase = json.data;
+          document.getElementById('kbCounterBadge').textContent = `База: ${knowledgeBase.length} Q&A активна`;
+        }
+      } catch (err) {
+        console.warn('Could not load KB from API, using fallback:', err);
+      }
+
+      let pricingData = null;
+      try {
+        const resPrice = await fetch('/api/pricing');
+        const jsonPrice = await resPrice.json();
+        if (jsonPrice.success && jsonPrice.data) {
+          pricingData = jsonPrice.data;
+        }
+      } catch (err) {
+        console.warn('Could not load pricing from API:', err);
+      }
+
+      let retailData = null;
+      try {
+        const resRetail = await fetch('/api/retail-pricing');
+        const jsonRetail = await resRetail.json();
+        if (jsonRetail.success && jsonRetail.data) {
+          retailData = jsonRetail.data;
+        }
+      } catch (err) {
+        console.warn('Could not load retail pricing from API:', err);
+      }
+
+      agent = new SalesAgent(knowledgeBase, pricingData, retailData);
+      renderWelcome();
+      updateInspector();
+    }
+
+    function renderWelcome() {
+      const chatMessages = document.getElementById('chatMessages');
+      chatMessages.innerHTML = `
+        <div class="chat-msg chat-msg--assistant">
+          <div class="chat-msg-avatar">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
+          </div>
+          <div class="chat-msg-bubble">
+            <p><strong>Ассалому алейкум! Здравствуйте! ☀️</strong></p>
+            <p>Я ваш персональный AI-консультант компании <strong>COMBO.UZ</strong> по жалюзи и рулонным шторам в Ташкенте.</p>
+            <p>Я свободно говорю на <strong>русском</strong> и <strong>узбекском</strong> языках, знаю все о 12 основных категориях штор и жалюзи (День и Ночь, Ролло, Double, Dikey, Тюлевые, Вертикальные тюлевые, Плиссе, Кассетные, Мини, Алюминиевые, Фотонанесение и Римские шторы), умею делать предварительный расчет и оформлять заявки для менеджера.</p>
+            <p><em>Задайте любой вопрос или нажмите на быструю подсказку выше!</em></p>
+          </div>
+        </div>
+      `;
+    }
+
+    window.setLanguage = function(lang) {
+      if (!agent) return;
+      agent.setLanguage(lang);
+      document.getElementById('langBtnRu').setAttribute('aria-pressed', lang === 'ru');
+      document.getElementById('langBtnUz').setAttribute('aria-pressed', lang === 'uz');
+      document.getElementById('langBadge').textContent = lang.toUpperCase();
+
+      if (lang === 'uz') {
+        appendMessage('assistant', '🇺🇿 Til o‘zgartirildi: O‘zbek tili. Sizga qanday yordam bera olaman? Xohlagan savolingizni yozing!');
+      } else {
+        appendMessage('assistant', '🇷🇺 Язык переключен: Русский. Чем могу помочь? Спрашивайте о моделях, ценах, замерах или скидках!');
+      }
+      updateInspector();
+    };
+
+    window.handleInputKeyDown = function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    };
+
+    window.sendQuick = function(text) {
+      const input = document.getElementById('chatInput');
+      input.value = text;
+      sendMessage();
+    };
+
+    window.sendMessage = async function() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text || !agent) return;
+
+      input.value = '';
+      appendMessage('user', text);
+
+      // Show typing indicator
+      const typingId = appendTypingIndicator();
+
+      // Process via Agent
+      setTimeout(async () => {
+        removeTypingIndicator(typingId);
+        const result = agent.processMessage(text);
+        appendMessage('assistant', result.reply);
+        updateInspector(result);
+
+        // If order lead was captured, post it to backend!
+        if (result.isOrderReady && result.leadData) {
+          try {
+            const payload = {
+              ...result.leadData,
+              source: 'AI_TEST_SALES_CHAT'
+            };
+            if (currentChatLeadId) {
+              payload.id = currentChatLeadId;
+            }
+            const resp = await fetch('/api/leads', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+            const data = await resp.json();
+            if (data.success) {
+              currentChatLeadId = data.leadId;
+              if (agent && agent.session) {
+                agent.session.leadId = data.leadId;
+                agent.session.isLeadSubmitted = true;
+              }
+              if (data.isUpdated) {
+                toastSuccess('Заявка успешно обновлена в панели администратора!');
+              } else {
+                toastSuccess('Заявка успешно сохранена в панели администратора!');
+              }
+              showLeadBanner(result.leadData, data.leadId);
+            }
+          } catch (err) {
+            console.error('Lead post error:', err);
+          }
+        }
+      }, 400);
+    };
+
+    function showLeadBanner(lead, leadId) {
+      const banner = document.getElementById('leadBanner');
+      const text = document.getElementById('leadBannerText');
+      text.innerHTML = `<strong>${lead.name}</strong> (${lead.phone}) | ${lead.district} | Модель: ${lead.model} | ID: <code>${leadId}</code>`;
+      banner.style.display = 'block';
+    }
+
+    function appendMessage(role, text) {
+      const chatMessages = document.getElementById('chatMessages');
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `chat-msg chat-msg--${role}`;
+
+      const avatar = document.createElement('div');
+      avatar.className = 'chat-msg-avatar';
+      avatar.innerHTML = role === 'assistant'
+        ? '<svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>'
+        : '<svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-user.svg#icon-user"></use></svg>';
+
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-msg-bubble';
+
+      // Format markdown-like bold and linebreaks safely
+      const formatted = escapeAndFormat(text);
+      bubble.innerHTML = formatted;
+
+      msgDiv.appendChild(avatar);
+      msgDiv.appendChild(bubble);
+      chatMessages.appendChild(msgDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function appendTypingIndicator() {
+      const chatMessages = document.getElementById('chatMessages');
+      const id = 'typing-' + Date.now();
+      const div = document.createElement('div');
+      div.id = id;
+      div.className = 'chat-msg chat-msg--assistant';
+      div.innerHTML = `
+        <div class="chat-msg-avatar"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg></div>
+        <div class="chat-msg-bubble"><p style="color: var(--color-text-muted); font-style: italic;">AI подбирает ответ...</p></div>
+      `;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return id;
+    }
+
+    function removeTypingIndicator(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    function updateInspector(result = {}) {
+      if (!agent) return;
+      const s = agent.session;
+
+      document.getElementById('activeStageBadge').textContent = s.stage;
+      document.getElementById('inspectStage').textContent = s.stage;
+      document.getElementById('inspectName').textContent = s.client.name || '—';
+      document.getElementById('inspectPhone').textContent = s.client.phone || '—';
+      document.getElementById('inspectDistrict').textContent = s.client.district || '—';
+      document.getElementById('inspectModel').textContent = s.order.selectedModel || '—';
+
+      const sizes = (s.order.widthCm && s.order.heightCm)
+        ? `${s.order.widthCm} × ${s.order.heightCm} см`
+        : '—';
+      document.getElementById('inspectSizes').textContent = sizes;
+      document.getElementById('inspectCount').textContent = s.order.windowCount || 1;
+
+      if (s.order.totalEstimateUZS) {
+        document.getElementById('inspectTotal').textContent = s.order.totalEstimateUZS.toLocaleString('ru-RU') + ' сум';
+      } else {
+        document.getElementById('inspectTotal').textContent = '—';
+      }
+
+      // Matched KB article
+      const kbBox = document.getElementById('inspectKbArticle');
+      const adminFlag = document.getElementById('kbAdminFlag');
+
+      if (s.matchedKbId) {
+        const item = knowledgeBase.find(x => x.id === s.matchedKbId);
+        if (item) {
+          const q = s.lang === 'uz' ? (item.question_uz || item.question_ru) : item.question_ru;
+          kbBox.innerHTML = `<strong>${item.id} (${item.category}):</strong><br>${q}`;
+          if (item.requires_admin) {
+            adminFlag.style.display = 'inline-flex';
+          } else {
+            adminFlag.style.display = 'none';
+          }
+        }
+      } else {
+        adminFlag.style.display = 'none';
+      }
+    }
+
+    function escapeAndFormat(str) {
+      if (!str) return '';
+      let clean = str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      // bold
+      clean = clean.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      // italics
+      clean = clean.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      // paragraphs & line breaks
+      clean = clean.replace(/\n\n/g, '</p><p>');
+      clean = clean.replace(/\n/g, '<br>');
+      return `<p>${clean}</p>`;
+    }
+
+    window.resetChat = function() {
+      agent = new SalesAgent(knowledgeBase, pricingData, retailData);
+      renderWelcome();
+      updateInspector();
+      document.getElementById('leadBanner').style.display = 'none';
+      toastInfo('Диалог сброшен, сессия очищена.');
+    };
+
+    init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1173 @@
+/**
+ * Knowledge Base Generator for COMBO.UZ
+ * Generates 100 comprehensive bilingual (RU / UZ) FAQ entries
+ * strictly following requirements.
+ */
+const fs = require('fs');
+const path = require('path');
+
+const kb = [
+  // =========================================================================
+  // 1. МОДЕЛИ И ВИДЫ ЖАЛЮЗИ И ШТОР (1-41)
+  // =========================================================================
+
+  // 1.1 День-Ночь (Зебра) (6)
+  {
+    id: 'kb-001',
+    category: 'models',
+    subcategory: 'zebra_day_night',
+    keywords: ['день-ночь', 'зебра', 'что такое', 'принцип', 'zebra', 'kun-tun'],
+    question_ru: 'Что такое рулонные шторы «День-Ночь» (Зебра) и как они работают?',
+    answer_ru: 'Шторы «День-Ночь» (Зебра) состоят из двойного полотна с чередующимися прозрачными (сетка) и плотными тканевыми полосами. При смещении полос с помощью цепочки вы можете плавно регулировать поток света: от мягкого рассеянного освещения («День») до надежного перекрытия света («Ночь») без необходимости полностью поднимать штору.',
+    question_uz: '«Kun-Tun» (Zebra) rolikli pardalari nima va ular qanday ishlaydi?',
+    answer_uz: '«Kun-Tun» (Zebra) pardalari navbatma-navbat keladigan shaffof (to‘r) va qalin mato chiziqlaridan iborat ikki qatlamli matodan tayyorlanadi. Zanjir orqali chiziqlarni siljitib, pardani to‘liq ko‘tarmasdan xonaga tushayotgan yorug‘likni osongina sozlash mumkin: yumshoq yorug‘lik («Kun») yoki to‘liq to‘sish («Tun»).',
+    requires_admin: false
+  },
+  {
+    id: 'kb-002',
+    category: 'models',
+    subcategory: 'zebra_day_night',
+    keywords: ['день-ночь', 'чистка', 'стирка', 'зебра уход', 'yuvish'],
+    question_ru: 'Можно ли стирать шторы День-Ночь в стиральной машине?',
+    answer_ru: 'Категорически нет! Ткани штор «День-Ночь» имеют специальную заводскую пылеотталкивающую и антистатическую пропитку. Машинная стирка смоет защитный слой и деформирует полосы. Для ухода достаточно сухой чистки мягкой щеткой, пылесосом на минимальной мощности или протирания слегка влажной микрофиброй без агрессивной химии.',
+    question_uz: 'Kun-Tun pardalarini kir yuvish mashinasida yuvish mumkinmi?',
+    answer_uz: 'Aslo mumkin emas! Kun-Tun matolari chang o‘tirmaydigan va antistatik maxsus zavod singdirmasiga ega. Mashinada yuvish bu qatlamni buzadi va matoni deformatsiya qiladi. Tozalash uchun yumshoq cho‘tka, changyutgichning past quvvati yoki biroz namlangan mikrofigra mato yetarli.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-003',
+    category: 'models',
+    subcategory: 'zebra_day_night',
+    keywords: ['день-ночь', 'комната', 'куда подходят', 'гостиная', 'спальня', 'xona'],
+    question_ru: 'Для каких комнат лучше всего подходят шторы День-Ночь?',
+    answer_ru: 'День-Ночь — универсальная модель. Она идеально подходит для гостиных, детских, кабинетов, кухонь и офисов, где в течение дня требуется разная степень естественного света. Для спален на солнечной стороне можно выбрать ткань День-Ночь с полосами Blackout.',
+    question_uz: 'Kun-Tun pardalari qaysi xonalar uchun eng mos keladi?',
+    answer_uz: 'Kun-Tun — universal model. U mehmonxona, bolalar xonasi, ish xonasi, oshxona va ofislar uchun ayni muddao, chunki kun davomida yorug‘likni xohlagancha o‘zgartirish mumkin. Quyoshli yotoqxonalar uchun esa Blackout chiziqli Kun-Tun matolarini tanlash tavsiya etiladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-004',
+    category: 'models',
+    subcategory: 'zebra_day_night',
+    keywords: ['день-ночь', 'провисание', 'откидное окно', 'проветривание', 'shamollatish'],
+    question_ru: 'Будут ли шторы День-Ночь болтаться при проветривании окна?',
+    answer_ru: 'Нет, при заказе системы на откидную створку окна мы устанавливаем боковую фиксацию на леске (струне) или нижние неодимовые магниты. Полотно остается параллельным раме даже при откидывании створки на проветривание и не хлопает от сквозняка.',
+    question_uz: 'Deraza shamollatishga ochilganda Kun-Tun pardasi osilib shalvirab qolmaydimi?',
+    answer_uz: 'Yo‘q, ochiladigan tabaqaga o‘rnatilganda biz yon tomondan maxsus leska (tor) yoki pastki neodim magnitlarini o‘rnatamiz. Natijada parda deraza ochilganda ham romga parallel turadi va shamolda urilmaydi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-005',
+    category: 'models',
+    subcategory: 'zebra_day_night',
+    keywords: ['день-ночь', 'кассетные', 'uni', 'короб', 'kasseta'],
+    question_ru: 'В чем разница между открытой системой День-Ночь (Мини) и кассетной (в коробе)?',
+    answer_ru: 'В открытой системе (Мини) рулон ткани виден, а по бокам используется леска. В кассетной системе рулон защищен декоративным алюминиевым коробом от пыли, а по бокам установлены алюминиевые направляющие, которые полностью скрывают края ткани и делают штору единой конструкцией со стеклопакетом.',
+    question_uz: 'Ochiq (Mini) va kassetali (qutidagi) Kun-Tun tizimlari orasida qanday farq bor?',
+    answer_uz: 'Ochiq tizimda (Mini) mato ruloni ko‘rinib turadi va yon tomonlarida leska bo‘ladi. Kassetali tizimda esa mato ruloni alyuminiy quti ichida changdan himoyalanadi, yon tomonlarida esa alyuminiy yo‘naltiruvchilar bo‘lib, parda deraza romining ajralmas qismiga aylanadi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-006',
+    category: 'models',
+    subcategory: 'zebra_day_night',
+    keywords: ['день-ночь', 'ткани', 'каталог', 'фактуры', 'matolar'],
+    question_ru: 'Какие ткани используются для штор День-Ночь в COMBO.UZ?',
+    answer_ru: 'Мы используем сертифицированные гипоаллергенные ткани турецкого и южнокорейского производства с тефлоновым грязеотталкивающим напылением. В каталоге представлены однотонные фактуры, под натуральный лен, жаккард, шелк, металлик и полотна со светоотражающим слоем.',
+    question_uz: 'COMBO.UZ da Kun-Tun pardalari uchun qanday matolar ishlatiladi?',
+    answer_uz: 'Biz Turkiya va Janubiy Koreyada ishlab chiqarilgan, teflon qoplamali va gipoallergen sertifikatlangan matolardan foydalanamiz. Katalogimizda bir xil rangli, zig‘ir (len) to‘qimali, jakkard, ipak, metallik va quyosh nurini qaytaruvchi yuzlab turlar mavjud.',
+    requires_admin: false
+  },
+
+  // 1.2 Blackout (Блэкаут 100%) (6)
+  {
+    id: 'kb-007',
+    category: 'models',
+    subcategory: 'blackout',
+    keywords: ['блэкаут', 'blackout', '100%', 'темнота', 'жара', 'qorongilik'],
+    question_ru: 'Действительно ли шторы Blackout обеспечивают 100% затемнение?',
+    answer_ru: 'Само полотно ткани Blackout не пропускает свет абсолютно (0% светопропускания благодаря внутреннему светонепроницаемому слою). Чтобы получить 100% темноту в комнате, ткань рекомендуется ставить в кассетной системе с боковыми направляющими, которые исключают боковые просветы.',
+    question_uz: 'Blackout pardalari haqiqatan ham 100% qorong‘ilik beradimi?',
+    answer_uz: 'Blackout matosining o‘zi yorug‘likni mutlaqo o‘tkazmaydi (ichki maxsus qatlam evaziga 0% o‘tkazuvchanlik). Xonada to‘liq qorong‘ilikka erishish uchun matoni yon yo‘naltiruvchilari bor kassetali tizimda o‘rnatish tavsiya etiladi, shunda yon tirqishlardan ham nur kirmaydi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-008',
+    category: 'models',
+    subcategory: 'blackout',
+    keywords: ['блэкаут', 'жара', 'чилля', 'нагрев', 'chilla', 'issiqlik'],
+    question_ru: 'Помогают ли шторы Blackout снизить температуру в комнате в ташкентскую чиллю?',
+    answer_ru: 'Да, шторы Blackout отражают до 90–95% прямых солнечных и инфракрасных лучей. Поверхность стекла со стороны комнаты нагревается значительно меньше, что снижает температуру в помещении на 4–6°C и существенно снижает нагрузку на кондиционер в летний зной.',
+    question_uz: 'Blackout pardalari Toshkent chillasi paytida xona haroratini pasaytirishga yordam beradimi?',
+    answer_uz: 'Ha, Blackout pardalari to‘g‘ridan-to‘g‘ri tushayotgan quyosh va infraqizil nurlarning 90–95% qismini qaytaradi. Deraza oynasi qizib ketmaydi, bu esa xona haroratini 4–6°C gacha salqinroq saqlashga va konditsioner yuklamasini kamaytirishga yordam beradi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-009',
+    category: 'models',
+    subcategory: 'blackout',
+    keywords: ['блэкаут', 'белый', 'светлые тона', 'oq blackout'],
+    question_ru: 'Может ли светлая или белая ткань Blackout защищать от солнца так же хорошо, как черная?',
+    answer_ru: 'Да! Светонепроницаемость обеспечивается внутренней акриловой или металлизированной прослойкой между слоями ткани, а не внешним цветом. Поэтому белые, бежевые, пудровые и серебристые шторы Blackout блокируют свет точно так же на 100%, как и темные.',
+    question_uz: 'Oq yoki och rangli Blackout matosi qora rangli kabi quyoshdan to‘liq himoya qiladimi?',
+    answer_uz: 'Ha! Yorug‘lik o‘tkazmaslik tashqi rangga emas, balki mato qatlamlari orasidagi maxsus akril yoki metalllashtirilgan to‘siqqa bog‘liq. Shuning uchun oq, sarg‘ish (bej), och rangli Blackout pardalari ham qorong‘ilikni qora mato kabi 100% ta’minlaydi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-010',
+    category: 'models',
+    subcategory: 'blackout',
+    keywords: ['блэкаут', 'детская', 'сон', 'здоровье', 'uyqu'],
+    question_ru: 'Почему шторы Blackout рекомендуют для детских комнат и спален?',
+    answer_ru: 'Они стимулируют естественную выработку мелатонина (гормона сна), который вырабатывается только в полной темноте. Это особенно важно для дневного сна маленьких детей и людей, работающих в ночные смены или чувствительных к утреннему солнцу и ночным уличным фонарям.',
+    question_uz: 'Nima uchun Blackout pardalari yotoqxona va bolalar xonasi uchun tavsiya etiladi?',
+    answer_uz: 'Ular faqat to‘liq qorong‘ilikda ishlab chiqariladigan melatonin (uyqu gormoni) ajralishini ta’minlaydi. Bu yosh bolalarning kunduzgi orom olishi, tungi smenada ishlovchilar hamda ko‘cha fonarlari yoki erta tonggi quyoshdan uyg‘onib ketuvchilar uchun juda muhim.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-011',
+    category: 'models',
+    subcategory: 'blackout',
+    keywords: ['блэкаут', 'запах', 'экология', 'нагрев ткани', 'xidsiz'],
+    question_ru: 'Выделяют ли шторы Blackout неприятный запах при сильном нагреве на солнце?',
+    answer_ru: 'Качественные сертифицированные ткани COMBO.UZ абсолютно экологичны, не содержат токсичных пластификаторов и формальдегидов. Даже при температуре стекла свыше +60°C на палящем солнце ткань не плавится и не выделяет посторонних запахов.',
+    question_uz: 'Quyoshda qattiq qiziganida Blackout matolaridan yoqimsiz hid chiqmaydimi?',
+    answer_uz: 'COMBO.UZ sertifikatlangan sifatli matolardan foydalanadi, ularda toksik moddalar yoki formaldegidlar yo‘q. Jazirama quyoshda oyna +60°C dan oshib qizib ketganda ham matolar erimaydi va hech qanday hid chiqarmaydi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-012',
+    category: 'models',
+    subcategory: 'blackout',
+    keywords: ['блэкаут', 'димаут', 'dimout', 'разница', 'farqi'],
+    question_ru: 'В чем разница между шторами Блэкаут (Blackout) и Димаут (Dimout)?',
+    answer_ru: 'Blackout обеспечивает 100% светонепроницаемость (полную темноту). Dimout задерживает 75–85% света, мягко рассеивая оставшиеся 15%, создавая приятный полумрак без эффекта глухой ночи. Димаут отлично подходит для кабинетов и гостиных.',
+    question_uz: 'Blackout va Dimout pardalari orasidagi farq nimada?',
+    answer_uz: 'Blackout 100% yorug‘likni to‘sadi (mutlaq qorong‘ilik). Dimout esa yorug‘likning 75–85% qismini ushlab qolib, 15% ini muloyim sochib beradi va xonada yoqimli g‘ira-shira muhit hosil qiladi. Dimout mehmonxona va ish xonalari uchun ajoyib tanlov.',
+    requires_admin: false
+  },
+
+  // 1.3 Шторы Плиссе (Plisse) (5)
+  {
+    id: 'kb-013',
+    category: 'models',
+    subcategory: 'plisse',
+    keywords: ['плиссе', 'plisse', 'гармошка', 'снизу вверх', 'pastdan tepaga'],
+    question_ru: 'Что такое шторы Плиссе и чем они уникальны?',
+    answer_ru: 'Шторы Плиссе изготовлены из плиссированной (гофрированной гармошкой) ткани. Их главное преимущество — возможность открывания в двух направлениях («сверху-вниз» и «снизу-вверх»). Вы можете закрыть нижнюю часть окна от посторонних глаз с улицы, оставив верхнюю открытой для солнечного света.',
+    question_uz: 'Plisse (gofre) pardalari nima va ularning o‘ziga xosligi nimada?',
+    answer_uz: 'Plisse pardalari gofrirlangan (garmoshkasimon) maxsus matodan tayyorlanadi. Ularning asosiy afzalligi — ikki tomonga ham ochilish imkoniyati («tepadan pastga» va «pastdan tepaga»). Derazaning pastki qismini ko‘chadan ko‘rinmaslik uchun yopib, yuqori qismini quyosh nuri kirishi uchun ochiq qoldirishingiz mumkin.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-014',
+    category: 'models',
+    subcategory: 'plisse',
+    keywords: ['плиссе', 'первый этаж', 'приватность', '1-qavat'],
+    question_ru: 'Почему шторы Плиссе идеальны для первых этажей и частных домов?',
+    answer_ru: 'Благодаря функции «снизу-вверх» вы закрываете только нижнюю треть или половину окна. Прохожие с улицы не видят происходящее внутри, при этом комната остается светлой и открытой небу.',
+    question_uz: 'Nima uchun Plisse pardalari 1-qavatlar va hovli uylar uchun eng yaxshi yechim?',
+    answer_uz: '«Pastdan tepaga» ochish imkoniyati tufayli derazaning faqat pastki yarmini yopish mumkin. Ko‘chadagi odamlar ichkarini ko‘ra olmaydi, shu bilan birga xonaga osmondan tabiiy yorug‘lik to‘siqsiz tushib turadi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-015',
+    category: 'models',
+    subcategory: 'plisse',
+    keywords: ['плиссе', 'нестандартные окна', 'арка', 'трапеция', 'uchburchak deraza'],
+    question_ru: 'Подходят ли шторы Плиссе для нестандартных окон (арок, треугольников, трапеций)?',
+    answer_ru: 'Да, плиссе — единственная солнцезащитная система, которую можно изготовить практически на любую геометрическую форму окна: арки, полукруги, треугольники, трапеции, мансардные и потолочные окна зимних садов.',
+    question_uz: 'Plisse nostandart derazalarga (arka, uchburchak, trapetsiya) to‘g‘ri keladimi?',
+    answer_uz: 'Ha, Plisse — har qanday murakkab geometrik shakldagi derazalarga o‘rnatish mumkin bo‘lgan deyarli yagona tizim: arkalar, yarim doiralar, uchburchaklar, trapetsiyalar va mansarda derazalari.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-016',
+    category: 'models',
+    subcategory: 'plisse',
+    keywords: ['плиссе', 'стирка', 'уход плиссе', 'yuvish plisse'],
+    question_ru: 'Как ухаживать за шторами Плиссе?',
+    answer_ru: 'Большинство тканей плиссе имеют плотную пылеотталкивающую пропитку. Для регулярного ухода достаточно смахивать пыль перьевой метелкой или сухой тканью. Отдельные виды тканей плиссе допускается аккуратно замачивать в теплой воде до 30°C без отжима.',
+    question_uz: 'Plisse pardalarini qanday parvarish qilish kerak?',
+    answer_uz: 'Plisse matolari chang o‘tkazmaydigan qatlamga ega. Doimiy parvarish uchun cho‘tka yoki quruq mato bilan changini artish kifoya. Ayrim turdagi plisse matolarini 30°C gacha bo‘lgan iliq suvda siqmasdan yuvishga ruxsat beriladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-017',
+    category: 'models',
+    subcategory: 'plisse',
+    keywords: ['плиссе', 'компактность', 'толщина', 'yupqa'],
+    question_ru: 'Занимают ли шторы Плиссе много места на створке окна?',
+    answer_ru: 'Нет, в сложенном виде плиссе занимает всего около 4–5 см высоты, вплотную прилегая к стеклу между штапиками. Окно открывается на максимальный угол и ручка шторы не упирается в откос.',
+    question_uz: 'Plisse pardalari deraza romida ko‘p joy egallaydimi?',
+    answer_uz: 'Yo‘q, yig‘ilganda plisse atigi 4–5 sm joy oladi va oyna orasiga zich joylashadi. Deraza oxirigacha bemalol ochiladi va devor yoniga urilmaydi.',
+    requires_admin: false
+  },
+
+  // 1.4 Honeycomb (Сотовые шторы) (5)
+  {
+    id: 'kb-018',
+    category: 'models',
+    subcategory: 'honeycomb',
+    keywords: ['honeycomb', 'соты', 'термоизоляция', 'тепло', 'asalari uyasi'],
+    question_ru: 'Что такое шторы Honeycomb (сотовые шторы) и как они экономят тепло и холод?',
+    answer_ru: 'Шторы Honeycomb имеют ячеистую структуру в виде пчелиных сот. Внутри каждой соты формируется воздушная подушка, которая создает мощный термобарьер. Летом они не пускают раскаленный воздух от нагретого стекла в комнату, а зимой удерживают до 30% тепла внутри дома.',
+    question_uz: 'Honeycomb (asalari uyasi shaklidagi) pardalar nima va ular qanday energiya tejaydi?',
+    answer_uz: 'Honeycomb pardalari asalari uyasi kabi katakli tuzilishga ega. Har bir katak ichida havo qatlami hosil bo‘lib, kuchli termo-izolyatsiyani ta’minlaydi. Yozda qizigan deraza issig‘ini xonaga kiritmaydi, qishda esa xona issiqligining 30% gacha qismini saqlab qoladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-019',
+    category: 'models',
+    subcategory: 'honeycomb',
+    keywords: ['honeycomb', 'плиссе отличие', 'разница', 'farqi'],
+    question_ru: 'В чем разница между шторами Honeycomb и обычными Плиссе?',
+    answer_ru: 'Плиссе состоит из одного слоя зигзагообразной ткани со сквозными отверстиями под шнуры. Honeycomb — двухслойная ткань со скрытыми шнурами внутри воздушных сот. За счет этого у Honeycomb нет отверстий, через которые пробивается свет, и значительно выше тепло- и шумоизоляция.',
+    question_uz: 'Honeycomb va oddiy Plisse pardalari orasida qanday farq bor?',
+    answer_uz: 'Plisse bir qatlamli matodan iborat bo‘lib, iplar o‘tadigan teshiklari ko‘rinib turadi. Honeycomb esa ikki qatlamli bo‘lib, iplar kataklar ichida yashiringan. Shu sababli Honeycombda nur o‘tadigan teshiklar bo‘lmaydi hamda issiqlik va shovqin izolyatsiyasi ancha yuqori.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-020',
+    category: 'models',
+    subcategory: 'honeycomb',
+    keywords: ['honeycomb', 'звукоизоляция', 'шум', 'shovqin'],
+    question_ru: 'Помогают ли шторы Honeycomb снизить шум с улицы?',
+    answer_ru: 'Да, благодаря закрытым воздушным ячейкам сотовая структура Honeycomb эффективно поглощает звуковые волны, снижая внешний уличный шум от дорог и строек до 2–3 раз эффективнее обычных рулонных штор.',
+    question_uz: 'Honeycomb pardalari ko‘cha shovqinini kamaytirishga yordam beradimi?',
+    answer_uz: 'Ha, yopiq havo katakchalari evaziga Honeycomb tovush to‘lqinlarini yutadi va ko‘chadagi mashinalar yoki qurilish shovqinini oddiy rolikli pardalarga qaraganda ancha yaxshi pasaytiradi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-021',
+    category: 'models',
+    subcategory: 'honeycomb',
+    keywords: ['honeycomb', 'blackout', 'соты затемнение', 'qorongilatish'],
+    question_ru: 'Бывают ли шторы Honeycomb со 100% затемнением (Blackout)?',
+    answer_ru: 'Да! В модификации Honeycomb Blackout внутренняя поверхность каждой соты имеет фольгированное алюминиевое напыление. Это обеспечивает абсолютную темноту и максимальную защиту от нагрева на солнце.',
+    question_uz: 'Honeycomb pardalarining 100% qorong‘ilik beruvchi (Blackout) turi bormi?',
+    answer_uz: 'Ha! Honeycomb Blackout turida har bir katakchaning ichki yuzasi yupqa alyuminiy folga bilan qoplangan bo‘ladi. Bu mutlaq qorong‘ilikni va quyosh qizishidan maksimal himoyani ta’minlaydi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-022',
+    category: 'models',
+    subcategory: 'honeycomb',
+    keywords: ['honeycomb', 'пыль', 'чистка внутри сот', 'chang tozalash'],
+    question_ru: 'Не собирается ли пыль внутри сот штор Honeycomb?',
+    answer_ru: 'Ткани обрабатываются антистатическим составом, поэтому пыль не притягивается. Воздушный поток внутри ячеек закрыт по бокам. При необходимости соты легко продуваются обычным феном на холодном режиме или узкой насадкой пылесоса.',
+    question_uz: 'Honeycomb katakchalari ichiga chang to‘planib qolmaydimi?',
+    answer_uz: 'Matolar antistatik vosita bilan ishlangani sababli changni tortmaydi. Zarurat tug‘ilganda kataklar sovuq havoli fen yoki changyutgichning ingichka uchi bilan oson puflab tozalanadi.',
+    requires_admin: false
+  },
+
+  // 1.5 Double (Двойные рулонные шторы / Duo) (4)
+  {
+    id: 'kb-023',
+    category: 'models',
+    subcategory: 'double',
+    keywords: ['double', 'двойные рулонные', 'два вала', 'duo', 'ikkitalik'],
+    question_ru: 'Что представляют собой двойные рулонные шторы Double (Duo)?',
+    answer_ru: 'Шторы Double состоят из двух независимых рулонов ткани на одном сдвоенном кронштейне. Первое полотно обычно легкое полупрозрачное (тюль или светофильтр для дневного времени), а второе — плотный Blackout для ночного времени или кинопросмотра.',
+    question_uz: 'Double (Duo) ikkitalik rolikli pardalari qanday tuzilgan?',
+    answer_uz: 'Double pardalari bitta umumiy mahkamlagichdagi ikkita mustaqil mato rulonidan iborat. Birinchi mato odatda yengil yarim shaffof (kunduzgi vaqt uchun tul yoki quyosh filtri), ikkinchisi esa qalin Blackout (kechki vaqt yoki to‘liq qorong‘ilik uchun) bo‘ladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-024',
+    category: 'models',
+    subcategory: 'double',
+    keywords: ['double', 'управление', 'раздельное', 'boshqarish'],
+    question_ru: 'Как управляются двойные шторы Double?',
+    answer_ru: 'Каждое полотно управляется автономно: с двух сторон установлены отдельные цепочки (или пульты при моторизации). Вы можете опустить только тюлевое полотно, только блэкаут, оба вместе или поднять оба под потолок.',
+    question_uz: 'Double pardalari qanday boshqariladi?',
+    answer_uz: 'Har bir mato mustaqil boshqariladi: ikki tomondan alohida zanjirchalar (yoki motorli bo‘lsa pult) o‘rnatiladi. Siz faqat tulni, faqat qalin matoni yoki ikkalasini bir vaqtda tushirib-ko‘tarishingiz mumkin.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-025',
+    category: 'models',
+    subcategory: 'double',
+    keywords: ['double', 'замена штор', 'классические шторы', 'almashtirish'],
+    question_ru: 'Могут ли шторы Double полностью заменить комплект «тюль + портьеры»?',
+    answer_ru: 'Да, абсолютно! Double совмещает функции классической дневной тюли и ночных плотных портьер, но не собирает килограммы пыли, экономит место на подоконнике и не требует глажки и стирки.',
+    question_uz: 'Double pardalari an’anaviy «tul + parda» to‘plamini to‘liq almashtira oladimi?',
+    answer_uz: 'Ha, albatta! Double kunduzgi tul va tungi qalin pardalar vazifasini to‘liq bajaradi, shu bilan birga chang to‘plamaydi, deraza tokchasida joy tejaydi hamda dazmollash va yuvishni talab qilmaydi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-026',
+    category: 'models',
+    subcategory: 'double',
+    keywords: ['double', 'размеры', 'большие окна', 'katta derazalar'],
+    question_ru: 'Можно ли изготовить шторы Double на широкие панорамные окна?',
+    answer_ru: 'Да, мы изготавливаем системы Double как на отдельные оконные створки, так и цельными полотнами шириной до нескольких метров на весь оконный проем с усиленными металлическими валами.',
+    question_uz: 'Katta panoramali derazalarga Double pardalarini tayyorlash mumkinmi?',
+    answer_uz: 'Ha, biz Double tizimlarini alohida deraza tabaqalariga ham, butun darcha bo‘ylab kengligi bir necha metrgacha bo‘lgan baquvvat metall vallar yordamida ham tayyorlab beramiz.',
+    requires_admin: false
+  },
+
+  // 1.6 Тюлевые шторы / шторы-тюль (4)
+  {
+    id: 'kb-027',
+    category: 'models',
+    subcategory: 'tulle',
+    keywords: ['тюлевые', 'шторы-тюль', 'жалюзи-тюль', 'вертикальный тюль', 'tul pardalar'],
+    question_ru: 'Что такое жалюзи-тюль (тюлевые шторы COMBO.UZ)?',
+    answer_ru: 'Это инновационная система, сочетающая уют струящейся прозрачной тюли и функционал вертикальных жалюзи. Тканевые ламели соединены тончайшей вуалью. Поворотом цепочки ламели поворачиваются, регулируя свет от мягкого рассеивания до плотной защиты от посторонних глаз.',
+    question_uz: 'Jalyuzi-tul (COMBO.UZ tul pardalari) nima?',
+    answer_uz: 'Bu mayin to‘kiluvchi shaffof tul go‘zalligi va vertikal jalyuzining funksionalligini o‘zida mujassam etgan zamonaviy tizimdir. Mato lamellari nozik vual bilan tutashtirilgan. Zanjirni burish orqali lamellar burilib, yorug‘likni yumshoq o‘tkazadi yoki xonani begona ko‘zlardan to‘liq to‘sadi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-028',
+    category: 'models',
+    subcategory: 'tulle',
+    keywords: ['тюлевые', 'выход на балкон', 'проход', 'eshik'],
+    question_ru: 'Удобны ли тюлевые жалюзи при выходе на балкон или террасу?',
+    answer_ru: 'Да, это одно из их ключевых достоинств! В отличие от сплошного полотна рулонных штор, через ламели тюлевых штор можно свободно пройти на балкон в любом месте, просто отодвинув рукой ткань — полотно само плавно вернется на место.',
+    question_uz: 'Balkon yoki terrasaga chiqishda tul jalyuzilari qulaymi?',
+    answer_uz: 'Ha, bu ularning eng katta afzalliklaridan biri! Yaxlit rolikli pardalardan farqli o‘laroq, tul jalyuzilarining istalgan joyidan qo‘l bilan matoni surib bemalol o‘tish mumkin — mato o‘z-o‘zidan joyiga ravon qaytadi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-029',
+    category: 'models',
+    subcategory: 'tulle',
+    keywords: ['тюлевые', 'стирка ламелей', 'чистка тюль', 'yuvish'],
+    question_ru: 'Как стирать тюлевые жалюзи?',
+    answer_ru: 'Каждая ламель с тюлевой вставкой снимается с карниза индивидуально. Их можно бережно стирать вручную или в мешке для деликатной стирки при 30°C без отжима, а затем повесить влажными обратно на карниз для высыхания без глажки.',
+    question_uz: 'Tul jalyuzilarni qanday yuvish mumkin?',
+    answer_uz: 'Har bir tulli lamel karnizdan alohida yechib olinadi. Ularni 30°C da siqmasdan qo‘lda yoki nozik yuvish xaltasida yuvish va dazmollamasdan nam holatda karnizga osib qo‘yish mumkin.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-030',
+    category: 'models',
+    subcategory: 'tulle',
+    keywords: ['тюлевые', 'интерьер', 'классика', 'дизайн', 'interyer'],
+    question_ru: 'В каких интерьерах лучше смотрятся тюлевые шторы?',
+    answer_ru: 'Они великолепно смотрятся в просторных гостиных, залах, спальнях и столовых в стилях неоклассика, модерн и минимализм, придавая комнате благородную легкость и визуально увеличивая высоту потолков.',
+    question_uz: 'Tul jalyuzilari qanday interyerlarga mos tushadi?',
+    answer_uz: 'Ular keng mehmonxonalar, zallar, yotoqxonalar va oshxonalarda neoklassika, modern va minimalizm uslublarida juda nafis ko‘rinadi, xonaga yengillik berib, shiftni vizual balandroq ko‘rsatadi.',
+    requires_admin: false
+  },
+
+  // 1.7 Римские шторы (Roman blinds) (5)
+  {
+    id: 'kb-031',
+    category: 'models',
+    subcategory: 'roman',
+    keywords: ['римские шторы', 'складки', 'римка', 'rim pardalari'],
+    question_ru: 'Что такое римские шторы и как формируются их складки?',
+    answer_ru: 'Римские шторы — это ровное тканевое полотно, которое при подъеме собирается в элегантные горизонтальные глубокие складки благодаря встроенным стержням (кордам). Они сочетают лаконичность жалюзи с теплом и роскошью классического текстиля.',
+    question_uz: 'Rim pardalari nima va ularning taxlamalari qanday hosil bo‘ladi?',
+    answer_uz: 'Rim pardalari — ko‘tarilganda maxsus mustahkam qovurg‘alar (sterjenlar) hisobiga tekis va jozibali gorizontal taxlamalar hosil qiluvchi matoli pardalardir. Ular jalyuzining ixchamligi va an’anaviy pardalarning boy hashamatini o‘zida birlashtiradi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-032',
+    category: 'models',
+    subcategory: 'roman',
+    keywords: ['римские шторы', 'кухня', 'подоконник', 'oshxona'],
+    question_ru: 'Почему римские шторы так популярны для кухонь?',
+    answer_ru: 'Они доходят ровно до подоконника, оставляя рабочую поверхность свободной. Римские шторы не раздуваются ветром в сторону плиты (в отличие от длинных гардин), безопасны и легко поднимаются на любую высоту при готовке.',
+    question_uz: 'Nima uchun Rim pardalari oshxona uchun juda ommabop?',
+    answer_uz: 'Ular deraza tokchasigacha tushadi va stol maydonini bo‘sh qoldiradi. Uzun pardalardan farqli o‘laroq shamolda gaz plitasi tomon uchmaydi, xavfsiz va ovqat pishirish paytida istalgan balandlikka ko‘tarib qo‘yiladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-033',
+    category: 'models',
+    subcategory: 'roman',
+    keywords: ['римские шторы', 'ткани', 'натуральные', 'лен', 'len mato'],
+    question_ru: 'Из каких тканей изготавливаются римские шторы COMBO.UZ?',
+    answer_ru: 'Для римских штор используются портьерные, жаккардовые, льняные, бархатные и смесовые ткани европейского и турецкого производства со специальной формоустойчивой пропиткой, чтобы складки держали безупречную геометрию.',
+    question_uz: 'COMBO.UZ Rim pardalari uchun qaysi matolardan foydalanadi?',
+    answer_uz: 'Rim pardalari uchun Yevropa va Turkiyaning jakkard, zig‘ir (len), baxmal va aralash maxsus matolari ishlatiladi. Ular taxlamalar shaklini mukammal saqlashi uchun maxsus ishlovdan o‘tkazilgan.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-034',
+    category: 'models',
+    subcategory: 'roman',
+    keywords: ['римские шторы', 'стирка', 'как снять', 'yechib olish'],
+    question_ru: 'Можно ли стирать римские шторы?',
+    answer_ru: 'Да, полотно римской шторы крепится к карнизу на липучке Velcro. Вы легко отсоединяете ткань, вынимаете направляющие планки и стираете полотно в соответствии с рекомендациями для данного типа ткани (деликатный режим 30°C).',
+    question_uz: 'Rim pardalarini yuvish mumkinmi?',
+    answer_uz: 'Ha, Rim pardasi karnizga Velcro (yopishqoq tasma) orqali biriktiriladi. Siz matoni osongina ajratib olasiz, ichidagi taxtachalarni chiqarasiz va mato turiga mos nozik tartibda 30°C da yuvasiz.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-035',
+    category: 'models',
+    subcategory: 'roman',
+    keywords: ['римские шторы', 'карниз', 'цепочный механизм', 'karniz'],
+    question_ru: 'Какой карниз используется для римских штор?',
+    answer_ru: 'Мы используем специальный закрытый алюминиевый римский карниз со скрытыми подъемными блоками и роторно-цепочным управлением. Это гарантирует плавный подъем складок без перекосов и заеданий.',
+    question_uz: 'Rim pardalari uchun qanday karniz ishlatiladi?',
+    answer_uz: 'Biz ichki ko‘tarish bloklari va zanjirli boshqaruvga ega bo‘lgan maxsus yopiq alyuminiy Rim karnizlaridan foydalanamiz. Bu qing‘ir-qiyshiq bo‘lmasdan tekis va ravon ko‘tarilishni ta’minlaydi.',
+    requires_admin: false
+  },
+
+  // 1.8 Горизонтальные алюминиевые жалюзи (3)
+  {
+    id: 'kb-036',
+    category: 'models',
+    subcategory: 'aluminum',
+    keywords: ['горизонтальные', 'алюминиевые', '16мм', '25мм', 'alyuminiy jalyuzi'],
+    question_ru: 'В чем преимущества горизонтальных алюминиевых жалюзи?',
+    answer_ru: 'Алюминиевые жалюзи — классика функциональности. Они на 100% влагостойкие, не впитывают жир и запахи, не горят и выдерживают перепады температур. Идеальны для влажных зон, кухонь, санузлов, лабораторий и офисных перегородок.',
+    question_uz: 'Gorizontal alyuminiy jalyuzilarning afzalliklari nimada?',
+    answer_uz: 'Alyuminiy jalyuzilar — chidamlilikning klassik namunasi. Ular 100% suvga chidamli, yog‘ va hidlarni o‘ziga tortmaydi, yonmaydi va harorat o‘zgarishiga bardoshli. Oshxona, hammom, laboratoriya va ofis to‘siqlari uchun eng yaxshi variant.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-037',
+    category: 'models',
+    subcategory: 'aluminum',
+    keywords: ['алюминиевые', 'цвета', 'гамма', 'ranglar'],
+    question_ru: 'Бывают ли цветные алюминиевые жалюзи, кроме белых?',
+    answer_ru: 'Да, в нашей палитре более 50 оттенков: матовые, глянцевые, металлик, перфорированные (создающие мягкий рассеянный свет) и ламели с текстурой под натуральное дерево.',
+    question_uz: 'Oq rangdan tashqari boshqa rangli alyuminiy jalyuzilar bormi?',
+    answer_uz: 'Ha, bizning assortimentimizda 50 dan ortiq ranglar mavjud: xira (matoviy), yaltiroq, metallik, teshikchali (muloyim yorug‘lik beruvchi) hamda tabiiy yog‘och naqshli lamellar.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-038',
+    category: 'models',
+    subcategory: 'aluminum',
+    keywords: ['алюминиевые', 'чистка', 'мытье', 'yuvish'],
+    question_ru: 'Как мыть алюминиевые жалюзи от пыли и жира?',
+    answer_ru: 'Их можно протирать влажной тряпкой или губкой с мыльным раствором прямо на окне. При сильном загрязнении на кухне их можно легко снять с креплений и промыть под струей теплого душа в ванной.',
+    question_uz: 'Alyuminiy jalyuzilarni chang va yog‘dan qanday tozalash kerak?',
+    answer_uz: 'Ularni to‘g‘ridan-to‘g‘ri derazada sovunli suvga botirilgan nam mato yoki gubka bilan artish mumkin. Oshxonada qattiq kirlanganda esa mahkamlagichidan yechib, dush tagida iliq suv bilan yuvib tashlash mumkin.',
+    requires_admin: false
+  },
+
+  // 1.9 Вертикальные тканевые жалюзи (3)
+  {
+    id: 'kb-039',
+    category: 'models',
+    subcategory: 'wood_vertical',
+    keywords: ['вертикальные', 'тканевые', 'офис', 'школа', 'ofis jalyuzi'],
+    question_ru: 'Для каких помещений подходят вертикальные тканевые жалюзи?',
+    answer_ru: 'Вертикальные жалюзи шириной 89 мм и 127 мм — наиболее экономичное и практичное решение для больших оконных проемов в офисах, учебных заведениях, медицинских центрах, банках и конференц-залах.',
+    question_uz: 'Vertikal matoli jalyuzilar qaysi binolar uchun mos keladi?',
+    answer_uz: 'Kengligi 89 mm va 127 mm bo‘lgan vertikal jalyuzilar ofislar, o‘quv markazlari, tibbiyot muassasalari, banklar va majlislar zallaridagi katta deraza maydonlari uchun eng tejamkor va qulay yechimdir.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-040',
+    category: 'models',
+    subcategory: 'wood_vertical',
+    keywords: ['вертикальные', 'управление', 'сдвиг', 'burish'],
+    question_ru: 'Как работают вертикальные жалюзи?',
+    answer_ru: 'Они имеют двойное управление: цепочка плавно поворачивает вертикальные полосы вокруг своей оси на 180°, точно направляя солнечный свет, а шнур сдвигает все полосы в сторону (к управлению, от управления или от центра в стороны).',
+    question_uz: 'Vertikal jalyuzilar qanday ishlaydi?',
+    answer_uz: 'Ular ikki tomonlama boshqaruvga ega: zanjir mato chiziqlarini o‘z o‘qi atrofida 180° ga burib yorug‘lik burchagini sozlaydi, ip esa lamellarni chetga (boshqaruv tomoniga, teskari tomonga yoki markazdan ikki chetga) to‘liq suradi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-041',
+    category: 'models',
+    subcategory: 'wood_vertical',
+    keywords: ['вертикальные', 'замена полосы', 'ремонт', 'lamel almashtirish'],
+    question_ru: 'Что делать, если одна полоса вертикальных жалюзи порвалась или испачкалась?',
+    answer_ru: 'Вам не нужно менять все жалюзи целиком! Каждая вертикальная ламель подвешена независимо. Вы можете заказать у нас замену одной или нескольких поврежденных полос по минимальной стоимости.',
+    question_uz: 'Agar vertikal jalyuzining bitta chizig‘i yirtilsa yoki kirlansa nima qilish kerak?',
+    answer_uz: 'Butun jalyuzini almashtirish shart emas! Har bir mato chizig‘i alohida ilingan. Siz bizdan aynan shikastlangan bitta yoki bir nechta lamelni arzon narxda qayta buyurtma qilishingiz mumkin.',
+    requires_admin: false
+  },
+
+  // =========================================================================
+  // 2. ЗАМЕРЫ И УСТАНОВКА (42-56) (15)
+  // =========================================================================
+
+  {
+    id: 'kb-042',
+    category: 'measuring_install',
+    subcategory: 'measure_visit',
+    keywords: ['замерщик', 'выезд замерщика', 'бесплатно', 'каталоги', 'olchovchi bepul'],
+    question_ru: 'Сколько стоит выезд замерщика с каталогами образцов в COMBO.UZ?',
+    answer_ru: 'Выезд мастера-замерщика по городу Ташкенту осуществляется бесплатно. Мастер привозит с собой все физические каталоги тканей и образцы систем, точно замеряет окна лазерной рулеткой и помогает подобрать оттенок под ваш интерьер.',
+    question_uz: 'COMBO.UZ da namunalar bilan o‘lchovchi ustaning kelishi qancha turadi?',
+    answer_uz: 'Toshkent shahri bo‘ylab o‘lchovchi ustaning tashrifi mutlaqo bepul. Usta o‘zi bilan barcha mato kataloglari va tizim namunalarini olib keladi, lazerli o‘lchagich bilan derazalaringizni aniq o‘lchaydi va interyeringizga mos matoni tanlashga yordam beradi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-043',
+    category: 'measuring_install',
+    subcategory: 'self_measure',
+    keywords: ['замер сам', 'как замерить', 'рулетка', 'штапик', 'mustaqil olchash'],
+    question_ru: 'Как правильно замерить окно для заказа жалюзи самостоятельно?',
+    answer_ru: 'Для установки на створку измерьте ширину и высоту стекла вместе со штапиками (видимая часть стекла + пластиковые штапики по краям) с точностью до миллиметра. Для установки в проем измерьте ширину и высоту проема в 3 точках и назовите минимальное значение.',
+    question_uz: 'Buyurtma uchun derazani o‘zim qanday to‘g‘ri o‘lchasam bo‘ladi?',
+    answer_uz: 'Tabaqaga o‘rnatish uchun oynaning eni va bo‘yini shtapiklar bilan birga (ko‘rinadigan oyna + chetki plastik qismlari) millimetrgacha o‘lchang. Butun devor darchasiga o‘rnatish uchun esa darchaning eni va bo‘yini 3 ta joydan o‘lchab, eng kichik qiymatini oling.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-044',
+    category: 'measuring_install',
+    subcategory: 'akfa_no_drill',
+    keywords: ['без сверления', 'akfa', 'скотч 3m', 'гарантия на окна', 'teshmasdan'],
+    question_ru: 'Можно ли установить рулонные шторы на рамы Akfa / Imzo без сверления?',
+    answer_ru: 'Да! Мы предлагаем установку на специальные зажимные накидные кронштейны (на открывающиеся створки) или на усиленный монтажный двусторонний скотч 3M (Германия/США). Пластиковый профиль и стеклопакет не сверлятся, заводская гарантия на окна полностью сохраняется.',
+    question_uz: 'Akfa / Imzo romlariga teshmasdan rolikli parda o‘rnatsa bo‘ladimi?',
+    answer_uz: 'Ha! Biz ochiladigan tabaqalar uchun maxsus qisqichli kronshteynlar yoki maxsus 3M kuchaytirilgan ikki tomonlama skotch orqali o‘rnatishni taklif qilamiz. Rom teshilmaydi va derazangizning zavod kafolati to‘liq saqlanib qoladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-045',
+    category: 'measuring_install',
+    subcategory: 'tilt_window',
+    keywords: ['откидное окно', 'струна', 'магниты', 'проветривание', 'shamollatish tabaqasi'],
+    question_ru: 'Как фиксируются шторы на окне при режиме проветривания?',
+    answer_ru: 'Мы используем два типа фиксации: натяжные лески (струны), проходящие сквозь нижнюю планку шторы вдоль рамы, либо нижние неодимовые магниты, которые удерживают планку у нижнего края створки при откидывании.',
+    question_uz: 'Oynani shamollatishga ochganda parda qanday qilib qimirlamay turadi?',
+    answer_uz: 'Biz ikki xil mahkamlashdan foydalanamiz: parda chetlaridan o‘tuvchi maxsus tarang leskalar (torlar) yoki pastki qismiga o‘rnatiladigan neodim magnitlari.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-046',
+    category: 'measuring_install',
+    subcategory: 'measure_districts',
+    keywords: ['районы', 'область', 'куда выезжаете', 'toshkent tumanlari'],
+    question_ru: 'В какие районы Ташкента выезжает замерщик COMBO.UZ?',
+    answer_ru: 'Наши мастера выезжают во все 12 районов г. Ташкента (Юнусабад, Чиланзар, Мирзо-Улугбек, Яккасарай, Мирабад, Шайхантахур, Алмазар, Учтепа, Яшнабад, Сергели, Бектемир, Янгихаёт). [Условия выезда за пределы Ташкентской кольцевой дороги и в область уточняются администратором].',
+    question_uz: 'COMBO.UZ o‘lchovchilari Toshkentning qaysi tumanlariga boradi?',
+    answer_uz: 'Bizning ustalarimiz Toshkent shahrining barcha 12 ta tumaniga (Yunusobod, Chilonzor, Mirzo Ulug‘bek, Yakkasaroy, Mirobod, Shayxontohur, Olmazor, Uchtepa, Yashnobod, Sergeli, Bektemir, Yangihayot) bepul boradi. [Katta halqa yo‘lidan tashqariga va viloyatga chiqish shartlari administrator tomonidan to‘ldirilishi kerak].',
+    requires_admin: true
+  },
+  {
+    id: 'kb-047',
+    category: 'measuring_install',
+    subcategory: 'install_time',
+    keywords: ['время установки', 'сколько длится монтаж', 'ornatish vaqti'],
+    question_ru: 'Сколько времени занимает установка жалюзи на одно окно?',
+    answer_ru: 'В среднем опытный мастер монтирует одну штору за 10–15 минут. Стандартная 3-комнатная квартира с 4–5 окнами полностью оборудуется под ключ за 1–1.5 часа без строительной пыли и грязи.',
+    question_uz: 'Bitta derazaga jalyuzi o‘rnatish qancha vaqt oladi?',
+    answer_uz: 'O‘rtacha bitta pardani o‘rnatish tajribali usta tomonidan 10–15 daqiqa davom etadi. 4–5 derazali standart xonadon 1–1.5 soat ichida chang va chiqindilarsiz to‘liq tayyor bo‘ladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-048',
+    category: 'measuring_install',
+    subcategory: 'mount_types',
+    keywords: ['куда крепить', 'в проем', 'на стену', 'к потолку', 'shiftga devorga'],
+    question_ru: 'Куда можно прикрепить рулонные шторы — к створке, на стену или к потолку?',
+    answer_ru: 'Возможны любые варианты монтажа в зависимости от конструкции окна и интерьера: на каждую створку окна индивидуально (освобождает подоконник), в накладку на стену над проемом, или к потолку (для перекрытия всего оконного блока).',
+    question_uz: 'Rolikli pardalarni qayerga mahkamlash mumkin — tabaqagami, devorgami yoki shiftgami?',
+    answer_uz: 'Deraza tuzilishi va xohishingizga qarab barcha usullar mavjud: har bir tabaqaga alohida (deraza tokchasini bo‘sh qoldiradi), darcha ustidagi devorga yoki shiftga mahkamlash.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-049',
+    category: 'measuring_install',
+    subcategory: 'clean_install',
+    keywords: ['грязь', 'пылесос', 'чистый монтаж', 'chang bolmaydimi'],
+    question_ru: 'Останется ли строительная пыль и грязь после установки жалюзи?',
+    answer_ru: 'Наши монтажники работают аккуратно с пылеуловителями и профессиональным инструментом. При монтаже без сверления пыль отсутствует вовсе. После установки мастер убирает за собой весь упаковочный материал.',
+    question_uz: 'O‘rnatishdan keyin uyda chang va axlat qoladimi?',
+    answer_uz: 'Bizning ustalarimiz changyutgich va professional asboblar bilan toza ishlaydi. Teshmasdan o‘rnatilganda esa chang umuman bo‘lmaydi. Ish yakunlangach, usta barcha qadoq qoldiqlarini yig‘ishtirib oladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-050',
+    category: 'measuring_install',
+    subcategory: 'arch_window',
+    keywords: ['арочные окна', 'арка', 'полукруг', 'arka deraza'],
+    question_ru: 'Можно ли изготовить жалюзи на арочные или полукруглые окна?',
+    answer_ru: 'Да, идеальным решением для арочных окон являются шторы Плиссе в форме веера (арочные веерные плиссе) или жалюзи индивидуального раскроя. Мастер выполняет точный радиальный шаблон на замере.',
+    question_uz: 'Arkali yoki yarim doira derazalarga jalyuzi yasash mumkinmi?',
+    answer_uz: 'Ha, arkali derazalar uchun yelpig‘ichsimon Plisse pardalari eng ideal yechimdir. O‘lchov paytida usta derazaning aniq radiusli qolipini chizib oladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-051',
+    category: 'measuring_install',
+    subcategory: 'panoramic',
+    keywords: ['панорамные окна', 'витражи', 'высокие окна', 'katta vitrina'],
+    question_ru: 'Делаете ли вы жалюзи на большие панорамные и витражные окна в пол?',
+    answer_ru: 'Да! Мы проектируем усиленные солнцезащитные системы для панорамного остекления коттеджей, офисов и видовых квартир. Для полотен высотой от 3 метров и шириной от 2.5 метров мы рекомендуем моторизованные системы Dooya или Somfy с дистанционным управлением.',
+    question_uz: 'Polgacha bo‘lgan katta panoramali va vitrinali derazalarga jalyuzi qilasizlarmi?',
+    answer_uz: 'Ha! Biz hovlilar, zamonaviy kottejlar va ofislarning vitrina oynalari uchun kuchaytirilgan tizimlarni tayyorlaymiz. Balandligi 3 metrdan va eni 2.5 metrdan oshadigan oynalar uchun pultli Dooya yoki Somfy motorli tizimlarini tavsiya qilamiz.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-052',
+    category: 'measuring_install',
+    subcategory: 'balcony_slide',
+    keywords: ['раздвижные окна', 'балкон раздвижка', 'слайдер', 'suriladigan deraza'],
+    question_ru: 'Как установить жалюзи на алюминиевые раздвижные окна на балконе?',
+    answer_ru: 'На раздвижные створки нельзя крепить обычные выступающие кассеты, так как створка не сможет сдвинуться. В этом случае мы устанавливаем шторы Плиссе с минимальным выносом профиля (до 18 мм) либо крепим рулонные шторы к потолку над окном.',
+    question_uz: 'Balkondagi suriladigan alyuminiy derazalarga qanday o‘rnatiladi?',
+    answer_uz: 'Suriladigan romlarga bo‘rtib turadigan oddiy kassetalarni o‘rnatib bo‘lmaydi, chunki oyna surilmay qoladi. Bunday holatda biz romdan atigi 18 mm bo‘rtib turuvchi Plisse pardalarini qo‘yamiz yoki pardani shiftga o‘rnatamiz.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-053',
+    category: 'measuring_install',
+    subcategory: 'handle_clearance',
+    keywords: ['ручка окна', 'цепляет ручку', 'мешает ручка', 'tutqichga tegadi'],
+    question_ru: 'Не будет ли штора мешать повороту оконной ручки?',
+    answer_ru: 'При профессиональном замере мастер точно учитывает расстояние от края штапика до оконной ручки. При необходимости используются специальные выносные подложки или система монтируется с отступом в несколько миллиметров, чтобы ручка вращалась свободно.',
+    question_uz: 'Parda deraza tutqichini (ruchkasini) burashga xalaqit bermaydimi?',
+    answer_uz: 'Professional o‘lchov paytida usta shtapik chetidan tutqichgacha bo‘lgan masofani aniq hisobga oladi. Tutqich erkin burilishi uchun maxsus bir necha millimetrli masofa qoldiriladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-054',
+    category: 'measuring_install',
+    subcategory: 'measure_booking',
+    keywords: ['записаться на замер', 'как вызвать мастера', 'olchovga yozilish'],
+    question_ru: 'Как быстро вызвать замерщика COMBO.UZ?',
+    answer_ru: 'Вы можете нажать кнопку «Записаться на замер» на сайте, указать имя, телефон и район, либо написать нашему AI-консультанту в чате. Менеджер свяжется с вами в течение 10–15 минут для согласования удобного часа приезда мастера.',
+    question_uz: 'COMBO.UZ o‘lchovchisini qanday chaqirish mumkin?',
+    answer_uz: 'Saytdagi «O‘lchovga yozilish» tugmasini bosib ismingiz, telefoningiz va tumaningizni qoldirishingiz yoki shu chatda AI-konsultantimizga yozishingiz kifoya. Menejer 10–15 daqiqa ichida qulay vaqtni kelishish uchun bog‘lanadi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-055',
+    category: 'measuring_install',
+    subcategory: 'weekend_measure',
+    keywords: ['выходные', 'вечер', 'воскресенье', 'dam olish kunlari'],
+    question_ru: 'Выезжает ли замерщик в выходные дни или в вечернее время?',
+    answer_ru: 'Да, наши замерщики работают без выходных, включая субботу и воскресенье, а также в вечерние часы до 20:00, чтобы вам не приходилось отпрашиваться с работы.',
+    question_uz: 'O‘lchovchi dam olish kunlari yoki kechqurun kela oladimi?',
+    answer_uz: 'Ha, bizning ustalarimiz haftaning 7 kuni, shanba va yakshanba kunlari hamda ishdan keyin soat 20:00 gacha xizmatingizda bo‘ladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-056',
+    category: 'measuring_install',
+    subcategory: 'self_install',
+    keywords: ['установить самому', 'самостоятельный монтаж', 'ozim ornatsam'],
+    question_ru: 'Могу ли я забрать готовые шторы и установить их самостоятельно?',
+    answer_ru: 'Да, все изделия COMBO.UZ поставляются в собранном виде в комплекте с универсальными крепежными элементами и подробной инструкцией. Однако мы рекомендуем воспользоваться услугой профессионального монтажа для сохранения полной гарантии.',
+    question_uz: 'Tayyor pardalarni olib ketib, o‘zim o‘rnatsam bo‘ladimi?',
+    answer_uz: 'Ha, COMBO.UZ ning barcha mahsulotlari yig‘ilgan holda, to‘liq mahkamlagichlar va ko‘rsatma bilan birga beriladi. Biroq to‘liq kafolat saqlanishi uchun professional o‘rnatish xizmatidan foydalanishni tavsiya qilamiz.',
+    requires_admin: false
+  },
+
+  // =========================================================================
+  // 3. ЦЕНЫ, СКИДКИ И РАСЧЕТЫ (57-68) (12)
+  // =========================================================================
+
+  {
+    id: 'kb-057',
+    category: 'pricing_discounts',
+    subcategory: 'price_formula',
+    keywords: ['как считается цена', 'формула цены', 'за квадрат', 'hisoblash formulasi'],
+    question_ru: 'Как рассчитывается стоимость жалюзи и рулонных штор?',
+    answer_ru: 'Стоимость рассчитывается исходя из площади полотна: Ширина (м) × Высота (м) × Цена выбранной ткани за 1 м². В соответствии с производственным стандартом минимальная расчетная площадь одного изделия составляет 1.0 м² (даже если окно меньше, расход фурнитуры и обрезков ткани рассчитывается как за 1 м²). [Точные цены за м² по линейкам продукции уточняются администратором].',
+    question_uz: 'Jalyuzi va rolikli pardalar narxi qanday hisoblanadi?',
+    answer_uz: 'Narx maydon bo‘yicha hisoblanadi: Eni (m) × Bo‘yi (m) × Tanlangan matoning 1 m² narxi. Ishlab chiqarish standarti bo‘yicha har bir dona mahsulotning minimal hisob maydoni 1.0 m² ni tashkil etadi (kichik oynalarda ham qismlar 1 m² hisobida olinadi). [Katalog bo‘yicha aniq narxlar administrator tomonidan to‘ldirilishi kerak].',
+    requires_admin: true
+  },
+  {
+    id: 'kb-058',
+    category: 'pricing_discounts',
+    subcategory: 'why_no_fixed_price',
+    keywords: ['почему нет фиксированной цены', 'сколько стоит на стандартное окно', 'aniq narx'],
+    question_ru: 'Почему нельзя назвать точную цену без замера окон?',
+    answer_ru: 'Все изделия COMBO.UZ производятся по индивидуальным размерам с точностью до 1 мм. В типовых домах Ташкента окна часто отличаются на 2–5 см. Кроме того, цена зависит от выбранной коллекции ткани (в каталоге более 300 вариантов от бюджетных до премиум-жаккарда) и типа механизма. [Точная стоимость рассчитывается после выбора ткани на замере].',
+    question_uz: 'Nima uchun deraza o‘lchamini bilmasdan aniq narx aytib bo‘lmaydi?',
+    answer_uz: 'COMBO.UZ barcha mahsulotlarni har bir deraza uchun 1 mm gacha aniqlikda individual tayyorlaydi. Hatto bir xil domlarda ham derazalar 2–5 sm farq qiladi. Shuningdek, narx siz tanlagan mato toifasi (300 dan ortiq turlari bor) va mexanizm turiga bog‘liq. [Aniq narx o‘lchovdan so‘ng hisoblab beriladi].',
+    requires_admin: true
+  },
+  {
+    id: 'kb-059',
+    category: 'pricing_discounts',
+    subcategory: 'volume_discount',
+    keywords: ['скидка', 'на объем', 'от 3 окон', 'коттедж скидка', 'chegirma'],
+    question_ru: 'Есть ли у вас скидки при заказе жалюзи на всю квартиру или коттедж?',
+    answer_ru: 'Да! При заказе жалюзи на несколько окон действуют прогрессивные скидки от объема, а также бесплатная доставка и монтаж. [Точный процент скидок от количества окон и суммы заказа уточняется администратором].',
+    question_uz: 'Butun xonadon yoki hovli uchun buyurtma berganda chegirmalar bormi?',
+    answer_uz: 'Ha! Bir nechta deraza uchun buyurtma berilganda hajmga qarab ortib boruvchi chegirmalar, shuningdek bepul yetkazish va o‘rnatish amal qiladi. [Buyurtma hajmiga qarab aniq chegirma foizlari administrator tomonidan to‘ldirilishi kerak].',
+    requires_admin: true
+  },
+  {
+    id: 'kb-060',
+    category: 'pricing_discounts',
+    subcategory: 'payment_methods',
+    keywords: ['оплата', 'click', 'payme', 'uzum', 'карты', 'перечисление', 'tolov usullari'],
+    question_ru: 'Какие способы оплаты вы принимаете в COMBO.UZ?',
+    answer_ru: 'Мы принимаем все удобные способы оплаты в сумах (UZS): мобильные платежи через Click, Payme, Uzum Bank, банковские карты Uzcard и Humo, наличный расчет мастеру по факту, а также оплату по безналичному расчету (перечислением) для юридических лиц с предоставлением электронных счетов-фактур.',
+    question_uz: 'COMBO.UZ qanday to‘lov turlarini qabul qiladi?',
+    answer_uz: 'Biz so‘mda barcha qulay to‘lov usullarini qabul qilamiz: Click, Payme, Uzum Bank ilovalari, Uzcard va Humo kartalari, usta o‘rnatgandan so‘ng naqd pul, shuningdek yuridik shaxslar uchun elektron hisob-faktura (Didox) orqali pul o‘tkazish yo‘li bilan.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-061',
+    category: 'pricing_discounts',
+    subcategory: 'prepayment',
+    keywords: ['предоплата', 'аванс', 'avans', 'oldindan tolov'],
+    question_ru: 'Нужна ли предоплата при оформлении заказа?',
+    answer_ru: 'Поскольку каждое изделие изготавливается по вашим индивидуальным размерам, при оформлении договора вносится предоплата. [Точный размер предоплаты в процентах уточняется администратором], а оставшаяся часть оплачивается после завершения монтажа и проверки работы.',
+    question_uz: 'Buyurtma berishda oldindan to‘lov (avans) kerakmi?',
+    answer_uz: 'Har bir mahsulot sizning maxsus o‘lchamlaringiz bo‘yicha tayyorlangani sababli shartnoma tuzishda avans kiritiladi. [Aniq avans foizi administrator tomonidan to‘ldirilishi kerak], qolgan qismi esa o‘rnatib topshirilgach to‘lanadi.',
+    requires_admin: true
+  },
+  {
+    id: 'kb-062',
+    category: 'pricing_discounts',
+    subcategory: 'free_install_conditions',
+    keywords: ['бесплатный монтаж', 'сколько стоит установка', 'ornatish bepulmi'],
+    question_ru: 'В каких случаях установка жалюзи выполняется бесплатно?',
+    answer_ru: 'Установка предоставляется бесплатно при выполнении условий акции по объему заказа. [Минимальное количество окон или сумма заказа для бесплатного монтажа уточняется администратором].',
+    question_uz: 'Qanday hollarda jalyuzilarni o‘rnatish bepul bajariladi?',
+    answer_uz: 'Aksiya shartlariga muvofiq ma’lum miqdordan ortiq buyurtma qilinganda o‘rnatish mutlaqo bepul taqdim etiladi. [Bepul o‘rnatish uchun minimal deraza soni administrator tomonidan to‘ldirilishi kerak].',
+    requires_admin: true
+  },
+  {
+    id: 'kb-063',
+    category: 'pricing_discounts',
+    subcategory: 'b2b_wholesale',
+    keywords: ['оптом', 'юрлицам', 'офисы', 'тендер', 'ulgurji'],
+    question_ru: 'Предоставляете ли вы специальные цены для оптовиков, дизайнеров и прорабов?',
+    answer_ru: 'Да, у нас действует партнерская программа для архитекторов, дизайнеров интерьера, строительных компаний и оптовых заказчиков с персональными дилерскими скидками. [Условия партнерской программы уточняются администратором].',
+    question_uz: 'Dizaynerlar, quruvchilar va ulgurji xaridorlar uchun maxsus narxlar bormi?',
+    answer_uz: 'Ha, bizda arxitektorlar, interyer dizaynerlari va qurilish tashkilotlari uchun maxsus hamkorlik dasturi va dilerlik chegirmalari mavjud. [Hamkorlik shartlari administrator tomonidan to‘ldirilishi kerak].',
+    requires_admin: true
+  },
+  {
+    id: 'kb-064',
+    category: 'pricing_discounts',
+    subcategory: 'season_promos',
+    keywords: ['акции', 'сезонные скидки', 'chegirmalar aksiyalar'],
+    question_ru: 'Проводятся ли в COMBO.UZ сезонные акции и распродажи?',
+    answer_ru: 'Да, мы регулярно проводим сезонные акции, праздничные скидки и спецпредложения на популярные коллекции тканей. [Текущие актуальные акции и промокоды уточняются администратором].',
+    question_uz: 'COMBO.UZ da mavsumiy aksiyalar va chegirmalar bo‘lib turadimi?',
+    answer_uz: 'Ha, biz muntazam ravishda mavsumiy va bayram aksiyalarini o‘tkazib turamiz. [Ayni paytdagi faol aksiyalar administrator tomonidan to‘ldirilishi kerak].',
+    requires_admin: true
+  },
+  {
+    id: 'kb-065',
+    category: 'pricing_discounts',
+    subcategory: 'install_price_single',
+    keywords: ['цена установки 1 окно', 'стоимость монтажа', 'ornatish narxi'],
+    question_ru: 'Сколько стоит монтаж, если заказывается только 1 или 2 небольших окна?',
+    answer_ru: 'При заказе менее порогового объема бесплатного монтажа стоимость установки фиксирована за створку/изделие. [Точная стоимость базового монтажа за 1 створку уточняется администратором].',
+    question_uz: 'Agar faqat 1 yoki 2 ta kichik darcha buyurtma qilinsa, o‘rnatish qancha bo‘ladi?',
+    answer_uz: 'Bepul o‘rnatish chegarasidan kam bo‘lgan buyurtmalar uchun o‘rnatish narxi har bir tabaqa uchun arzon qilib belgilanadi. [Bitta tabaqa uchun o‘rnatish narxi administrator tomonidan to‘ldirilishi kerak].',
+    requires_admin: true
+  },
+  {
+    id: 'kb-066',
+    category: 'pricing_discounts',
+    subcategory: 'motorization_price',
+    keywords: ['цена мотора', 'электропривод цена', 'пульт стоимость', 'motor narxi'],
+    question_ru: 'Сколько стоит моторизация штор (электропривод и пульт)?',
+    answer_ru: 'Стоимость электропривода зависит от веса шторы, типа питания (аккумуляторный мотор с зарядкой от Type-C или проводной 220V) и бренда привода (Dooya, Somfy, Tuya). [Точные цены на моторы и пульты уточняются администратором].',
+    question_uz: 'Pardalarga motor va pult o‘rnatish qancha turadi?',
+    answer_uz: 'Elektr motor narxi pardaning og‘irligi, quvvat turi (Type-C orqali quvvatlanuvchi akkumulyatorli yoki 220V simli) va motor brendiga (Dooya, Somfy, Tuya) bog‘liq. [Motor va pultlarning aniq narxlari administrator tomonidan to‘ldirilishi kerak].',
+    requires_admin: true
+  },
+  {
+    id: 'kb-067',
+    category: 'pricing_discounts',
+    subcategory: 'dismantle_old',
+    keywords: ['демонтаж', 'снять старые жалюзи', 'eski jalyuzini yechish'],
+    question_ru: 'Могут ли ваши мастера снять старые карнизы и жалюзи перед установкой?',
+    answer_ru: 'Да, наши монтажники могут аккуратно демонтировать старые карнизы или жалюзи. [Условия и стоимость услуги демонтажа уточняются администратором].',
+    question_uz: 'Ustalar yangisini o‘rnatishdan oldin eski karnizlarni yechib berishadimi?',
+    answer_uz: 'Ha, bizning ustalarimiz eski karniz va jalyuzilarni ehtiyotkorlik bilan yechib berishlari mumkin. [Eski tizimni yechish xizmati shartlari administrator tomonidan to‘ldirilishi kerak].',
+    requires_admin: true
+  },
+  {
+    id: 'kb-068',
+    category: 'pricing_discounts',
+    subcategory: 'price_hold_time',
+    keywords: ['срок действия расчета', 'сколько действует цена', 'narx qancha vaqt saqlanadi'],
+    question_ru: 'Сколько времени действует рассчитанная сметная стоимость после замера?',
+    answer_ru: 'После проведения замера и составления сметы зафиксированная стоимость и резерв выбранной ткани сохраняются за вами. [Срок действия расчета сметы уточняется администратором].',
+    question_uz: 'O‘lchovdan so‘ng hisoblangan narx qancha muddat o‘z kuchida qoladi?',
+    answer_uz: 'O‘lchov olinib, smeta tuzilgach, mato zaxirasi va kelishilgan narx siz uchun saqlanadi. [Smeta narxining amal qilish muddati administrator tomonidan to‘ldirilishi kerak].',
+    requires_admin: true
+  },
+
+  // =========================================================================
+  // 4. СРОКИ ИЗГОТОВЛЕНИЯ, ДОСТАВКА И ГАРАНТИЯ (69-80) (12)
+  // =========================================================================
+
+  {
+    id: 'kb-069',
+    category: 'timeline_delivery_warranty',
+    subcategory: 'production_time',
+    keywords: ['срок изготовления', 'сколько дней ждать', 'tayyorlash muddati'],
+    question_ru: 'Какой срок изготовления жалюзи и штор с момента замера?',
+    answer_ru: 'Благодаря собственному производственному цеху в Ташкенте стандартный срок изготовления составляет от нескольких рабочих дней. [Точный срок изготовления по видам продукции уточняется администратором]. В экстренных случаях возможен срочный заказ.',
+    question_uz: 'O‘lchov olingandan keyin pardalar necha kunda tayyor bo‘ladi?',
+    answer_uz: 'Toshkentdagi shaxsiy ishlab chiqarish sexrimiz evaziga standart tayyorlash muddati bir necha ish kunini tashkil etadi. [Mahsulotlar bo‘yicha aniq tayyorlanish muddati administrator tomonidan to‘ldirilishi kerak]. Zarur hollarda shoshilinch tayyorlab berish ham mumkin.',
+    requires_admin: true
+  },
+  {
+    id: 'kb-070',
+    category: 'timeline_delivery_warranty',
+    subcategory: 'warranty_period',
+    keywords: ['гарантия', 'сколько гарантия', 'гарантийный срок', 'kafolat muddati'],
+    question_ru: 'Какая официальная гарантия предоставляется на жалюзи в COMBO.UZ?',
+    answer_ru: 'Мы предоставляем официальную гарантию качества на подъемные механизмы, карнизы, полотно и монтажные работы. [Точный гарантийный срок в месяцах/годах уточняется администратором]. В течение гарантийного срока любые производственные дефекты устраняются бесплатно.',
+    question_uz: 'COMBO.UZ da jalyuzilar uchun qancha rasmiy kafolat beriladi?',
+    answer_uz: 'Biz ko‘tarish mexanizmlari, karnizlar, mato sifati va o‘rnatish ishlariga rasmiy kafolat beramiz. [Aniq kafolat muddati oylar/yillar hisobida administrator tomonidan to‘ldirilishi kerak]. Kafolat davrida zavod nuqsonlari bepul bartaraf etiladi.',
+    requires_admin: true
+  },
+  {
+    id: 'kb-071',
+    category: 'timeline_delivery_warranty',
+    subcategory: 'warranty_cases',
+    keywords: ['гарантийные случаи', 'что входит в гарантию', 'kafolatga nimalar kiradi'],
+    question_ru: 'Что считается гарантийным случаем, а что нет?',
+    answer_ru: 'Гарантия покрывает: заклинивание механизма, самопроизвольное расслоение полотна, обрыв внутренней фиксации при штатной эксплуатации. Гарантия не покрывает механические повреждения (порезы ткани, воздействие домашних животных, самостоятельный непрофессиональный ремонт).',
+    question_uz: 'Qaysi holatlar kafolatga kiradi va qaysilari kirmaydi?',
+    answer_uz: 'Kafolatga kiradi: mexanizm tiqilib qolishi, matoning ajralishi, to‘g‘ri foydalanilganda ichki birikmalarning uzilishi. Mexanik shikastlanishlar (matoning kesilishi, uy hayvonlari yetkazgan zarar, noto‘g‘ri mustaqil tuzatish) kafolatga kirmaydi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-072',
+    category: 'timeline_delivery_warranty',
+    subcategory: 'delivery_tashkent',
+    keywords: ['доставка ташкент', 'стоимость доставки', 'yetkazib berish toshkent'],
+    question_ru: 'Как осуществляется доставка по Ташкенту?',
+    answer_ru: 'Доставка готовых изделий осуществляется сервисной бригадой непосредственно в день монтажа. [Условия и тарифы доставки по районам города уточняются администратором].',
+    question_uz: 'Toshkent bo‘ylab yetkazib berish qanday amalga oshiriladi?',
+    answer_uz: 'Tayyor mahsulotlarni yetkazib berish montaj kuni bevosita o‘rnatuvchi xodimlar tomonidan amalga oshiriladi. [Shahar bo‘ylab yetkazish shartlari va narxlari administrator tomonidan to‘ldirilishi kerak].',
+    requires_admin: true
+  },
+  {
+    id: 'kb-073',
+    category: 'timeline_delivery_warranty',
+    subcategory: 'delivery_regions',
+    keywords: ['доставка в регионы', 'самараканд', 'бухара', 'области', 'viloyatlarga yetkazish'],
+    question_ru: 'Отправляете ли вы жалюзи в другие города и регионы Узбекистана?',
+    answer_ru: 'Да, мы отправляем готовые изделия по вашим замерам в Самарканд, Бухару, Фергану, Андижан, Наманган и другие города Узбекистана через курьерские службы (BTS, Fargo, EMU) или через междугородний транспорт. [Условия доставки в регионы уточняются администратором].',
+    question_uz: 'O‘zbekistonning boshqa viloyat va shaharlariga ham yetkazib berasizlarmi?',
+    answer_uz: 'Ha, biz siz bergan o‘lchamlar bo‘yicha tayyorlangan mahsulotlarni Samarqand, Buxoro, Farg‘ona, Andijon, Namangan va boshqa barcha viloyatlarga BTS, Fargo kuryerlik xizmatlari yoki taksi orqali yuboramiz. [Viloyatlarga yetkazish shartlari administrator tomonidan to‘ldirilishi kerak].',
+    requires_admin: true
+  },
+  {
+    id: 'kb-074',
+    category: 'timeline_delivery_warranty',
+    subcategory: 'urgent_orders',
+    keywords: ['срочный заказ', 'за 24 часа', 'срочно', 'shoshilinch buyurtma'],
+    question_ru: 'Можно ли изготовить шторы срочно за 24–48 часов?',
+    answer_ru: 'Да, при наличии выбранной ткани на складе доступна услуга экспресс-изготовления. [Возможность и условия срочного изготовления за 24–48 часов уточняются администратором].',
+    question_uz: '24–48 soat ichida shoshilinch parda tayyorlab berish mumkinmi?',
+    answer_uz: 'Ha, tanlangan mato omborda mavjud bo‘lsa tezkor tayyorlab berish xizmati mavjud. [24–48 soat ichida tezkor tayyorlash imkoniyati va shartlari administrator tomonidan to‘ldirilishi kerak].',
+    requires_admin: true
+  },
+  {
+    id: 'kb-075',
+    category: 'timeline_delivery_warranty',
+    subcategory: 'post_warranty_repair',
+    keywords: ['ремонт жалюзи', 'после гарантии', 'порвалась цепочка', 'tamirlash'],
+    question_ru: 'Осуществляете ли вы ремонт и постгарантийное обслуживание жалюзи?',
+    answer_ru: 'Да, у нас всегда в наличии оригинальные комплектующие (цепочки, механизмы, кронштейны, стопоры, отвесы). Если спустя несколько лет порвалась цепочка или ребенок повредил крепление, наш мастер быстро заменит деталь.',
+    question_uz: 'Kafolat muddatidan keyin ham ta’mirlash xizmatini ko‘rsatasizmi?',
+    answer_uz: 'Ha, bizda doimo barcha original ehtiyot qismlar (zanjirlar, mexanizmlar, mahkamlagichlar) mavjud. Bir necha yildan keyin zanjir uzilsa ham ustalarimiz uni osongina almashtirib berishadi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-076',
+    category: 'timeline_delivery_warranty',
+    subcategory: 'quality_control',
+    keywords: ['проверка качества', 'отк', 'тестирование', 'sifat nazorati'],
+    question_ru: 'Как проверяется качество готовых жалюзи перед отправкой клиенту?',
+    answer_ru: 'Каждое изделие проходит обязательное предмонтажное тестирование на специальном испытательном стенде цеха COMBO.UZ: проверяется геометрия, отсутствие перекосов ткани, плавность хода цепочки и надежность фиксации стопора.',
+    question_uz: 'Tayyor jalyuzi mijozga jo‘natilishidan oldin sifati qanday tekshiriladi?',
+    answer_uz: 'Har bir mahsulot COMBO.UZ sexidagi maxsus sinov stendida tekshiriladi: matoning tekisligi, qiyshaymasligi, zanjirning ravon aylanishi va to‘xtatgichning ishonchliligi sinovdan o‘tkaziladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-077',
+    category: 'timeline_delivery_warranty',
+    subcategory: 'exchange_return',
+    keywords: ['возврат', 'обмен', 'не подошел размер', 'qaytarish almashtirish'],
+    question_ru: 'Что происходит, если шторы не подошли по размеру по вине замерщика?',
+    answer_ru: 'Если замер производил наш официальный мастер, мы несем 100% ответственность. Изделие будет оперативно переделано за наш счет в кратчайшие сроки без каких-либо доплат со стороны клиента.',
+    question_uz: 'Agar o‘lchovchi xatosi tufayli parda o‘lchami to‘g‘ri kelmasa nima bo‘ladi?',
+    answer_uz: 'Agar o‘lchovni bizning rasmiy ustamiz olgan bo‘lsa, biz 100% javobgarlikni zimmamizga olamiz. Mahsulot hech qanday qo‘shimcha to‘lovlarsiz o‘z hisobimizdan zudlik bilan qayta tayyorlab beriladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-078',
+    category: 'timeline_delivery_warranty',
+    subcategory: 'fabric_change',
+    keywords: ['поменять только ткань', 'замена ткани', 'карниз старый', 'matoni almashtirish'],
+    question_ru: 'Можно ли заменить только ткань, оставив старый рабочий карниз?',
+    answer_ru: 'Да, если карниз и подъемный механизм COMBO.UZ в хорошем состоянии, вы можете заказать услугу перезатяжки ткани. Это позволит полностью обновить интерьер со скидкой до 30–40% от стоимости нового изделия.',
+    question_uz: 'Eski karnizni qoldirib, faqat matosini almashtirsa bo‘ladimi?',
+    answer_uz: 'Ha, agar karniz va mexanizm yaxshi holatda bo‘lsa, siz faqat yangi matoga buyurtma berishingiz mumkin. Bu yangi parda narxiga nisbatan 30–40% gacha mablag‘ni tejaydi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-079',
+    category: 'timeline_delivery_warranty',
+    subcategory: 'certificate',
+    keywords: ['сертификаты', 'соответствие', 'безопасность', 'sertifikatlar'],
+    question_ru: 'Имеются ли сертификаты безопасности и соответствия на материалы?',
+    answer_ru: 'Да, все ткани и пластиковые элементы фурнитуры COMBO.UZ имеют международные сертификаты экологической безопасности (OEKO-TEX Standard 100) и санитарно-эпидемиологические заключения Республики Узбекистан.',
+    question_uz: 'Materiallarning xavfsizlik va muvofiqlik sertifikatlari bormi?',
+    answer_uz: 'Ha, COMBO.UZ ning barcha matolari va plastik qismlari xalqaro OEKO-TEX Standard 100 ekologik xavfsizlik sertifikatlariga hamda O‘zbekiston Respublikasi sanitariya-gigiyena xulosalariga ega.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-080',
+    category: 'timeline_delivery_warranty',
+    subcategory: 'contract_docs',
+    keywords: ['договор', 'чек', 'документы', 'shartnoma'],
+    question_ru: 'Заключается ли официальный договор при покупке?',
+    answer_ru: 'Да, с каждым клиентом мы заключаем официальный договор с указанием точных размеров, выбранных артикулов тканей, сроков изготовления и гарантийных обязательств, а также выдаем фискальный чек.',
+    question_uz: 'Xarid paytida rasmiy shartnoma tuziladimi?',
+    answer_uz: 'Ha, har bir mijoz bilan aniq o‘lchamlar, mato artikullari, tayyorlash muddatlari va kafolat majburiyatlari ko‘rsatilgan rasmiy shartnoma tuziladi va to‘lov cheki beriladi.',
+    requires_admin: false
+  },
+
+  // =========================================================================
+  // 5. КАЧЕСТВО МАТЕРИАЛОВ, УХОД И ЧИЛЛЯ (81-88) (8)
+  // =========================================================================
+
+  {
+    id: 'kb-081',
+    category: 'quality_care',
+    subcategory: 'sun_fading',
+    keywords: ['выгорание', 'солнце', 'чилла +45', 'uv защита', 'quyoshda ongish'],
+    question_ru: 'Выгорают ли ткани COMBO.UZ под палящим ташкентским солнцем в чиллю?',
+    answer_ru: 'Нет! Наши ткани производятся с применением устойчивых красителей и специальной УФ-стабилизирующей пропитки (стойкость цвета 6–7 баллов из 8 по европейской шкале ISO). Ткань не желтеет, не пересыхает и не теряет первоначальной яркости долгие годы даже на южной стороне.',
+    question_uz: 'Toshkentning 45 daraja chillasida matolar oftobda o‘ngib ketmaydimi?',
+    answer_uz: 'Yo‘q! Bizning matolarimiz quyosh nurlariga chidamli bo‘yoqlar va maxsus UV-stabilizator bilan ishlanadi (ISO shkalasi bo‘yicha 6–7 ball). Janubiy tomonga qaragan derazalarda ham matolar sarg‘aymaydi, qurib sinmaydi va rangini yo‘qotmaydi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-082',
+    category: 'quality_care',
+    subcategory: 'dust_repellent',
+    keywords: ['пыль', 'тефлон', 'пропитка', 'антистатик', 'changga qarshi'],
+    question_ru: 'Как работает пылеотталкивающая пропитка тканей?',
+    answer_ru: 'В процессе финишной обработки волокна ткани покрываются микроскопическим тефлоновым и антистатическим составом. Статическое электричество снимается, поэтому городская пыль не въедается в структуру нитей, а остается на поверхности и легко смахивается сухой салфеткой.',
+    question_uz: 'Matolarning changga qarshi singdirmasi qanday ishlaydi?',
+    answer_uz: 'Ishlab chiqarishda mato tolalari teflon va antistatik modda bilan qoplanadi. Natijada mato statik elektr hosil qilmaydi, shahar changi mato to‘qimalariga singib ketmasdan yuzasida qoladi va quruq mato bilan osongina qoqiladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-083',
+    category: 'quality_care',
+    subcategory: 'kitchen_grease',
+    keywords: ['жир на кухне', 'пятна', 'чистка кухни', 'oshxona yogi'],
+    question_ru: 'Что делать, если на рулонную штору на кухне попали брызги жира или соуса?',
+    answer_ru: 'Свежее пятно следует сразу промокнуть влажной губкой с каплей мягкого ph-нейтрального мыла, не растирая сильно по полотну. Затем удалить остатки мыла чистой влажной микрофиброй и дать шторе высохнуть в развернутом виде.',
+    question_uz: 'Oshxonadagi rolikli pardaga yog‘ yoki sous sachrasa nima qilish kerak?',
+    answer_uz: 'Dog‘ tushgan joyni darhol qattiq ishqalamasdan, neytral sovunli nam gubka bilan ehtiyotkorlik bilan artish kerak. So‘ngra toza nam mikrofigra bilan sovunni ketkazib, pardani yoyilgan holda quritish zarur.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-084',
+    category: 'quality_care',
+    subcategory: 'vacuum_cleaner',
+    keywords: ['пылесос', 'можно ли пылесосить', 'changyutgich'],
+    question_ru: 'Можно ли чистить жалюзи и рулонные шторы пылесосом?',
+    answer_ru: 'Да, но только на минимальной мощности всасывания и обязательно с использованием специальной мягкой мебельной насадки со щеткой, чтобы не помять ткань и не согнуть ламели.',
+    question_uz: 'Jalyuzi va rolikli pardalarni changyutgichda tozalash mumkinmi?',
+    answer_uz: 'Ha, lekin faqat changyutgichning eng past quvvatida va matoni g‘ijimlamaslik uchun maxsus yumshoq cho‘tkali nasadka bilan sekin tozalash lozim.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-085',
+    category: 'quality_care',
+    subcategory: 'children_safety',
+    keywords: ['детская безопасность', 'безопасность детей', 'цепочка', 'bolalar xavfsizligi'],
+    question_ru: 'Безопасны ли шторы с цепочками для маленьких детей?',
+    answer_ru: 'Все наши системы комплектуются фиксаторами безопасности цепочки управления (Child Safety Clip), которые жестко крепят петлю шнура к раме окна на недосягаемой для ребенка высоте, исключая риск запутывания.',
+    question_uz: 'Zanjirli pardalar yosh bolalar uchun xavfsiz emasmi?',
+    answer_uz: 'Barcha tizimlarimiz maxsus Child Safety bolalar xavfsizligi qisqichlari bilan jihozlangan bo‘lib, zanjirni bolalar yetolmaydigan balandlikda romga mahkamlab qo‘yadi va xavfni butunlay bartaraf etadi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-086',
+    category: 'quality_care',
+    subcategory: 'smart_home_alice',
+    keywords: ['яндекс алиса', 'умный дом', 'голос', 'alisa aqlli uy'],
+    question_ru: 'Можно ли подключить шторы COMBO.UZ к Яндекс Алисе или Apple HomeKit?',
+    answer_ru: 'Да! Мы устанавливаем моторы со встроенным Wi-Fi или Zigbee модулем, которые легко подключаются к приложению «Дом с Алисой», умным колонкам Яндекс Станция, Google Home и Apple HomeKit. Шторы будут открываться по голосовой команде или расписанию.',
+    question_uz: 'COMBO.UZ pardalarini Yandex Alisa yoki Aqlli Uyga ulash mumkinmi?',
+    answer_uz: 'Ha! Biz Wi-Fi yoki Zigbee moduliga ega motorlarni o‘rnatamiz, ular Yandex Alisa, Google Home va Apple HomeKit tizimlariga oson ulanadi. Pardalar ovozli buyruq yoki vaqt jadvali orqali ochilib-yopiladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-087',
+    category: 'quality_care',
+    subcategory: 'condensation',
+    keywords: ['конденсат', 'запотевание окон', 'плесень', 'oyna terlash'],
+    question_ru: 'Не появится ли плесень на шторах, если окна зимой потеют?',
+    answer_ru: 'Ткани COMBO.UZ содержат противогрибковые компоненты. Однако при сильном конденсате на окнах рекомендуется регулярно проветривать помещение и не опускать шторы вплотную к мокрому стеклу до высыхания влаги.',
+    question_uz: 'Qishda derazalar terlashi natijasida pardalarda mog‘or paydo bo‘lmaydimi?',
+    answer_uz: 'COMBO.UZ matolari zamburug‘ga qarshi maxsus moddalar bilan ishlangan. Shunga qaramay, oynalar qattiq terlaganda xonani shamollatish va mato ho‘l oynaga tegib turmasligi uchun biroz ko‘tarib qo‘yish tavsiya etiladi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-088',
+    category: 'quality_care',
+    subcategory: 'heat_reflection',
+    keywords: ['отражение тепла', 'перламутр', 'серебро', 'issiqlikni qaytarish'],
+    question_ru: 'Какие ткани лучше всего отражают солнечное тепло?',
+    answer_ru: 'Наилучшим эффектом обладают ткани с жемчужным (перламутровым) напылением или металлизированным серебряным слоем с уличной стороны. Они действуют как тепловое зеркало, отражая лучи еще до того, как они нагреют комнату.',
+    question_uz: 'Quyosh issig‘ini qaysi matolar eng yaxshi qaytaradi?',
+    answer_uz: 'Ko‘cha tomonida marvarid (marvaridsimon) yoki kumushrang metall qoplamasi bo‘lgan matolar eng yuqori samara beradi. Ular xona qizishidan oldin issiqlikni ko‘zgudek qaytarib yuboradi.',
+    requires_admin: false
+  },
+
+  // =========================================================================
+  // 6. СЦЕНАРИИ РАБОТЫ С ВОЗРАЖЕНИЯМИ (89-100) (12)
+  // =========================================================================
+
+  {
+    id: 'kb-089',
+    category: 'objections',
+    subcategory: 'expensive',
+    keywords: ['дорого', 'слишком дорого', 'высокая цена', 'qimmat', 'narxi qimmat'],
+    question_ru: 'Возражение: «Почему у вас так дорого?»',
+    answer_ru: 'Понимаю ваше желание сэкономить! Давайте разберемся, из чего складывается цена: мы не продаем тонкий китайский ширпотреб, который пожелтеет и рассыплется за одно лето. COMBO.UZ использует сертифицированные ткани из Турции и надежные усиленные механизмы с гарантией, а замер с каталогами по Ташкенту мы делаем бесплатно. Вы инвестируете один раз и пользуетесь с комфортом 5–7 лет. К тому же, мастер может подобрать более бюджетную, но долговечную ткань из нашего каталога прямо на замере!',
+    question_uz: 'E’tiroz: «Nega buncha qimmat?»',
+    answer_uz: 'Mablag‘ingizni tejash istagingizni juda yaxshi tushunaman! Keling, narx nimalardan shakllanishini ko‘rib chiqamiz: biz bir yozda sarg‘ayib sinib ketadigan arzon sifatsiz mahsulot sotmaymiz. COMBO.UZ Turkiya matolari va mustahkam mexanizmlardan foydalanadi hamda kafolat beradi. Toshkent bo‘ylab o‘lchov va kataloglarni olib borish esa bepul. Siz bir marta o‘rnatib, 5–7 yil rohatini ko‘rasiz. Qolaversa, usta o‘lchov paytida byudjetingizga mos sifatli matolarni ham tavsiya qila oladi!',
+    requires_admin: false
+  },
+  {
+    id: 'kb-090',
+    category: 'objections',
+    subcategory: 'will_think',
+    keywords: ['я подумаю', 'надо подумать', 'позже закажу', 'oylab koraman'],
+    question_ru: 'Возражение: «Спасибо, я подумаю»',
+    answer_ru: 'Конечно, выбор штор для дома — важное решение! Подскажите, что именно вызывает сомнения: цвет, модель или стоимость? Давайте поступим так: вызовем замерщика с образцами бесплатно. Вы вживую приложите образцы тканей к обоям и мебели при дневном и вечернем свете, мастер назовет точную сумму, и вы спокойно подумаете уже с точными цифрами на руках, это вас ни к чему не обязывает!',
+    question_uz: 'E’tiroz: «Rahmat, men o‘ylab ko‘raman»',
+    answer_uz: 'Albatta, uy uchun parda tanlash mas’uliyatli qaror! Ayting-chi, aynan qaysi jihat sizda ikkilanish uyg‘otmoqda: rangimi, modelimi yoki narxi? Keling, bunday qilamiz: usta namunalar bilan uyingizga bepul boradi. Siz matolarni devorqog‘ozi va mebellaringizga taqab, o‘z ko‘zingiz bilan ko‘rasiz, usta esa aniq hisob-kitobni chiqarib beradi. Shunda qo‘lingizda aniq raqamlar bilan xotirjam o‘ylab ko‘rasiz, bu sizga hech qanday majburiyat yuklamaydi!',
+    requires_admin: false
+  },
+  {
+    id: 'kb-091',
+    category: 'objections',
+    subcategory: 'competitors_cheaper',
+    keywords: ['у других дешевле', 'на базаре дешевле', 'у конкурентов дешевле', 'boshqalarda arzonroq'],
+    question_ru: 'Возражение: «А у конкурентов (на базаре Урикзор/Чорсу) дешевле!»',
+    answer_ru: 'Действительно, на базаре можно найти более дешевые готовые варианты. Но важно сравнить: на базаре продают стандартные типовые размеры из тонкого пластика, которые часто не подходят к вашим окнам, скрипят и выгорают за 2–3 месяца без какой-либо гарантии. COMBO.UZ производит изделия точно под ваш миллиметр из оригинальных тканей с гарантией качества и бесплатным выездом замерщика. Переделка кривых штор в итоге обходится дороже. Хотите, мастер привезет образцы и вы сами сравните плотность?',
+    question_uz: 'E’tiroz: «Boshqa joyda (yoki bozorda) ancha arzonroq ekan!»',
+    answer_uz: 'To‘g‘ri, bozorda arzonroq tayyor variantlar bo‘lishi mumkin. Lekin taqqoslab ko‘ring: bozorda standart o‘lchamdagi, sifatsiz yupqa plastmassadan qilingan mahsulotlar sotiladi, ular oynangizga to‘g‘ri kelmasligi, 2–3 oyda oftobda sinishi mumkin va hech kim kafolat bermaydi. COMBO.UZ esa sizning derazangizga 1 mm gacha aniqlikda, sifatli matolardan va rasmiy kafolat bilan tayyorlab beradi. Sifatsiz pardani qayta yasatish ko‘proq xarajatga tushiradi. Xohlasangiz, usta namunalar bilan borsin, matolar zichligini o‘zingiz taqqoslab ko‘ring?',
+    requires_admin: false
+  },
+  {
+    id: 'kb-092',
+    category: 'objections',
+    subcategory: 'discount_request',
+    keywords: ['можно скидку', 'сделайте скидку', 'скиньте цену', 'chegirma qilib bering'],
+    question_ru: 'Возражение: «А можно скидку? Сделайте подешевле!»',
+    answer_ru: 'Мы всегда открыты к диалогу! Скидки у нас предусмотрены при заказе от 3 окон или при заказе на весь дом/квартиру. Кроме того, замерщик при выезде может показать спецпредложения из акционных коллекций тканей отличного качества, что позволит снизить смету без потери надежности. На сколько окон вы планируете установку?',
+    question_uz: 'E’tiroz: «Chegirma qilib bera olasizmi? Arzonroq qilib bering!»',
+    answer_uz: 'Biz har doim mijozlarimizga yon bosishga tayyormiz! Bizda 3 ta va undan ko‘p deraza uchun yoki butun xonadon buyurtma qilinganda yaxshi chegirmalar beriladi. Shuningdek, usta o‘lchov paytida aksiyadagi sifatli matolarni ham ko‘rsatishi mumkin, bu esa narxni tushirishga yordam beradi. Nechta deraza uchun mo‘ljallayapsiz?',
+    requires_admin: false
+  },
+  {
+    id: 'kb-093',
+    category: 'objections',
+    subcategory: 'afraid_window_damage',
+    keywords: ['боюсь сверлить', 'испортят окна', 'гарантия пропадет', 'rom buziladimi'],
+    question_ru: 'Возражение: «Боюсь, что при монтаже испортят новые пластиковые окна»',
+    answer_ru: 'Ваши опасения абсолютно понятны — хорошие окна стоят дорого! Именно поэтому для профилей Akfa, Imzo и Engelberg мы используем технологию монтажа БЕЗ сверления (накидные регулируемые кронштейны или немецкий скотч 3M). Целостность профиля и герметичность стеклопакета остаются нетронутыми на 100%!',
+    question_uz: 'E’tiroz: «Yangi plastik romlarim teshilib buzilishidan qo‘rqaman»',
+    answer_uz: 'Xavotiringiz juda o‘rinli — sifatli romlar arzon turmaydi! Aynan shuning uchun Akfa, Imzo va Engelberg romlari uchun biz teshmasdan o‘rnatish texnologiyasini taklif qilamiz (maxsus qisqichlar yoki Germaniyaning 3M skotchi yordamida). Oyna profili va germetikligi 100% butun qoladi!',
+    requires_admin: false
+  },
+  {
+    id: 'kb-094',
+    category: 'objections',
+    subcategory: 'sun_fade_fear',
+    keywords: ['вдруг выгорит', 'боюсь выгорит', 'солнце испортит', 'ongib ketmasmikan'],
+    question_ru: 'Возражение: «У меня очень сильное солнце, боюсь, что шторы быстро выгорят»',
+    answer_ru: 'Ташкентское солнце — настоящее испытание, поэтому мы специально тестируем все ткани на воздействие чилли. Наши полотна обработаны ультрафиолетовыми фильтрами, не выгорают и не меняют оттенок. Мы даем официальную гарантию на стойкость полотна. Для особо жарких южных окон мы порекомендуем серию Blackout или Screen со светоотражающей изнанкой.',
+    question_uz: 'E’tiroz: «Bizda quyosh juda qattiq tushadi, tezda o‘ngib ketishidan qo‘rqaman»',
+    answer_uz: 'Toshkent quyoshi har qanday mato uchun katta sinov, shuning uchun biz matolarimizni chilla jaziramasiga moslab tanlaymiz. Matolarimiz ultrabinafsha filtrlar bilan ishlangan, o‘ngimaydi va rangini o‘zgartirmaydi. Biz mato chidamliligiga kafolat beramiz. Janubiy jazirama derazalar uchun esa maxsus qaytaruvchi qatlamli Blackout yoki Screen turlarini tavsiya qilamiz.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-095',
+    category: 'objections',
+    subcategory: 'wrong_size_fear',
+    keywords: ['а если не подойдет', 'ошибусь с размером', 'notogri kelsa'],
+    question_ru: 'Возражение: «А вдруг шторы не подойдут по размеру или цвету?»',
+    answer_ru: 'Чтобы этого не произошло, мы берем ответственность на себя: к вам приезжает профессиональный замерщик с лазерным оборудованием и реальными образцами тканей. Вы выбираете оттенок прямо в комнате при вашем освещении, а точность размеров мастер гарантирует договором.',
+    question_uz: 'E’tiroz: «Mabodo o‘lchami yoki rangi to‘g‘ri kelmay qolsa-chi?»',
+    answer_uz: 'Bunday muammo bo‘lmasligi uchun butun mas’uliyatni o‘z zimmamizga olamiz: uyingizga lazerli uskunaga va haqiqiy mato namunalariga ega professional usta boradi. Siz rangni o‘z xonangizdagi yorug‘likda ko‘rib tanlaysiz, o‘lcham aniqligiga esa shartnoma orqali kafolat beramiz.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-096',
+    category: 'objections',
+    subcategory: 'consult_family',
+    keywords: ['посоветуюсь с мужем', 'посоветуюсь с женой', 'семьей обсудим', 'oilam bilan maslahatlashay'],
+    question_ru: 'Возражение: «Мне нужно посоветоваться с мужем / женой»',
+    answer_ru: 'Прекрасно, семейные решения всегда самые верные! Чтобы вам было проще обсудить вместе, вызовите замерщика на удобный вечер или выходной, когда вся семья будет дома. Вы вместе посмотрите ткани, потрогаете фактуры, а мастер ответит на все технические вопросы супруга.',
+    question_uz: 'E’tiroz: «Turmush o‘rtog‘im bilan maslahatlashishim kerak»',
+    answer_uz: 'Juda to‘g‘ri, oilaviy qarorlar doimo eng mustahkam bo‘ladi! Maslahatlashish osonroq bo‘lishi uchun o‘lchovchini barcha oila a’zolaringiz uyda bo‘ladigan dam olish kuniga yoki kechki paytga chaqirishingiz mumkin. Birgalikda matolarni ushlab ko‘rasizlar, usta esa turmush o‘rtog‘ingizning barcha texnik savollariga javob beradi.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-097',
+    category: 'objections',
+    subcategory: 'why_free_measure',
+    keywords: ['почему замер бесплатный', 'в чем подвох', 'obiazan li pokupat', 'nega bepul'],
+    question_ru: 'Возражение: «Почему выезд замерщика бесплатный? Я буду обязан что-то купить?»',
+    answer_ru: 'Никаких подвохов и скрытых обязательств! Мы уверены в качестве наших тканей и честности цен, поэтому 9 из 10 клиентов делают заказ после замера. Но если вас что-то не устроит, вы абсолютно ничего не платите за приезд мастера и консультацию.',
+    question_uz: 'E’tiroz: «Nega o‘lchov bepul? Keyin majburan sotib olishim kerak bo‘ladimi?»',
+    answer_uz: 'Hech qanday hiyla yoki majburiyat yo‘q! Biz mahsulotlarimiz sifati va narxlarimiz halolligiga ishonamiz, shuning uchun 10 ta mijozdan 9 tasi o‘lchovdan so‘ng bajonidil buyurtma beradi. Agar biror narsa ma’qul kelmasa, usta kelgani va maslahati uchun bir so‘m ham to‘lamaysiz.',
+    requires_admin: false
+  },
+  {
+    id: 'kb-098',
+    category: 'objections',
+    subcategory: 'hard_to_clean',
+    keywords: ['сложно мыть', 'быстро испачкаются', 'пылесборник', 'kir boladi'],
+    question_ru: 'Возражение: «Жалюзи сложно мыть, они быстро пачкаются и собирают пыль»',
+    answer_ru: 'Как раз наоборот по сравнению с тяжелыми классическими шторами! Обычные шторы накапливают килограммы пыли и клещей, их нужно снимать, стирать и тяжело гладить. Наши рулонные ткани имеют тефлоновую пропитку, отталкивающую пыль. Достаточно раз в месяц смахнуть пыль пипидастром или протереть салфеткой за 2 минуты!',
+    question_uz: 'E’tiroz: «Jalyuzilarni tozalash qiyin, ular tez kirlanadi va chang to‘playdi»',
+    answer_uz: 'An’anaviy og‘ir pardalarga nisbatan aksincha! Oddiy pardalar chang va kanalar to‘playdi, ularni yechish, yuvish va og‘ir dazmollash kerak. Bizning matolarimiz esa teflon singdirmasiga ega bo‘lib, changni itaradi. Oyiga bir marta quruq ro‘molcha bilan 2 daqiqada changini qoqib qo‘yish kifoya!',
+    requires_admin: false
+  },
+  {
+    id: 'kb-099',
+    category: 'objections',
+    subcategory: 'want_to_see_live',
+    keywords: ['хочу посмотреть вживую', 'образцы потрогать', 'jonli korish'],
+    question_ru: 'Возражение: «Хочу сначала посмотреть ткани вживую, по фото непонятно»',
+    answer_ru: 'Вы совершенно правы — фото на экране телефона не передает фактуру, плотность и светопроницаемость ткани. Именно поэтому мы не берем плату за выезд мастера с образцами. Замерщик привезет полные каталоги прямо к вам домой или в офис в удобное время!',
+    question_uz: 'E’tiroz: «Avval matolarni o‘z ko‘zim bilan ko‘rmoqchiman, rasmda tushunarsiz»',
+    answer_uz: 'Mutlaqo haqsiz — telefondagi rasm matoning to‘qimasi, qalinligi va nur o‘tkazishini to‘liq yetkazib berolmaydi. Aynan shuning uchun biz ustalarning namunalar bilan borishini bepul qilganmiz. Usta barcha to‘liq kataloglarni uyingizga yoki ofisingizga qulay vaqtda olib boradi!',
+    requires_admin: false
+  },
+  {
+    id: 'kb-100',
+    category: 'objections',
+    subcategory: 'repair_not_finished',
+    keywords: ['еще ремонт идет', 'ремонт не окончен', 'пока рано', 'remont tugamagan'],
+    question_ru: 'Возражение: «У нас еще идет ремонт, закажем потом»',
+    answer_ru: 'Очень своевременно, что вы обратились именно сейчас! Если вы планируете натяжные потолки, скрытые ниши под карнизы или шторы с электроприводом, замерщика нужно вызвать ДО завершения отделки, чтобы правильно заложить питание 220V и размеры ниши. Мы бесплатно проконсультируем ваших мастеров по электрике и нишам, а сами шторы смонтируем уже в чистый финал!',
+    question_uz: 'E’tiroz: «Bizda hali remont ketyapti, keyinroq buyurtma beramiz»',
+    answer_uz: 'Aynan hozir murojaat qilganingiz juda yaxshi bo‘libdi! Agar gipsokarton yoki tortma shiftlar, parda uchun yashirin darchalar yoki motorli pardalar rejalashtirayotgan bo‘lsangiz, o‘lchovchini remont tugamasidan oldin chaqirish zarur. Shunda 220V simlarni to‘g‘ri chiqarish va parda joyini aniq qoldirish bo‘yicha ustalaringizga bepul yo‘l-yo‘riq beramiz, pardalarni esa remont bitgach toza uyga o‘rnatib beramiz!',
+    requires_admin: false
+  }
+];
+
+// Write file
+const outputPath = path.join(process.cwd(), 'data', 'knowledge_base.json');
+fs.writeFileSync(outputPath, JSON.stringify(kb, null, 2), 'utf-8');
+
+console.log(`Successfully generated Knowledge Base with ${kb.length} entries at: ${outputPath}`);
+
+// Summary stats
+const categories = {};
+let requiresAdminCount = 0;
+kb.forEach(item => {
+  categories[item.category] = (categories[item.category] || 0) + 1;
+  if (item.requires_admin) requiresAdminCount++;
+});
+
+console.log('Category breakdown:', categories);
+console.log(`Requires Admin Filling: ${requiresAdminCount} entries`);

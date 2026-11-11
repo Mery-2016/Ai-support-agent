@@ -1,0 +1,128 @@
+{
+  "updatedAt": "2026-11-09T10:30:00.000Z",
+  "currency": "UZS",
+  "isConfirmed": false,
+  "notes": "12 основных категорий продукции COMBO.UZ. Цены являются ориентировочными и утверждаются администратором.",
+  "items": [
+    {
+      "id": "day_night",
+      "category": "day_night",
+      "name_ru": "Рулонные шторы День и Ночь",
+      "name_uz": "«Kun va Tun» rolikli pardalari",
+      "pricePerM2": 220000,
+      "minAreaM2": 1.0,
+      "description_ru": "Плавная регулировка света полосами ткани, чередование прозрачных и плотных полос",
+      "description_uz": "Mato chiziqlari orqali yorug‘likni nozik sozlovchi ikki qavatli zamonaviy tizim"
+    },
+    {
+      "id": "rollo",
+      "category": "rollo",
+      "name_ru": "Рулонные шторы Ролло",
+      "name_uz": "Rollo rolikli pardalari",
+      "pricePerM2": 160000,
+      "minAreaM2": 1.0,
+      "description_ru": "Классическое цельное рулонное полотно, светофильтры и плотные ткани",
+      "description_uz": "Klassik yaxlit rolikli mato, quyosh filtrlari va zich matolar"
+    },
+    {
+      "id": "double",
+      "category": "double",
+      "name_ru": "Рулонные шторы Double",
+      "name_uz": "Double (Dabl) rolikli pardalari",
+      "pricePerM2": 330000,
+      "minAreaM2": 1.0,
+      "description_ru": "Рулонные шторы Double (Дабл) — система с двумя полотнами: одно плотное, второе прозрачное, как тюль",
+      "description_uz": "Double (Dabl) rolikli pardalari — ikkita matoli tizim: bittasi zich, ikkinchisi tul kabi shaffof"
+    },
+    {
+      "id": "dikey",
+      "category": "dikey",
+      "name_ru": "Жалюзи Dikey",
+      "name_uz": "Dikey jalyuzilari",
+      "pricePerM2": 290000,
+      "minAreaM2": 1.0,
+      "description_ru": "Жалюзи Dikey (Дикей) — тюлевая система, в которой сочетаются плотные тканевые участки по бокам и прозрачная тюлевая часть посередине",
+      "description_uz": "Dikey jalyuzilari — yon tomonlarida zich mato qismlari va o‘rtasida shaffof tul qismi uyg‘unlashgan tul tizimi"
+    },
+    {
+      "id": "tulle",
+      "category": "tulle",
+      "name_ru": "Тюлевые жалюзи",
+      "name_uz": "Tul jalyuzilari",
+      "pricePerM2": 290000,
+      "minAreaM2": 1.0,
+      "description_ru": "Изящное сочетание нежного тюля и функциональных поворотных ламелей",
+      "description_uz": "Mayin to‘kiluvchi tul va aylanuvchi lamellar uyg‘unligi"
+    },
+    {
+      "id": "vertical_tulle",
+      "category": "vertical_tulle",
+      "name_ru": "Вертикальные тюлевые жалюзи",
+      "name_uz": "Vertikal tul jalyuzilari",
+      "pricePerM2": 290000,
+      "minAreaM2": 1.0,
+      "description_ru": "Вертикальная тюлевая система для больших окон, панорамных проемов и выходов на балкон",
+      "description_uz": "Katta vitrajlar, panoramali oynalar va balkonga chiqish uchun vertikal tul tizimi"
+    },
+    {
+      "id": "plisse",
+      "category": "plisse",
+      "name_ru": "Жалюзи плиссе",
+      "name_uz": "Plisse jalyuzilari",
+      "pricePerM2": 310000,
+      "minAreaM2": 1.0,
+      "description_ru": "Компактные складчатые шторы (гофре) с открыванием сверху вниз и снизу вверх",
+      "description_uz": "Tepadan pastga va pastdan tepaga ochiluvchi ixcham gofre matoli jalyuzilar"
+    },
+    {
+      "id": "cassette",
+      "category": "cassette",
+      "name_ru": "Кассетные жалюзи",
+      "name_uz": "Kassetali jalyuzilar",
+      "pricePerM2": 280000,
+      "minAreaM2": 1.0,
+      "description_ru": "Система в защитном коробе с боковыми направляющими для плотного прилегания к створке",
+      "description_uz": "Deraza tabaqasiga mahkam yopishuvchi yon yo‘naltirgichli va qutichali (kassetali) tizim"
+    },
+    {
+      "id": "mini",
+      "category": "mini",
+      "name_ru": "Мини-жалюзи",
+      "name_uz": "Mini-jalyuzilar",
+      "pricePerM2": 160000,
+      "minAreaM2": 1.0,
+      "description_ru": "Аккуратная открытая система для монтажа непосредственно на оконные створки без утяжеления",
+      "description_uz": "Deraza tabaqalariga to‘g‘ridan-to‘g‘ri o‘rnatiladigan ochiq va yengil mini-tizim"
+    },
+    {
+      "id": "horizontal_alu",
+      "category": "horizontal_alu",
+      "name_ru": "Горизонтальные алюминиевые жалюзи",
+      "name_uz": "Gorizontal alyuminiy jalyuzi",
+      "pricePerM2": 130000,
+      "minAreaM2": 1.0,
+      "description_ru": "Классические практичные влагостойкие жалюзи из алюминиевой ленты 16 и 25 мм",
+      "description_uz": "Namlikka chidamli, oson tozalanuvchi 16 va 25 mm alyuminiy tasmali klassik jalyuzilar"
+    },
+    {
+      "id": "photo_print",
+      "category": "photo_print",
+      "name_ru": "Рулонные шторы с фотонанесением",
+      "name_uz": "Fototasvir tushirilgan rolikli pardalar",
+      "pricePerM2": 250000,
+      "minAreaM2": 1.0,
+      "description_ru": "Индивидуальная фотопечать рисунков, пейзажей или логотипов на светозащитном полотне",
+      "description_uz": "Mato yuzasiga har qanday rasm, manzara yoki kompaniya logotipini sifatli tushirish"
+    },
+    {
+      "id": "roman",
+      "category": "roman",
+      "name_ru": "Римские шторы",
+      "name_uz": "Rim pardalari",
+      "pricePerM2": 310000,
+      "minAreaM2": 1.0,
+      "description_ru": "Римские шторы — тканевые шторы, которые при подъёме собираются в горизонтальные складки",
+      "description_uz": "Rim pardalari — ko‘tarilganda gorizontal taxlamalarga yig‘iladigan matoli pardalar"
+    }
+  ]
+}

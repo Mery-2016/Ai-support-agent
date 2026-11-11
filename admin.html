@@ -1,0 +1,1185 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Панель администратора — COMBO.UZ (База знаний и Заявки)</title>
+  <meta name="description" content="Управление базой знаний (100 Q&A), редактирование ответов на русском и узбекском языках, журнал заявок клиентов COMBO.UZ.">
+  <link rel="icon" href="assets/images/icon.ico">
+
+  <link rel="stylesheet" href="styles/fonts.css">
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/app.css">
+  <style>
+    .admin-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+    .admin-controls-bar {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-4);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+    }
+    .kb-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+    .kb-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .kb-card:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .kb-card.is-needs-admin {
+      border-left: 4px solid var(--color-warning);
+    }
+    .kb-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+    .kb-qa-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3);
+      margin-top: var(--space-2);
+      padding-top: var(--space-2);
+      border-top: 1px dashed var(--color-border);
+    }
+    @media (max-width: 768px) {
+      .kb-qa-block {
+        grid-template-columns: 1fr;
+      }
+    }
+    .kb-qa-col {
+      background: var(--color-surface-hover);
+      padding: var(--space-3);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .kb-qa-col strong {
+      color: var(--color-text);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .leads-table-container {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+    }
+    .leads-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+    .leads-table th, .leads-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .leads-table th {
+      background: var(--color-surface-hover);
+      font-weight: 700;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .status-badge--NEW { background: rgba(59, 130, 246, 0.15); color: #2563eb; }
+    .status-badge--IN_PROGRESS { background: rgba(245, 158, 11, 0.15); color: #d97706; }
+    .status-badge--COMPLETED { background: rgba(34, 197, 94, 0.15); color: #16a34a; }
+    .status-badge--CANCELLED { background: rgba(239, 68, 68, 0.15); color: #dc2626; }
+  </style>
+</head>
+<body>
+  <div class="shell" id="app-shell">
+    <!-- Sidebar Rail -->
+    <nav class="rail" id="rail" aria-label="Основная навигация">
+      <div class="brand">
+        <img class="brand-logo" src="assets/images/icon.ico" alt="Логотип COMBO.UZ">
+        <span class="brand-copy">
+          <strong><b>COMBO</b><span>.UZ</span></strong>
+          <small>Панель администратора</small>
+        </span>
+      </div>
+
+      <div class="nav-panel">
+        <div class="nav-group">
+          <a class="nav-link is-active" href="#tab-kb" id="navLinkKb" onclick="switchTab('kb')">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-edit.svg#icon-edit"></use></svg>
+            <span>📚 База знаний (100 Q&A)</span>
+          </a>
+          <a class="nav-link" href="#tab-leads" id="navLinkLeads" onclick="switchTab('leads')">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-inbox.svg#icon-inbox"></use></svg>
+            <span>📋 Журнал заявок</span>
+            <span class="nav-count num" id="sidebarLeadsCount">0</span>
+          </a>
+          <a class="nav-link" href="#tab-pricing" id="navLinkPricing" onclick="switchTab('pricing')">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-box.svg#icon-box"></use></svg>
+            <span>💰 Официальный прайс-лист</span>
+          </a>
+          <a class="nav-link" href="test_sales_chat.html">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
+            <span>💬 Тестовый чат продаж</span>
+          </a>
+          <a class="nav-link" href="index.html">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-home.svg#icon-home"></use></svg>
+            <span>🌐 Основной лендинг</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main" id="main-content">
+      <div class="page">
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs" aria-label="Навигационная цепочка">
+          <a href="index.html">COMBO.UZ</a>
+          <span>/</span>
+          <span aria-current="page">Панель управления базой знаний и лидами</span>
+        </nav>
+
+        <!-- Header -->
+        <header class="page-head" style="margin-bottom: var(--space-4);">
+          <div>
+            <h1>Панель администратора COMBO.UZ</h1>
+            <p style="color: var(--color-text-muted); margin-top: 4px;">
+              Управление вопросами и ответами для AI-агента продаж на двух языках (RU/UZ), заполнение условий компании и обработка заявок клиентов.
+            </p>
+          </div>
+          <div style="display: flex; gap: var(--space-2); align-items: center;">
+            <a href="test_sales_chat.html" class="button button--secondary button--sm">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
+              <span>Открыть тестовый чат</span>
+            </a>
+            <button type="button" class="button button--primary button--sm" onclick="openAddModal()">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg>
+              <span>+ Добавить Q&A</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Stats Bar -->
+        <div class="admin-stats-grid">
+          <div class="stat">
+            <span class="stat-label">Всего статей в базе</span>
+            <span class="stat-value" id="statTotalKb">100</span>
+            <span class="stat-note">Русский + Узбекский языки</span>
+          </div>
+          <div class="stat stat--warning">
+            <span class="stat-label">Требуют заполнения</span>
+            <span class="stat-value" id="statNeedsAdmin" style="color: var(--color-warning);">17</span>
+            <span class="stat-note">Цены, гарантии, сроки, акции</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Категорий знаний</span>
+            <span class="stat-value">6</span>
+            <span class="stat-note">Модели, Замеры, Цены, Возражения</span>
+          </div>
+          <div class="stat stat--success">
+            <span class="stat-label">Входящих заявок (Лидов)</span>
+            <span class="stat-value" id="statTotalLeads" style="color: #22c55e;">0</span>
+            <span class="stat-note" id="statNewLeads">0 новых с AI-чата</span>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- TAB 1: KNOWLEDGE BASE -->
+        <!-- ========================================================= -->
+        <div id="tabContentKb">
+          <!-- Filter Controls -->
+          <div class="admin-controls-bar">
+            <!-- Search Input -->
+            <div style="flex: 1; min-width: 260px;">
+              <input type="search" id="kbSearchInput" class="input" placeholder="Поиск по вопросу, тексту ответа или ключевым словам (RU / UZ)..." oninput="filterKb()">
+            </div>
+
+            <!-- Category Filter Chips -->
+            <div class="segmented" style="display: flex; gap: 4px; overflow-x: auto; padding-bottom: 2px;">
+              <button type="button" class="chip" data-cat="all" onclick="setCategoryFilter('all')" aria-pressed="true">Все (100)</button>
+              <button type="button" class="chip" data-cat="needs_admin" onclick="setCategoryFilter('needs_admin')">⚠️ Требуют заполнения (17)</button>
+              <button type="button" class="chip" data-cat="models" onclick="setCategoryFilter('models')">🪟 Модели (41)</button>
+              <button type="button" class="chip" data-cat="objections" onclick="setCategoryFilter('objections')">🛡️ Возражения (12)</button>
+              <button type="button" class="chip" data-cat="measuring_install" onclick="setCategoryFilter('measuring_install')">📐 Замеры (15)</button>
+              <button type="button" class="chip" data-cat="pricing_discounts" onclick="setCategoryFilter('pricing_discounts')">💳 Цены/Скидки (12)</button>
+              <button type="button" class="chip" data-cat="timeline_delivery_warranty" onclick="setCategoryFilter('timeline_delivery_warranty')">📦 Сроки/Гарантия (12)</button>
+              <button type="button" class="chip" data-cat="quality_care" onclick="setCategoryFilter('quality_care')">🧼 Уход/Чилля (8)</button>
+            </div>
+          </div>
+
+          <!-- Cards List -->
+          <div id="kbListContainer" class="kb-grid">
+            <!-- Dynamic Items injected here -->
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- TAB 2: LEADS CRM -->
+        <!-- ========================================================= -->
+        <div id="tabContentLeads" style="display: none;">
+          <div class="admin-controls-bar">
+            <div>
+              <strong>Журнал входящих заявок от клиентов (с сайта и AI-чата)</strong>
+              <div style="font-size: 12px; color: var(--color-text-muted);">Заявки формируются автоматически, когда клиент указывает контакты и параметры окон.</div>
+            </div>
+            <button type="button" class="button button--secondary button--sm" onclick="loadLeads()">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-sync.svg#icon-sync"></use></svg>
+              <span>Обновить список</span>
+            </button>
+          </div>
+
+          <div class="leads-table-container">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>ID / Дата</th>
+                  <th>Клиент / Телефон</th>
+                  <th>Район / Адрес</th>
+                  <th>Модель и размеры</th>
+                  <th>Сумма (UZS)</th>
+                  <th>Статус</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody id="leadsTableBody">
+                <!-- Dynamic leads injected here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- TAB 3: OFFICIAL PRICING -->
+        <!-- ========================================================= -->
+        <div id="tabContentPricing" style="display: none;">
+          <div class="admin-controls-bar" style="margin-bottom: var(--space-3);">
+            <div>
+              <strong>💰 Официальный прайс-лист продукции COMBO.UZ</strong>
+              <div style="font-size: 12px; color: var(--color-text-muted);">
+                Управление ценами за 1 м² по линейкам штор и жалюзи. До официального подтверждения AI-консультант не сообщает клиентам действующие цены.
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+              <input type="file" id="pricingFileInput" accept=".json" style="display: none;" onchange="uploadPricingJson(event)">
+              <button type="button" class="button button--secondary button--sm" onclick="document.getElementById('pricingFileInput').click()">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-upload.svg#icon-upload"></use></svg>
+                <span>Загрузить JSON</span>
+              </button>
+              <button type="button" class="button button--secondary button--sm" onclick="downloadPricingJson()">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-download.svg#icon-download"></use></svg>
+                <span>Скачать JSON</span>
+              </button>
+              <button type="button" class="button button--secondary button--sm" onclick="addNewPriceItem()">
+                <span>+ Добавить модель</span>
+              </button>
+              <button type="button" class="button button--primary button--sm" onclick="savePricing()">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg>
+                <span>Сохранить прайс-лист</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Status Card -->
+          <div id="pricingStatusCard" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 16px; margin-bottom: var(--space-4);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <div id="pricingStatusTitle" style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">
+                  ⚠️ Статус: Черновой прайс-лист (НЕ ПОДТВЕРЖДЕН)
+                </div>
+                <div id="pricingStatusDesc" style="font-size: 12px; color: var(--color-text-muted);">
+                  AI-консультанту запрещено называть эти суммы клиентам. При вопросе о цене консультант отвечает: «Здравствуйте! 😊 Стоимость рулонных штор зависит от выбранной ткани, модели и размеров окна...» и уточняет размеры окна.
+                </div>
+              </div>
+              <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; background: var(--color-surface-hover); padding: 8px 14px; border-radius: var(--radius-md); border: 1px solid var(--color-border); font-size: 13px; font-weight: 600;">
+                <input type="checkbox" id="pricingConfirmedCheckbox" onchange="togglePricingConfirmed(this.checked)">
+                <span>Официально подтвердить прайс-лист компании</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Pricing Table -->
+          <div class="leads-table-container">
+            <table class="leads-table" id="pricingTable">
+              <thead>
+                <tr>
+                  <th style="width: 50px;">Код</th>
+                  <th>Модель (Русский)</th>
+                  <th>Model (O'zbekcha)</th>
+                  <th style="width: 170px;">Цена за м² (UZS)</th>
+                  <th style="width: 110px;">Мин. м²</th>
+                  <th>Описание / ткань</th>
+                  <th style="width: 60px;">Удалить</th>
+                </tr>
+              </thead>
+              <tbody id="pricingTableBody">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Retail Price List (Excel 01.10.2025) -->
+          <div style="margin-top: var(--space-5); border-top: 2px solid var(--color-border); padding-top: var(--space-4);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: var(--space-3);">
+              <div>
+                <h3 style="margin: 0; display: flex; align-items: center; gap: 8px;">
+                  <span>📊 Розничный прайс-лист COMBO.UZ (Excel от 01.10.2025)</span>
+                  <span class="badge badge--success">3 таблицы • 61 позиция</span>
+                </h3>
+                <div style="font-size: 12px; color: var(--color-text-muted); margin-top: 4px;">
+                  Официальные розничные коллекции: Рулонные (День и Ночь / Комбо, Ролло, Double, Римские), Тюлевые, Плиссе / Honeycomb и правила обслуживания.
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button type="button" class="button button--secondary button--sm" onclick="downloadRetailPricingJson()">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-download.svg#icon-download"></use></svg>
+                  <span>Скачать retail_price_list.json</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Business Rules Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: var(--space-4);">
+              <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 14px;">
+                <div style="font-weight: 700; font-size: 13px; color: var(--color-primary); margin-bottom: 6px;">📐 Правило расчёта</div>
+                <div style="font-size: 12px; line-height: 1.5;">
+                  <strong>Формула:</strong> ширина (м) × высота (м) × цена за 1 м².<br>
+                  <strong>Минимальная площадь:</strong> 1.0 м² на изделие (если &lt; 1 м², расчет как за 1 м²).
+                </div>
+              </div>
+              <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 14px;">
+                <div style="font-weight: 700; font-size: 13px; color: #22c55e; margin-bottom: 6px;">🚗 Сервис в Ташкенте</div>
+                <div style="font-size: 12px; line-height: 1.5;">
+                  Замер, консультация дизайнера и установка — <strong>БЕСПЛАТНО при заказе</strong>.<br>
+                  Если клиент не оформляет заказ — выезд специалиста <strong>100 000 сум</strong>.
+                </div>
+              </div>
+              <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 14px;">
+                <div style="font-weight: 700; font-size: 13px; color: #3b82f6; margin-bottom: 6px;">🇺🇿 Работа по Узбекистану</div>
+                <div style="font-size: 12px; line-height: 1.5;">
+                  Заказы принимаются <strong>по всей стране</strong>.<br>
+                  Условия за пределами Ташкента согласуются с менеджером (бесплатный выезд в регионы не гарантируется).
+                </div>
+              </div>
+            </div>
+
+            <!-- Table Sub-tabs -->
+            <div class="segmented" style="margin-bottom: var(--space-3);">
+              <button type="button" class="chip" id="retailSubtabRoller" onclick="switchRetailSubtab('roller')" aria-pressed="true">Рулонные шторы (30)</button>
+              <button type="button" class="chip" id="retailSubtabTulle" onclick="switchRetailSubtab('tulle')">Тюлевые жалюзи (21)</button>
+              <button type="button" class="chip" id="retailSubtabPlisse" onclick="switchRetailSubtab('plisse')">Плиссе и Honeycomb (10)</button>
+              <button type="button" class="chip" id="retailSubtabRules" onclick="switchRetailSubtab('rules')">Правила прайса (11)</button>
+            </div>
+
+            <!-- Retail Table Content Container -->
+            <div id="retailTableContainer" class="leads-table-container">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Dialog: Edit / Add Q&A -->
+  <div id="qaModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); max-width: 760px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 24px; box-shadow: var(--shadow-lg);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--color-border); padding-bottom: 12px;">
+        <h3 id="modalTitle" style="margin: 0;">Редактирование статьи Q&A</h3>
+        <button type="button" class="icon-button" onclick="closeModal()" aria-label="Закрыть">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-close.svg#icon-close"></use></svg>
+        </button>
+      </div>
+
+      <form id="qaForm" onsubmit="handleSaveQa(event)">
+        <input type="hidden" id="formId">
+
+        <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+          <div>
+            <label class="field-label" for="formCategory">Категория</label>
+            <select id="formCategory" class="select" required>
+              <option value="models">Модели и ткани</option>
+              <option value="objections">Отработка возражений</option>
+              <option value="measuring_install">Замеры и установка</option>
+              <option value="pricing_discounts">Цены и скидки</option>
+              <option value="timeline_delivery_warranty">Сроки, доставка и гарантия</option>
+              <option value="quality_care">Качество, уход и чилля</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label" for="formSubcategory">Подкатегория / Тег</label>
+            <input type="text" id="formSubcategory" class="input" placeholder="например: zebra_day_night, blackout, expensive">
+          </div>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <label class="field-label" for="formKeywords">Ключевые слова (через запятую)</label>
+          <input type="text" id="formKeywords" class="input" placeholder="день-ночь, зебра, сколько стоит, как мыть">
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+            <input type="checkbox" id="formRequiresAdmin">
+            <strong style="color: var(--color-warning);">⚠️ Требует заполнения администратором</strong> (содержит специальные условия компании)
+          </label>
+        </div>
+
+        <!-- Russian block -->
+        <div style="background: var(--color-surface-hover); padding: 12px; border-radius: var(--radius-sm); margin-bottom: 14px;">
+          <div style="font-weight: 700; margin-bottom: 8px;">🇷🇺 Русский язык:</div>
+          <div style="margin-bottom: 8px;">
+            <label class="field-label" for="formQuestionRu">Вопрос (RU) *</label>
+            <input type="text" id="formQuestionRu" class="input" required placeholder="Например: Сколько стоит выезд замерщика?">
+          </div>
+          <div>
+            <label class="field-label" for="formAnswerRu">Ответ (RU) *</label>
+            <textarea id="formAnswerRu" class="input" rows="4" required placeholder="Подробный ответ клиенту..."></textarea>
+          </div>
+        </div>
+
+        <!-- Uzbek block -->
+        <div style="background: var(--color-surface-hover); padding: 12px; border-radius: var(--radius-sm); margin-bottom: 16px;">
+          <div style="font-weight: 700; margin-bottom: 8px;">🇺🇿 O'zbek tili (Lotin):</div>
+          <div style="margin-bottom: 8px;">
+            <label class="field-label" for="formQuestionUz">Savol (UZ)</label>
+            <input type="text" id="formQuestionUz" class="input" placeholder="Masalan: O‘lchovchi ustaning kelishi qancha turadi?">
+          </div>
+          <div>
+            <label class="field-label" for="formAnswerUz">Javob (UZ)</label>
+            <textarea id="formAnswerUz" class="input" rows="4" placeholder="Mijozga to‘liq va tushunarli javob..."></textarea>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px;">
+          <button type="button" class="button button--secondary" onclick="closeModal()">Отмена</button>
+          <button type="submit" class="button button--primary">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg>
+            <span>Сохранить изменения</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-region" id="toast-region"></div>
+
+  <script type="module">
+    import { toastSuccess, toastError, toastInfo } from './ui/toast.js';
+
+    let allKbItems = [];
+    let currentCategoryFilter = 'all';
+    let allLeads = [];
+    let currentPricing = { updatedAt: '', currency: 'UZS', isConfirmed: false, notes: '', items: [] };
+
+    async function loadKb() {
+      try {
+        const res = await fetch('/api/knowledge-base');
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data)) {
+          allKbItems = json.data;
+          updateStats();
+          filterKb();
+        }
+      } catch (err) {
+        toastError('Ошибка загрузки базы знаний: ' + err.message);
+      }
+    }
+
+    async function loadLeads() {
+      try {
+        const res = await fetch('/api/leads');
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data)) {
+          allLeads = json.data;
+          renderLeadsTable();
+          updateStats();
+        }
+      } catch (err) {
+        toastError('Ошибка загрузки заявок: ' + err.message);
+      }
+    }
+
+    window.switchTab = function(tab) {
+      const kbTab = document.getElementById('tabContentKb');
+      const leadsTab = document.getElementById('tabContentLeads');
+      const pricingTab = document.getElementById('tabContentPricing');
+      const navKb = document.getElementById('navLinkKb');
+      const navLeads = document.getElementById('navLinkLeads');
+      const navPricing = document.getElementById('navLinkPricing');
+
+      kbTab.style.display = 'none';
+      leadsTab.style.display = 'none';
+      pricingTab.style.display = 'none';
+
+      navKb.classList.remove('is-active');
+      navLeads.classList.remove('is-active');
+      navPricing.classList.remove('is-active');
+
+      if (tab === 'leads') {
+        leadsTab.style.display = 'block';
+        navLeads.classList.add('is-active');
+        loadLeads();
+      } else if (tab === 'pricing') {
+        pricingTab.style.display = 'block';
+        navPricing.classList.add('is-active');
+        loadPricing();
+        loadRetailPricing();
+      } else {
+        kbTab.style.display = 'block';
+        navKb.classList.add('is-active');
+      }
+    };
+
+    window.setCategoryFilter = function(cat) {
+      currentCategoryFilter = cat;
+      document.querySelectorAll('.admin-controls-bar .chip').forEach(btn => {
+        btn.setAttribute('aria-pressed', btn.getAttribute('data-cat') === cat);
+      });
+      filterKb();
+    };
+
+    window.filterKb = function() {
+      const search = (document.getElementById('kbSearchInput').value || '').toLowerCase().trim();
+      const container = document.getElementById('kbListContainer');
+
+      const filtered = allKbItems.filter(item => {
+        // Category filter
+        if (currentCategoryFilter === 'needs_admin' && !item.requires_admin) return false;
+        if (currentCategoryFilter !== 'all' && currentCategoryFilter !== 'needs_admin' && item.category !== currentCategoryFilter) return false;
+
+        // Search text
+        if (!search) return true;
+        const qRu = (item.question_ru || '').toLowerCase();
+        const aRu = (item.answer_ru || '').toLowerCase();
+        const qUz = (item.question_uz || '').toLowerCase();
+        const aUz = (item.answer_uz || '').toLowerCase();
+        const kws = (item.keywords || []).join(' ').toLowerCase();
+
+        return qRu.includes(search) || aRu.includes(search) || qUz.includes(search) || aUz.includes(search) || kws.includes(search) || item.id.toLowerCase().includes(search);
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty" style="padding: 40px; text-align: center;">
+            <p>Ничего не найдено по вашему запросу.</p>
+            <button class="button button--secondary button--sm" onclick="clearFilters()">Сбросить фильтры</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => `
+        <div class="kb-card ${item.requires_admin ? 'is-needs-admin' : ''}" id="card-${item.id}">
+          <div class="kb-card-header">
+            <div>
+              <span class="badge badge--neutral">${item.id}</span>
+              <span class="badge badge--primary" style="margin-left: 4px;">${translateCategory(item.category)}</span>
+              ${item.requires_admin ? '<span class="badge badge--warning" style="margin-left: 4px;">⚠️ Требует заполнения администратором</span>' : ''}
+              <h3 style="margin: 8px 0 2px; font-size: 15px;">${escapeHtml(item.question_ru)}</h3>
+              <div style="font-size: 13px; color: var(--color-text-muted); font-style: italic;">🇺🇿 ${escapeHtml(item.question_uz || '—')}</div>
+            </div>
+            <div style="display: flex; gap: 6px;">
+              <button type="button" class="button button--secondary button--sm" onclick="editItem('${item.id}')">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-edit.svg#icon-edit"></use></svg>
+                <span>Изменить</span>
+              </button>
+              <button type="button" class="button button--secondary button--sm" style="color: var(--color-danger);" onclick="deleteItem('${item.id}')" title="Удалить">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-close.svg#icon-close"></use></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="kb-qa-block">
+            <div class="kb-qa-col">
+              <strong>🇷🇺 Ответ (Русский):</strong>
+              <div>${highlightPlaceholders(escapeHtml(item.answer_ru))}</div>
+            </div>
+            <div class="kb-qa-col">
+              <strong>🇺🇿 Javob (O'zbekcha):</strong>
+              <div>${highlightPlaceholders(escapeHtml(item.answer_uz || '—'))}</div>
+            </div>
+          </div>
+
+          ${item.keywords && item.keywords.length ? `
+            <div style="margin-top: 8px; font-size: 11px; color: var(--color-text-muted);">
+              <strong>Теги:</strong> ${item.keywords.map(k => `<span class="tag">${escapeHtml(k)}</span>`).join(' ')}
+            </div>
+          ` : ''}
+        </div>
+      `).join('');
+    };
+
+    function translateCategory(cat) {
+      const map = {
+        models: 'Модели и ткани',
+        objections: 'Отработка возражений',
+        measuring_install: 'Замеры и установка',
+        pricing_discounts: 'Цены и скидки',
+        timeline_delivery_warranty: 'Сроки и гарантия',
+        quality_care: 'Качество и чилля'
+      };
+      return map[cat] || cat;
+    }
+
+    function highlightPlaceholders(text) {
+      if (!text) return '';
+      return text
+        .replace(/\[Требуется заполнение[^\]]*\]/g, '<span style="background: rgba(245, 158, 11, 0.25); color: #d97706; padding: 2px 4px; border-radius: 4px; font-weight: 600;">$&</span>')
+        .replace(/\[Administrator[^\]]*\]/g, '<span style="background: rgba(245, 158, 11, 0.25); color: #d97706; padding: 2px 4px; border-radius: 4px; font-weight: 600;">$&</span>');
+    }
+
+    function updateStats() {
+      document.getElementById('statTotalKb').textContent = allKbItems.length;
+      const needs = allKbItems.filter(x => x.requires_admin).length;
+      document.getElementById('statNeedsAdmin').textContent = needs;
+
+      document.getElementById('statTotalLeads').textContent = allLeads.length;
+      const newLeads = allLeads.filter(x => x.status === 'NEW').length;
+      document.getElementById('statNewLeads').textContent = `${newLeads} новых`;
+      document.getElementById('sidebarLeadsCount').textContent = allLeads.length;
+    }
+
+    function formatWindowCount(count) {
+      const n = Math.abs(Number(count) || 1);
+      if (n % 10 === 1 && n % 100 !== 11) return `${n} окно`;
+      if ([2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100)) return `${n} окна`;
+      return `${n} окон`;
+    }
+
+    function renderLeadsTable() {
+      const tbody = document.getElementById('leadsTableBody');
+      if (allLeads.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 30px; color: var(--color-text-muted);">Пока нет поступивших заявок. Проверьте отправку в Тестовом чате продаж!</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = allLeads.map(lead => `
+        <tr>
+          <td>
+            <strong>${lead.id}</strong><br>
+            <small style="color: var(--color-text-muted);">${new Date(lead.createdAt).toLocaleString('ru-RU')}</small>
+          </td>
+          <td>
+            <strong>${escapeHtml(lead.name)}</strong><br>
+            <a href="tel:${escapeHtml(lead.phone)}" style="font-family: var(--font-mono); font-size: 12px; color: var(--color-primary);">${escapeHtml(lead.phone)}</a>
+          </td>
+          <td>
+            <strong>${escapeHtml(lead.district || 'Ташкент')}</strong><br>
+            <small style="color: var(--color-text-muted);">${escapeHtml(lead.address || '')}</small>
+          </td>
+          <td>
+            <span class="badge badge--primary">${escapeHtml(lead.model || 'Жалюзи')}</span>
+            ${lead.fabricCollection ? `<span class="badge badge--neutral" style="margin-left: 4px; font-size: 11px;">${escapeHtml(lead.fabricCollection)}</span>` : ''}
+            ${lead.corniceType ? `<span class="badge badge--neutral" style="margin-left: 4px; font-size: 11px;">${escapeHtml(lead.corniceType)}</span>` : ''}<br>
+            <small>${formatWindowCount(lead.quantity || 1)}${lead.dimensions ? ` • ${escapeHtml(lead.dimensions)}` : ''}</small>
+          </td>
+          <td>
+            <strong>${lead.totalEstimateUZS ? lead.totalEstimateUZS.toLocaleString('ru-RU') + ' сум' : '<span style="color: var(--color-text-muted);">— (на замере)</span>'}</strong>
+          </td>
+          <td>
+            <select class="select select--sm" onchange="updateLeadStatus('${lead.id}', this.value)" style="font-size: 12px;">
+              <option value="NEW" ${lead.status === 'NEW' ? 'selected' : ''}>🔵 Новая</option>
+              <option value="IN_PROGRESS" ${lead.status === 'IN_PROGRESS' ? 'selected' : ''}>🟡 В работе</option>
+              <option value="COMPLETED" ${lead.status === 'COMPLETED' ? 'selected' : ''}>🟢 Выполнена</option>
+              <option value="CANCELLED" ${lead.status === 'CANCELLED' ? 'selected' : ''}>🔴 Отменена</option>
+            </select>
+          </td>
+          <td>
+            <div style="display: flex; gap: 4px;">
+              <a href="tel:${escapeHtml(lead.phone)}" class="button button--secondary button--sm" title="Позвонить">📞</a>
+              <a href="https://t.me/${lead.phone.replace(/[^\d]/g, '')}" target="_blank" rel="noopener" class="button button--secondary button--sm" title="Telegram">✈️</a>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    window.updateLeadStatus = async function(leadId, newStatus) {
+      try {
+        const res = await fetch('/api/leads/update-status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: leadId, status: newStatus })
+        });
+        const data = await res.json();
+        if (data.success) {
+          toastSuccess(`Статус заявки ${leadId} изменен`);
+          loadLeads();
+        }
+      } catch (err) {
+        toastError('Ошибка смены статуса: ' + err.message);
+      }
+    };
+
+    window.openAddModal = function() {
+      document.getElementById('modalTitle').textContent = '➕ Добавление нового вопроса и ответа';
+      document.getElementById('formId').value = '';
+      document.getElementById('formCategory').value = 'models';
+      document.getElementById('formSubcategory').value = '';
+      document.getElementById('formKeywords').value = '';
+      document.getElementById('formRequiresAdmin').checked = false;
+      document.getElementById('formQuestionRu').value = '';
+      document.getElementById('formAnswerRu').value = '';
+      document.getElementById('formQuestionUz').value = '';
+      document.getElementById('formAnswerUz').value = '';
+      document.getElementById('qaModal').style.display = 'flex';
+    };
+
+    window.editItem = function(id) {
+      const item = allKbItems.find(x => x.id === id);
+      if (!item) return;
+
+      document.getElementById('modalTitle').textContent = `✏️ Редактирование статьи [${item.id}]`;
+      document.getElementById('formId').value = item.id;
+      document.getElementById('formCategory').value = item.category || 'models';
+      document.getElementById('formSubcategory').value = item.subcategory || '';
+      document.getElementById('formKeywords').value = (item.keywords || []).join(', ');
+      document.getElementById('formRequiresAdmin').checked = Boolean(item.requires_admin);
+      document.getElementById('formQuestionRu').value = item.question_ru || '';
+      document.getElementById('formAnswerRu').value = item.answer_ru || '';
+      document.getElementById('formQuestionUz').value = item.question_uz || '';
+      document.getElementById('formAnswerUz').value = item.answer_uz || '';
+      document.getElementById('qaModal').style.display = 'flex';
+    };
+
+    window.closeModal = function() {
+      document.getElementById('qaModal').style.display = 'none';
+    };
+
+    window.handleSaveQa = async function(e) {
+      e.preventDefault();
+      const payload = {
+        id: document.getElementById('formId').value || undefined,
+        category: document.getElementById('formCategory').value,
+        subcategory: document.getElementById('formSubcategory').value,
+        keywords: document.getElementById('formKeywords').value.split(',').map(s => s.trim()).filter(Boolean),
+        requires_admin: document.getElementById('formRequiresAdmin').checked,
+        question_ru: document.getElementById('formQuestionRu').value,
+        answer_ru: document.getElementById('formAnswerRu').value,
+        question_uz: document.getElementById('formQuestionUz').value,
+        answer_uz: document.getElementById('formAnswerUz').value
+      };
+
+      try {
+        const res = await fetch('/api/knowledge-base/item', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const json = await res.json();
+        if (json.success) {
+          toastSuccess(json.message || 'Статья успешно сохранена!');
+          closeModal();
+          await loadKb();
+        } else {
+          toastError(json.error || 'Ошибка при сохранении');
+        }
+      } catch (err) {
+        toastError('Ошибка сети: ' + err.message);
+      }
+    };
+
+    window.deleteItem = async function(id) {
+      if (!confirm(`Вы действительно хотите удалить вопрос [${id}] из базы знаний?`)) return;
+
+      try {
+        const res = await fetch(`/api/knowledge-base/item/${id}`, { method: 'DELETE' });
+        const json = await res.json();
+        if (json.success) {
+          toastSuccess(json.message || 'Статья удалена');
+          await loadKb();
+        } else {
+          toastError(json.error || 'Не удалось удалить');
+        }
+      } catch (err) {
+        toastError('Ошибка сети: ' + err.message);
+      }
+    };
+
+    window.clearFilters = function() {
+      document.getElementById('kbSearchInput').value = '';
+      setCategoryFilter('all');
+    };
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    // =========================================================================
+    // PRICING MANAGEMENT
+    // =========================================================================
+    async function loadPricing() {
+      try {
+        const res = await fetch('/api/pricing');
+        const json = await res.json();
+        if (json.success && json.data) {
+          currentPricing = json.data;
+          renderPricingTable();
+          updatePricingStatusBanner();
+        }
+      } catch (err) {
+        toastError('Ошибка загрузки прайс-листа: ' + err.message);
+      }
+    }
+
+    function updatePricingStatusBanner() {
+      const isConfirmed = Boolean(currentPricing && currentPricing.isConfirmed);
+      const title = document.getElementById('pricingStatusTitle');
+      const desc = document.getElementById('pricingStatusDesc');
+      const checkbox = document.getElementById('pricingConfirmedCheckbox');
+      const card = document.getElementById('pricingStatusCard');
+
+      if (checkbox) checkbox.checked = isConfirmed;
+
+      if (card && title && desc) {
+        if (isConfirmed) {
+          card.style.borderColor = '#22c55e';
+          card.style.background = 'rgba(34, 197, 94, 0.05)';
+          title.innerHTML = '✅ Статус: Прайс-лист ОФИЦИАЛЬНО ПОДТВЕРЖДЕН';
+          title.style.color = '#16a34a';
+          desc.textContent = 'AI-консультант использует эти ставки для расчетов и информирования клиентов по запросу.';
+        } else {
+          card.style.borderColor = 'var(--color-warning)';
+          card.style.background = 'rgba(245, 158, 11, 0.05)';
+          title.innerHTML = '⚠️ Статус: Черновой прайс-лист (НЕ ПОДТВЕРЖДЕН)';
+          title.style.color = 'var(--color-warning)';
+          desc.textContent = 'AI-консультанту строго запрещено называть эти суммы клиентам. На вопрос о цене консультант отвечает утвержденным текстом без чисел и уточняет модель и размеры окна.';
+        }
+      }
+    }
+
+    window.togglePricingConfirmed = function(checked) {
+      if (!currentPricing) return;
+      currentPricing.isConfirmed = checked;
+      updatePricingStatusBanner();
+      toastInfo(checked ? 'Прайс-лист помечен как подтвержденный (нажмите «Сохранить прайс-лист» для фиксации)' : 'Прайс-лист помечен как черновик (не подтвержден)');
+    };
+
+    function renderPricingTable() {
+      const tbody = document.getElementById('pricingTableBody');
+      if (!tbody) return;
+      if (!currentPricing || !Array.isArray(currentPricing.items) || currentPricing.items.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 24px; color: var(--color-text-muted);">Позиции прайс-листа отсутствуют. Нажмите «+ Добавить модель» или «Загрузить JSON».</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = currentPricing.items.map((item, idx) => `
+        <tr>
+          <td>
+            <input type="text" class="input input--sm" style="width: 100px; font-family: var(--font-mono); font-size: 11px;" value="${escapeHtml(item.id || '')}" onchange="updatePriceItemField(${idx}, 'id', this.value)">
+          </td>
+          <td>
+            <input type="text" class="input input--sm" style="min-width: 160px; font-weight: 600;" value="${escapeHtml(item.name_ru || '')}" onchange="updatePriceItemField(${idx}, 'name_ru', this.value)">
+          </td>
+          <td>
+            <input type="text" class="input input--sm" style="min-width: 160px;" value="${escapeHtml(item.name_uz || '')}" onchange="updatePriceItemField(${idx}, 'name_uz', this.value)">
+          </td>
+          <td>
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <input type="number" class="input input--sm" style="width: 110px; font-weight: 700;" value="${item.pricePerM2 || 0}" step="5000" min="0" onchange="updatePriceItemField(${idx}, 'pricePerM2', parseInt(this.value, 10))">
+              <span style="font-size: 11px; color: var(--color-text-muted);">сум/м²</span>
+            </div>
+          </td>
+          <td>
+            <input type="number" class="input input--sm" style="width: 70px;" value="${item.minAreaM2 || 1.0}" step="0.1" min="0.5" onchange="updatePriceItemField(${idx}, 'minAreaM2', parseFloat(this.value))">
+          </td>
+          <td>
+            <input type="text" class="input input--sm" style="min-width: 200px;" value="${escapeHtml(item.description_ru || '')}" placeholder="Описание / особенности..." onchange="updatePriceItemField(${idx}, 'description_ru', this.value)">
+          </td>
+          <td style="text-align: center;">
+            <button type="button" class="button button--secondary button--sm" style="color: var(--color-danger); padding: 4px 8px;" onclick="deletePriceItem(${idx})" title="Удалить позицию">
+              <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 14px; height: 14px;"><use href="assets/icons/icon-close.svg#icon-close"></use></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    window.updatePriceItemField = function(index, field, value) {
+      if (currentPricing && currentPricing.items && currentPricing.items[index]) {
+        currentPricing.items[index][field] = value;
+      }
+    };
+
+    window.addNewPriceItem = function() {
+      if (!currentPricing) currentPricing = { items: [] };
+      if (!Array.isArray(currentPricing.items)) currentPricing.items = [];
+
+      currentPricing.items.push({
+        id: 'model_' + (currentPricing.items.length + 1),
+        category: 'roll',
+        name_ru: 'Новая модель штор',
+        name_uz: 'Yangi parda modeli',
+        pricePerM2: 200000,
+        minAreaM2: 1.0,
+        description_ru: 'Характеристики ткани и системы',
+        description_uz: 'Mato va tizim xususiyatlari'
+      });
+
+      renderPricingTable();
+      toastInfo('Новая позиция добавлена в конец таблицы');
+    };
+
+    window.deletePriceItem = function(index) {
+      if (!confirm('Удалить эту модель из прайс-листа?')) return;
+      currentPricing.items.splice(index, 1);
+      renderPricingTable();
+      toastSuccess('Позиция удалена из таблицы');
+    };
+
+    window.savePricing = async function() {
+      if (!currentPricing) return;
+      try {
+        const res = await fetch('/api/pricing', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(currentPricing)
+        });
+        const json = await res.json();
+        if (json.success) {
+          toastSuccess('Официальный прайс-лист успешно сохранен на сервере!');
+          updatePricingStatusBanner();
+        } else {
+          toastError(json.error || 'Ошибка при сохранении прайс-листа');
+        }
+      } catch (err) {
+        toastError('Ошибка сети при сохранении прайса: ' + err.message);
+      }
+    };
+
+    window.uploadPricingJson = function(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (Array.isArray(parsed.items)) {
+            currentPricing = parsed;
+          } else if (Array.isArray(parsed)) {
+            currentPricing.items = parsed;
+          } else {
+            throw new Error('Файл должен содержать массив items');
+          }
+          renderPricingTable();
+          updatePricingStatusBanner();
+          toastSuccess(`Прайс-лист успешно загружен из файла (${currentPricing.items.length} моделей). Нажмите «Сохранить прайс-лист» для применения.`);
+        } catch (err) {
+          toastError('Не удалось прочитать JSON файл: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    };
+
+    let currentRetailPricing = null;
+    let currentRetailSubtab = 'roller';
+
+    async function loadRetailPricing() {
+      try {
+        const res = await fetch('/api/retail-pricing');
+        const json = await res.json();
+        if (json.success && json.data) {
+          currentRetailPricing = json.data;
+          renderRetailTable();
+        }
+      } catch (err) {
+        console.warn('Ошибка загрузки retail pricing:', err);
+      }
+    }
+
+    window.switchRetailSubtab = function(subtab) {
+      currentRetailSubtab = subtab;
+      document.getElementById('retailSubtabRoller').setAttribute('aria-pressed', subtab === 'roller');
+      document.getElementById('retailSubtabTulle').setAttribute('aria-pressed', subtab === 'tulle');
+      document.getElementById('retailSubtabPlisse').setAttribute('aria-pressed', subtab === 'plisse');
+      document.getElementById('retailSubtabRules').setAttribute('aria-pressed', subtab === 'rules');
+      renderRetailTable();
+    };
+
+    function renderRetailTable() {
+      const container = document.getElementById('retailTableContainer');
+      if (!container || !currentRetailPricing) return;
+
+      if (currentRetailSubtab === 'roller') {
+        const rows = (currentRetailPricing.rollerBlinds || []).map((r, i) => `
+          <tr>
+            <td style="font-size: 11px; color: var(--color-text-muted);">${i + 1}</td>
+            <td style="font-weight: 600;">${escapeHtml(r.category)}</td>
+            <td><strong>${escapeHtml(r.collections)}</strong></td>
+            <td style="color: #22c55e; font-weight: 700;">${r.standardCornice ? r.standardCornice.toLocaleString('ru-RU') + ' сум' : '—'}</td>
+            <td style="color: #3b82f6; font-weight: 700;">${r.cassette ? r.cassette.toLocaleString('ru-RU') + ' сум' : '—'}</td>
+            <td style="color: #f59e0b; font-weight: 700;">${r.mini ? r.mini.toLocaleString('ru-RU') + ' сум' : '—'}</td>
+            <td style="font-size: 11px; color: var(--color-text-muted);">${escapeHtml(r.note || '')}</td>
+          </tr>
+        `).join('');
+
+        container.innerHTML = `
+          <table class="leads-table">
+            <thead>
+              <tr>
+                <th style="width: 40px;">#</th>
+                <th>Категория</th>
+                <th>Коллекции / Артикулы</th>
+                <th>Общий карниз (м²)</th>
+                <th>Кассета (м²)</th>
+                <th>Мини (м²)</th>
+                <th>Примечание</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        `;
+      } else if (currentRetailSubtab === 'tulle') {
+        const rows = (currentRetailPricing.tulleBlinds || []).map((r, i) => `
+          <tr>
+            <td style="font-size: 11px; color: var(--color-text-muted);">${i + 1}</td>
+            <td style="font-weight: 600; color: var(--color-primary);">${escapeHtml(r.section)}</td>
+            <td><strong>${escapeHtml(r.name)}</strong></td>
+            <td style="color: #22c55e; font-weight: 700;">${r.price ? r.price.toLocaleString('ru-RU') + ' сум/м²' : '—'}</td>
+            <td style="font-size: 11px; color: var(--color-text-muted);">${escapeHtml(r.note || '')}</td>
+          </tr>
+        `).join('');
+
+        container.innerHTML = `
+          <table class="leads-table">
+            <thead>
+              <tr>
+                <th style="width: 40px;">#</th>
+                <th>Раздел</th>
+                <th>Наименование ткани / комбинации</th>
+                <th>Цена за 1 м²</th>
+                <th>Примечание</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        `;
+      } else if (currentRetailSubtab === 'plisse') {
+        const rows = (currentRetailPricing.plisseAndHoneycomb || []).map((r, i) => `
+          <tr>
+            <td style="font-size: 11px; color: var(--color-text-muted);">${i + 1}</td>
+            <td><strong>${escapeHtml(r.collection)}</strong></td>
+            <td style="color: #3b82f6; font-weight: 700;">${r.upToHalfM2 ? r.upToHalfM2.toLocaleString('ru-RU') + ' сум' : '—'}</td>
+            <td style="color: #22c55e; font-weight: 700;">${r.upToOneM2 ? r.upToOneM2.toLocaleString('ru-RU') + ' сум' : '—'}</td>
+            <td style="font-size: 11px; color: var(--color-text-muted);">${escapeHtml(r.note || '')}</td>
+          </tr>
+        `).join('');
+
+        container.innerHTML = `
+          <table class="leads-table">
+            <thead>
+              <tr>
+                <th style="width: 40px;">#</th>
+                <th>Коллекция</th>
+                <th>До 0,5 м²</th>
+                <th>До 1,0 м²</th>
+                <th>Примечание</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        `;
+      } else if (currentRetailSubtab === 'rules') {
+        const rows = (currentRetailPricing.rules || []).map((r, i) => `
+          <tr>
+            <td style="font-size: 11px; color: var(--color-text-muted);">${i + 1}</td>
+            <td style="font-weight: 700; width: 220px;">${escapeHtml(r.name)}</td>
+            <td style="line-height: 1.5;">${escapeHtml(r.description)}</td>
+          </tr>
+        `).join('');
+
+        container.innerHTML = `
+          <table class="leads-table">
+            <thead>
+              <tr>
+                <th style="width: 40px;">#</th>
+                <th>Правило</th>
+                <th>Описание стандарта</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        `;
+      }
+    }
+
+    window.downloadRetailPricingJson = function() {
+      if (!currentRetailPricing) return;
+      const jsonStr = JSON.stringify(currentRetailPricing, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'retail_price_list.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toastSuccess('Файл retail_price_list.json скачан');
+    };
+
+    window.downloadPricingJson = function() {
+      if (!currentPricing) return;
+      const jsonStr = JSON.stringify(currentPricing, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'combo_uz_pricing.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toastSuccess('Файл combo_uz_pricing.json скачан');
+    };
+
+    // Init
+    loadKb();
+    loadLeads();
+    loadPricing();
+    loadRetailPricing();
+
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash;
+      if (hash === '#tab-leads') switchTab('leads');
+      else if (hash === '#tab-pricing') switchTab('pricing');
+      else switchTab('kb');
+    });
+
+    const initParams = new URLSearchParams(window.location.search);if if (window.location.hash === '#tab-leads') {
+      switchTab('leads');
+    } else if (window.location.hash === '#tab-pricing') {
+      switchTab('pricing');
+    }
+  </script>
+</body>
+</html>

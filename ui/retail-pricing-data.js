@@ -1,0 +1,513 @@
+/**
+ * COMBO.UZ Official Retail Price List Data
+ * Source: Retail price list from 01.10.2025
+ */
+export const DEFAULT_RETAIL_PRICING = {
+  "title": "COMBO.UZ — Официальный розничный прайс-лист для клиентов",
+  "sourceDate": "01.10.2025",
+  "currency": "UZS",
+  "rules": [
+    {
+      "name": "Назначение",
+      "description": "Розничный прайс-лист COMBO.UZ для общения с клиентами через AI-агента."
+    },
+    {
+      "name": "Дата на исходниках",
+      "description": "01.10.2025. Перед выдачей окончательной стоимости подтвердить актуальность цен."
+    },
+    {
+      "name": "Валюта",
+      "description": "Все числовые цены в узбекских сумах (UZS)."
+    },
+    {
+      "name": "Категории",
+      "description": "Рулонные (День и Ночь / Комбо, Ролло, Double, Римские); Тюлевые; Плиссе / Honeycomb."
+    },
+    {
+      "name": "Уточнение по рулонным",
+      "description": "Спросить коллекцию, ширину, высоту, тип механизма (общий карниз, кассета, мини), количество."
+    },
+    {
+      "name": "Уточнение по тюлевым",
+      "description": "Спросить название ткани/комбинации, размеры и количество."
+    },
+    {
+      "name": "Уточнение по плиссе",
+      "description": "Спросить площадь изделия: цены даны в столбцах «до 0,5 м²» и «до 1 м²»."
+    },
+    {
+      "name": "Осторожность с единицами",
+      "description": "В исходных фото для рулонных и тюлевых не указано, за какую единицу установлена цена. Не заявлять, что это цена за м², без проверки."
+    },
+    {
+      "name": "Не рассчитывать наугад",
+      "description": "Если нет подтверждённой формулы расчёта по площади, минимальной площади или доплатам, назвать цену из прайса как ориентир и передать финальный расчёт менеджеру."
+    },
+    {
+      "name": "Пустые ячейки",
+      "description": "Отсутствие цены не означает нулевую стоимость. Уточнить у менеджера."
+    },
+    {
+      "name": "Проверка распознавания",
+      "description": "Названия сохранены как на фотографиях (в том числе возможные опечатки PRIND, HONY COMB, OTOCHENTO). Рекомендуется сверить с каталогом."
+    }
+  ],
+  "rollerBlinds": [
+    {
+      "category": "День и Ночь / Комбо",
+      "collections": "NEW, PERFECT, Z LYUKS, BAMBOO SOFT 616",
+      "standardCornice": 105000,
+      "cassette": 220000,
+      "mini": 130000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "День и Ночь / Комбо",
+      "collections": "BMB, NS, SOFT S-15, HSD",
+      "standardCornice": 125000,
+      "cassette": 220000,
+      "mini": 130000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "День и Ночь / Комбо",
+      "collections": "Z BAMBOO 20/600, Z SOFT03-15",
+      "standardCornice": 135000,
+      "cassette": 220000,
+      "mini": 130000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "День и Ночь / Комбо",
+      "collections": "PUMA S15, MARAKESH",
+      "standardCornice": 150000,
+      "cassette": 220000,
+      "mini": 130000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "День и Ночь / Комбо",
+      "collections": "Z ISTANBUL, Z PLISSE3, Z PLISSE-110-115, ITALY, PURE",
+      "standardCornice": 165000,
+      "cassette": 220000,
+      "mini": 130000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "День и Ночь / Комбо",
+      "collections": "Z EURO, Z JAQUARD501-506-510-511-512-521",
+      "standardCornice": 180000,
+      "cassette": 220000,
+      "mini": 130000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "День и Ночь / Комбо",
+      "collections": "J DREAM 522, BARCELONA",
+      "standardCornice": 180000,
+      "cassette": 220000,
+      "mini": 130000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "День и Ночь / Комбо",
+      "collections": "Z BLK01, IZMIR, JBLK, F082, MILANO, BLK COMBO",
+      "standardCornice": 200000,
+      "cassette": 220000,
+      "mini": 130000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "День и Ночь / Комбо",
+      "collections": "NEW BLK, PUMA BLK, NEW BLK 600, BLK101, JKS 101-132",
+      "standardCornice": 200000,
+      "cassette": 220000,
+      "mini": 130000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "День и Ночь / Комбо",
+      "collections": "Z BLK-08",
+      "standardCornice": 220000,
+      "cassette": 220000,
+      "mini": 130000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "День и Ночь / Комбо",
+      "collections": "КОМБО КИТАЙ",
+      "standardCornice": 100000,
+      "cassette": 220000,
+      "mini": 130000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "День и Ночь / Комбо",
+      "collections": "КОМБО ТУРЦИЯ",
+      "standardCornice": 120000,
+      "cassette": 220000,
+      "mini": 220000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "День и Ночь / Комбо",
+      "collections": "КОМБО SND 5365-5366",
+      "standardCornice": 200000,
+      "cassette": 250000,
+      "mini": 150000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "День и Ночь / Комбо",
+      "collections": "КОМБО SNJ 5805-5614-5664-5677",
+      "standardCornice": 215000,
+      "cassette": 250000,
+      "mini": 150000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "День и Ночь / Комбо",
+      "collections": "КОМБО SNJ 5800-01-02-06-07-08-5769",
+      "standardCornice": 230000,
+      "cassette": 250000,
+      "mini": 150000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "Римские",
+      "collections": "РИМСКИЕ ШТОРЫ SNJ 5784-5803-5804",
+      "standardCornice": 270000,
+      "cassette": null,
+      "mini": null,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "Ролло",
+      "collections": "ROLLO-КОЛЛЕКЦИЯ STAR",
+      "standardCornice": 215000,
+      "cassette": 230000,
+      "mini": 160000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "Ролло",
+      "collections": "ROLLO-КОЛЛЕКЦИЯ NUANS",
+      "standardCornice": 200000,
+      "cassette": 230000,
+      "mini": 160000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "Ролло",
+      "collections": "ROLLO-КОЛЛЕКЦИЯ BELLA-STEEL-TIYANA-ADRINA-LOFT",
+      "standardCornice": 230000,
+      "cassette": 230000,
+      "mini": 160000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "Ролло",
+      "collections": "ROLLO-КОЛЛЕКЦИЯ ALFA",
+      "standardCornice": 180000,
+      "cassette": 230000,
+      "mini": 160000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "Ролло",
+      "collections": "ROLLO-КОЛЛЕКЦИЯ CUBA",
+      "standardCornice": 230000,
+      "cassette": 230000,
+      "mini": 160000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "Ролло",
+      "collections": "ROLLO-КОЛЛЕКЦИЯ BLACKOUT",
+      "standardCornice": 250000,
+      "cassette": 230000,
+      "mini": 160000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "Ролло",
+      "collections": "ROLLO-КОЛЛЕКЦИЯ BETTA",
+      "standardCornice": 280000,
+      "cassette": 230000,
+      "mini": 160000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "Ролло",
+      "collections": "ROLLO-КОЛЛЕКЦИЯ SCREEN 2073-1",
+      "standardCornice": 280000,
+      "cassette": 230000,
+      "mini": 160000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "Ролло",
+      "collections": "ROLLO-КОЛЛЕКЦИЯ SCREEN-4001",
+      "standardCornice": 230000,
+      "cassette": 230000,
+      "mini": 160000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "Ролло",
+      "collections": "ROLLO-КОЛЛЕКЦИЯ BLACKOUT T-73/74/79",
+      "standardCornice": 170000,
+      "cassette": 230000,
+      "mini": 160000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "Ролло",
+      "collections": "ROLLO-КОЛЛЕКЦИЯ BLACKOUT 3301",
+      "standardCornice": 220000,
+      "cassette": 230000,
+      "mini": 160000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "Ролло",
+      "collections": "ROLLO-КОЛЛЕКЦИЯ MATSUN S-269/270/272",
+      "standardCornice": 150000,
+      "cassette": 230000,
+      "mini": 160000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "Ролло",
+      "collections": "ROLLO-КОЛЛЕКЦИЯ RAIN S-50/52",
+      "standardCornice": 130000,
+      "cassette": 230000,
+      "mini": 160000,
+      "note": "Уточнить размер и комплектацию"
+    },
+    {
+      "category": "Double",
+      "collections": "ШТОРЫ DOUBLE",
+      "standardCornice": 250000,
+      "cassette": null,
+      "mini": null,
+      "note": "Уточнить размер и комплектацию"
+    }
+  ],
+  "tulleBlinds": [
+    {
+      "section": "Основной раздел",
+      "name": "TREND/ALIS",
+      "price": 230000,
+      "note": ""
+    },
+    {
+      "section": "Основной раздел",
+      "name": "MILLA+TREND/ALIS",
+      "price": 280000,
+      "note": ""
+    },
+    {
+      "section": "Основной раздел",
+      "name": "MILLA+TASLI",
+      "price": 450000,
+      "note": ""
+    },
+    {
+      "section": "Основной раздел",
+      "name": "MILLA+BRODE/PRIND+BRODE/MILLA VR+TASLI/MILLA VR/ALIS TASLI",
+      "price": 530000,
+      "note": ""
+    },
+    {
+      "section": "Основной раздел",
+      "name": "MILLA+KORD",
+      "price": 650000,
+      "note": ""
+    },
+    {
+      "section": "Основной раздел",
+      "name": "PRINT+ALIS/TREND",
+      "price": 340000,
+      "note": ""
+    },
+    {
+      "section": "Основной раздел",
+      "name": "PRINT+TASLI",
+      "price": 470000,
+      "note": ""
+    },
+    {
+      "section": "Основной раздел",
+      "name": "PRINT+KORD/BRODE/KORD",
+      "price": 670000,
+      "note": ""
+    },
+    {
+      "section": "Основной раздел",
+      "name": "MILLA VR+ALIS/TREND",
+      "price": 370000,
+      "note": ""
+    },
+    {
+      "section": "Основной раздел",
+      "name": "MILLA VR+BRODE",
+      "price": 620000,
+      "note": ""
+    },
+    {
+      "section": "Основной раздел",
+      "name": "MILLA VR+KORD",
+      "price": 700000,
+      "note": ""
+    },
+    {
+      "section": "Основной раздел",
+      "name": "MILLA",
+      "price": 350000,
+      "note": ""
+    },
+    {
+      "section": "Основной раздел",
+      "name": "PRINT",
+      "price": 390000,
+      "note": ""
+    },
+    {
+      "section": "CHINA",
+      "name": "SH-01-02-03-04-05-07-011",
+      "price": 250000,
+      "note": "Китай"
+    },
+    {
+      "section": "CHINA",
+      "name": "ALIS/TREND(TURK)+SH-01-02-03-04-05-07-011",
+      "price": 240000,
+      "note": "Китай + Турция"
+    },
+    {
+      "section": "CHINA",
+      "name": "MILLA+SH-01-02-03-04-05-07-011",
+      "price": 280000,
+      "note": "Китай"
+    },
+    {
+      "section": "CHINA",
+      "name": "PRINT(TURK/HITOY) / MILLA VR +SH-01-02-03-04-05-07-011",
+      "price": 340000,
+      "note": "Турция/Китай"
+    },
+    {
+      "section": "CHINA",
+      "name": "SH 08 (BLACKOUT)",
+      "price": 390000,
+      "note": "Blackout Китай"
+    },
+    {
+      "section": "CHINA",
+      "name": "MILLA",
+      "price": 300000,
+      "note": "Китай"
+    },
+    {
+      "section": "CHINA",
+      "name": "PRINT",
+      "price": 370000,
+      "note": "Китай"
+    },
+    {
+      "section": "CHINA",
+      "name": "MILLA VR",
+      "price": 420000,
+      "note": "Китай"
+    }
+  ],
+  "plisseAndHoneycomb": [
+    {
+      "collection": "PLAIN/CANARY",
+      "upToHalfM2": 108000,
+      "upToOneM2": 140000,
+      "note": "По таблице производителя"
+    },
+    {
+      "collection": "MESH",
+      "upToHalfM2": 125000,
+      "upToOneM2": 180000,
+      "note": "По таблице производителя"
+    },
+    {
+      "collection": "TULIP/ELEGANCE/LINO/ZANZIBAR/DAFFODIL",
+      "upToHalfM2": 135000,
+      "upToOneM2": 215000,
+      "note": "По таблице производителя"
+    },
+    {
+      "collection": "DIMOUT/PELICAN",
+      "upToHalfM2": 160000,
+      "upToOneM2": 260000,
+      "note": "По таблице производителя"
+    },
+    {
+      "collection": "BAT",
+      "upToHalfM2": 250000,
+      "upToOneM2": 350000,
+      "note": "По таблице производителя"
+    },
+    {
+      "collection": "MIKANOS",
+      "upToHalfM2": 330000,
+      "upToOneM2": 430000,
+      "note": "По таблице производителя"
+    },
+    {
+      "collection": "REFLECTION",
+      "upToHalfM2": 170000,
+      "upToOneM2": 300000,
+      "note": "По таблице производителя"
+    },
+    {
+      "collection": "HONY COMB",
+      "upToHalfM2": 230000,
+      "upToOneM2": 320000,
+      "note": "По таблице производителя"
+    },
+    {
+      "collection": "OTOCHENTO",
+      "upToHalfM2": 125000,
+      "upToOneM2": 200000,
+      "note": "По таблице производителя"
+    },
+    {
+      "collection": "LORES",
+      "upToHalfM2": 100000,
+      "upToOneM2": 125000,
+      "note": "По таблице производителя"
+    }
+  ],
+  "calculationRules": {
+    "unit": "м²",
+    "formula": "ширина × высота × цена за 1 м²",
+    "formulaDescriptionRu": "Цена рассчитывается за квадратный метр: ширина (м) × высота (м) × цена за 1 м².",
+    "formulaDescriptionUz": "Narx kvadrat metr uchun hisoblanadi: eni (m) × bo‘yi (m) × 1 m² narxi.",
+    "minAreaPerItem": 1,
+    "minAreaRuleRu": "Минимальная расчётная площадь каждого изделия — 1 м². Если площадь меньше 1 м², стоимость рассчитывается как за 1 м². Если площадь больше 1 м², используется фактическая площадь.",
+    "minAreaRuleUz": "Har bir mahsulotning minimal hisob maydoni — 1 m². Agar maydon 1 m² dan kam bo‘lsa, qiymat 1 m² deb hisoblanadi. Agar 1 m² dan ko‘p bo‘lsa, haqiqiy maydon ishlatiladi.",
+    "strictNoInvention": true
+  },
+  "serviceTerms": {
+    "tashkent": {
+      "measuring": "Бесплатно при оформлении заказа",
+      "designerHelp": "Бесплатно при оформлении заказа",
+      "installation": "Бесплатно при оформлении заказа",
+      "specialistVisitWithoutOrder": 100000,
+      "currency": "UZS",
+      "summaryRu": "В Ташкенте замер, помощь дизайнера и установка — БЕСПЛАТНО при оформлении заказа. Если клиент не оформляет заказ, стоимость выезда специалиста — 100 000 сум.",
+      "summaryUz": "Toshkentda o‘lchash, dizayner maslahati va o‘rnatish — buyurtma rasmiylashtirilganda BEPUL. Agar mijoz buyurtma rasmiylashtirmasa, mutaxassisning tashrifi narxi — 100 000 so‘m."
+    },
+    "uzbekistan": {
+      "nationwide": true,
+      "summaryRu": "Компания принимает заказы по всему Узбекистану. Условия замера, выезда и установки за пределами Ташкента согласовываются с менеджером индивидуально. Бесплатный выезд в регионы не гарантируется.",
+      "summaryUz": "Kompaniya butun O‘zbekiston bo‘ylab buyurtmalarni qabul qiladi. Toshkentdan tashqarida o‘lchash, mutaxassis tashrifi va o‘rnatish shartlari menejer bilan alohida kelishiladi. Viloyatlarga bepul tashrif va’da qilinmaydi."
+    }
+  }
+};

@@ -1,4 +1,4 @@
-// Automated Test Suite for Tashkent Blinds AI Support Agent
+// Automated Test Suite for COMBO.UZ AI Support Agent
 const fs = require('fs');
 const path = require('path');
 
