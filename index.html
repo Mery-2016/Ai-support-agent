@@ -1212,6 +1212,22 @@
         console.warn('Ошибка чтения localStorage:', err);
       }
       lockAgentUI();
+
+      // Автоматическое подключение ключа с сервера, если он настроен в .env
+      fetch('/api/config').then(r => r.json()).then(data => {
+        if (data && data.apiKey && (!appState.auth.apiKey || appState.auth.apiKey === DEMO_API_KEY)) {
+          appState.isRegistered = true;
+          appState.auth = {
+            apiKey: data.apiKey,
+            keyVerifiedAt: new Date().toISOString()
+          };
+          if (!appState.profile.name) {
+            appState.profile = { name: 'Гость', phone: '+998 90 123-45-67', district: 'Ташкент' };
+          }
+          unlockAgentUI();
+          discoverAvailableModels(data.apiKey);
+        }
+      }).catch(() => {});
     }
 
     function saveStateToStorage() {
@@ -1414,6 +1430,15 @@
       unlockAgentUI();
       discoverAvailableModels(cleanApiKey);
       toastSuccess(`Ключ подключен! Добро пожаловать, ${name}`);
+
+      // Сохраняем на локальном сервере при наличии
+      if (cleanApiKey && cleanApiKey !== DEMO_API_KEY) {
+        fetch('/api/config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ apiKey: cleanApiKey })
+        }).catch(() => {});
+      }
 
       if (appState.chatHistory.length === 0) {
         appState.chatHistory.push({

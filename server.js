@@ -38,6 +38,25 @@ const KB_FILE = path.join(DATA_DIR, 'knowledge_base.json');
 const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
 const PRICING_FILE = path.join(DATA_DIR, 'pricing.json');
 const RETAIL_PRICING_FILE = path.join(DATA_DIR, 'retail_price_list.json');
+const ENV_FILE = path.join(ROOT_DIR, '.env');
+
+// Auto-load .env file if present
+if (fs.existsSync(ENV_FILE)) {
+  try {
+    const envContent = fs.readFileSync(ENV_FILE, 'utf-8');
+    for (const line of envContent.split('\n')) {
+      const trimmed = line.trim();
+      if (trimmed && !trimmed.startsWith('#')) {
+        const idx = trimmed.indexOf('=');
+        if (idx > 0) {
+          const key = trimmed.slice(0, idx).trim();
+          const val = trimmed.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
+          if (key) process.env[key] = val;
+        }
+      }
+    }
+  } catch (err) {}
+}
 
 // Ensure data folder and files exist
 if (!fs.existsSync(DATA_DIR)) {
@@ -331,6 +350,41 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ success: true, message: `Статья ${idToDelete} удалена`, count: filtered.length }));
     return;
+  }
+
+  // =========================================================================
+  // API: CONFIG & GEMINI API KEY
+  // =========================================================================
+  if (pathname === '/api/config' && req.method === 'GET') {
+    const key = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || '';
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      hasApiKey: Boolean(key),
+      apiKey: key || undefined
+    }));
+    return;
+  }
+
+  if (pathname === '/api/config' && req.method === 'POST') {
+    try {
+      const body = await parseJsonBody(req);
+      if (body && body.apiKey) {
+        const cleanKey = String(body.apiKey).trim().replace(/^["']|["']$/g, '');
+        fs.writeFileSync(ENV_FILE, `GEMINI_API_KEY=${cleanKey}\n`, 'utf-8');
+        process.env.GEMINI_API_KEY = cleanKey;
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, message: 'Google AI Studio API ключ сохранен в .env' }));
+        return;
+      } else {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Ключ не передан' }));
+        return;
+      }
+    } catch (err) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+      return;
+    }
   }
 
   // =========================================================================
