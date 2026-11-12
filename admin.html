@@ -1707,19 +1707,26 @@
           body: JSON.stringify({ chatId: '777000', username, text })
         });
         const data = await res.json();
-        if (data.success && data.agentResponse) {
+        if (data.success) {
+          const replyText = (data.agentResponse && data.agentResponse.reply) ||
+                            (data.sendRes && data.sendRes.payload && data.sendRes.payload.text) ||
+                            'Команда выполнена';
+          const hasKeyboard = Boolean(data.replyKeyboard || (data.sendRes && data.sendRes.payload && data.sendRes.payload.reply_markup));
+          const hasLead = Boolean(data.agentResponse && data.agentResponse.leadData);
+          const isHandover = Boolean((data.agentResponse && data.agentResponse.isHandover) || data.isHandover);
+
           box.innerHTML += `
             <div class="sim-bubble sim-bubble--agent">
               <strong style="color: #0088cc;">COMBO.UZ (Telegram Bot):</strong><br>
-              ${escapeHtml(data.agentResponse.reply).replace(/\n/g, '<br>')}
-              ${data.replyKeyboard ? '<div style="margin-top: 6px; font-size: 11px; color: var(--color-text-muted);">🔘 [Клавиатура Bot API сгенерирована]</div>' : ''}
-              ${data.agentResponse.leadData ? '<div style="margin-top: 6px; padding: 4px 6px; background: rgba(34,197,94,0.1); border-radius: 4px; font-size: 11px; color: #16a34a; font-weight: 600;">✅ Заявка зафиксирована в CRM COMBO.UZ</div>' : ''}
-              ${data.agentResponse.isHandover ? '<div style="margin-top: 6px; padding: 4px 6px; background: rgba(245,158,11,0.1); border-radius: 4px; font-size: 11px; color: #d97706; font-weight: 600;">⚠️ Чат переведен на живого менеджера</div>' : ''}
+              ${escapeHtml(replyText).replace(/\n/g, '<br>')}
+              ${hasKeyboard ? '<div style="margin-top: 6px; font-size: 11px; color: var(--color-text-muted);">🔘 [Клавиатура Bot API сгенерирована]</div>' : ''}
+              ${hasLead ? '<div style="margin-top: 6px; padding: 4px 6px; background: rgba(34,197,94,0.1); border-radius: 4px; font-size: 11px; color: #16a34a; font-weight: 600;">✅ Заявка зафиксирована в CRM COMBO.UZ</div>' : ''}
+              ${isHandover ? '<div style="margin-top: 6px; padding: 4px 6px; background: rgba(245,158,11,0.1); border-radius: 4px; font-size: 11px; color: #d97706; font-weight: 600;">⚠️ Чат переведен на живого менеджера</div>' : ''}
             </div>
           `;
           box.scrollTop = box.scrollHeight;
-          if (data.agentResponse.leadData) loadLeads();
-          if (data.agentResponse.isHandover) loadHandovers();
+          if (hasLead) loadLeads();
+          if (isHandover) loadHandovers();
         }
       } catch (err) {
         toastError('Ошибка Telegram симулятора: ' + err.message);
