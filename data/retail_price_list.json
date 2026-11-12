@@ -505,5 +505,8 @@
       "summaryRu": "Компания принимает заказы по всему Узбекистану. Условия замера, выезда и установки за пределами Ташкента согласовываются с менеджером индивидуально. Бесплатный выезд в регионы не гарантируется.",
       "summaryUz": "Kompaniya butun O‘zbekiston bo‘ylab buyurtmalarni qabul qiladi. Toshkentdan tashqarida o‘lchash, mutaxassis tashrifi va o‘rnatish shartlari menejer bilan alohida kelishiladi. Viloyatlarga bepul tashrif va’da qilinmaydi."
     }
-  }
+  },
+  "customFieldTest": "DYNAMIC_UPDATE_1794479047695",
+  "lastUpdated": "2026-11-12T10:24:07.695Z",
+  "source": "ADMIN_DYNAMIC_UPDATE"
 }

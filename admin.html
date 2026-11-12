@@ -115,6 +115,39 @@
     .status-badge--IN_PROGRESS { background: rgba(245, 158, 11, 0.15); color: #d97706; }
     .status-badge--COMPLETED { background: rgba(34, 197, 94, 0.15); color: #16a34a; }
     .status-badge--CANCELLED { background: rgba(239, 68, 68, 0.15); color: #dc2626; }
+
+    .channel-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .channel-badge--INSTAGRAM { background: rgba(225, 48, 108, 0.15); color: #c13584; border: 1px solid rgba(225, 48, 108, 0.3); }
+    .channel-badge--TELEGRAM { background: rgba(0, 136, 204, 0.15); color: #0088cc; border: 1px solid rgba(0, 136, 204, 0.3); }
+    .channel-badge--WEB { background: rgba(16, 185, 129, 0.15); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3); }
+
+    .sim-bubble {
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      max-width: 85%;
+      line-height: 1.4;
+      font-size: 13px;
+    }
+    .sim-bubble--user {
+      align-self: flex-end;
+      background: var(--color-primary);
+      color: #fff;
+    }
+    .sim-bubble--agent {
+      align-self: flex-start;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+    }
   </style>
 </head>
 <body>
@@ -139,6 +172,10 @@
             <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-inbox.svg#icon-inbox"></use></svg>
             <span>📋 Журнал заявок</span>
             <span class="nav-count num" id="sidebarLeadsCount">0</span>
+          </a>
+          <a class="nav-link" href="#tab-omnichannel" id="navLinkOmnichannel" onclick="switchTab('omnichannel')">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
+            <span>🌐 Каналы продаж (Meta & TG)</span>
           </a>
           <a class="nav-link" href="#tab-pricing" id="navLinkPricing" onclick="switchTab('pricing')">
             <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-box.svg#icon-box"></use></svg>
@@ -246,13 +283,21 @@
         <div id="tabContentLeads" style="display: none;">
           <div class="admin-controls-bar">
             <div>
-              <strong>Журнал входящих заявок от клиентов (с сайта и AI-чата)</strong>
-              <div style="font-size: 12px; color: var(--color-text-muted);">Заявки формируются автоматически, когда клиент указывает контакты и параметры окон.</div>
+              <strong>Журнал входящих заявок (Instagram • Telegram • Сайт)</strong>
+              <div style="font-size: 12px; color: var(--color-text-muted);">Все лиды из трех каналов продаж автоматически фиксируются в единой CRM с указанием источника.</div>
             </div>
-            <button type="button" class="button button--secondary button--sm" onclick="loadLeads()">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-sync.svg#icon-sync"></use></svg>
-              <span>Обновить список</span>
-            </button>
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <div class="segmented" style="display: flex; gap: 4px;">
+                <button type="button" class="chip" data-lead-channel="all" onclick="setLeadChannelFilter('all')" aria-pressed="true">Все каналы</button>
+                <button type="button" class="chip" data-lead-channel="INSTAGRAM" onclick="setLeadChannelFilter('INSTAGRAM')">📸 Instagram</button>
+                <button type="button" class="chip" data-lead-channel="TELEGRAM" onclick="setLeadChannelFilter('TELEGRAM')">✈️ Telegram</button>
+                <button type="button" class="chip" data-lead-channel="WEB" onclick="setLeadChannelFilter('WEB')">🌐 Сайт</button>
+              </div>
+              <button type="button" class="button button--secondary button--sm" onclick="loadLeads()">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-sync.svg#icon-sync"></use></svg>
+                <span>Обновить список</span>
+              </button>
+            </div>
           </div>
 
           <div class="leads-table-container">
@@ -260,6 +305,7 @@
               <thead>
                 <tr>
                   <th>ID / Дата</th>
+                  <th>Канал</th>
                   <th>Клиент / Телефон</th>
                   <th>Район / Адрес</th>
                   <th>Модель и размеры</th>
@@ -272,6 +318,171 @@
                 <!-- Dynamic leads injected here -->
               </tbody>
             </table>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- TAB: OMNICHANNEL CHANNELS & LIVE SIMULATORS -->
+        <!-- ========================================================= -->
+        <div id="tabContentOmnichannel" style="display: none;">
+          <!-- Channel Status Header Cards -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-bottom: 24px;">
+            <!-- Instagram Card -->
+            <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 18px;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <h3 style="margin: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                    <span>📸 Instagram Direct</span>
+                    <span class="badge badge--primary">Meta Graph API v21.0</span>
+                  </h3>
+                  <small style="color: var(--color-text-muted);">Главный приоритет продаж</small>
+                </div>
+                <span class="badge" id="igStatusBadge" style="background: rgba(34, 197, 94, 0.15); color: #16a34a;">🟢 Готов к работе</span>
+              </div>
+              <div style="font-size: 12px; line-height: 1.6; color: var(--color-text-muted); margin-bottom: 12px;">
+                <div><strong>Webhook URL:</strong> <code style="font-size: 11px;">https://combo-uz.vercel.app/api/webhook/instagram</code></div>
+                <div><strong>Разрешения Meta:</strong> <code>instagram_manage_messages</code>, <code>pages_manage_metadata</code></div>
+                <div><strong>Политика:</strong> 24-часовое окно ответов Meta Standard Messaging</div>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button type="button" class="button button--secondary button--sm" onclick="checkChannelStatus('instagram')">Проверить статус</button>
+                <button type="button" class="button button--primary button--sm" onclick="scrollToSimulator('instagram')">Тест в симуляторе</button>
+              </div>
+            </div>
+
+            <!-- Telegram Card -->
+            <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 18px;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <h3 style="margin: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                    <span>✈️ Telegram Bot API</span>
+                    <span class="badge badge--neutral">Официальный Bot API</span>
+                  </h3>
+                  <small style="color: var(--color-text-muted);">Второй приоритет продаж</small>
+                </div>
+                <span class="badge" id="tgStatusBadge" style="background: rgba(34, 197, 94, 0.15); color: #16a34a;">🟢 Готов к работе</span>
+              </div>
+              <div style="font-size: 12px; line-height: 1.6; color: var(--color-text-muted); margin-bottom: 12px;">
+                <div><strong>Webhook URL:</strong> <code style="font-size: 11px;">https://combo-uz.vercel.app/api/webhook/telegram</code></div>
+                <div><strong>Команды:</strong> <code>/start</code>, <code>/catalog</code>, <code>/manager</code>, <code>/lang</code></div>
+                <div><strong>Фичи:</strong> Нативный захват контакта по кнопке (request_contact)</div>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button type="button" class="button button--secondary button--sm" onclick="checkChannelStatus('telegram')">Проверить статус</button>
+                <button type="button" class="button button--primary button--sm" onclick="scrollToSimulator('telegram')">Тест в симуляторе</button>
+              </div>
+            </div>
+
+            <!-- Website Card -->
+            <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 18px;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <h3 style="margin: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                    <span>🌐 Сайт COMBO.UZ</span>
+                    <span class="badge badge--success">Онлайн</span>
+                  </h3>
+                  <small style="color: var(--color-text-muted);">Третий приоритет продаж</small>
+                </div>
+                <span class="badge" style="background: rgba(34, 197, 94, 0.15); color: #16a34a;">🟢 Активен</span>
+              </div>
+              <div style="font-size: 12px; line-height: 1.6; color: var(--color-text-muted); margin-bottom: 12px;">
+                <div><strong>База знаний:</strong> 100 Q&A (RU / UZ)</div>
+                <div><strong>Прайс-лист:</strong> Розничный Excel от 01.10.2025</div>
+                <div><strong>Каталог:</strong> 12 категорий с фото и спецификациями</div>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <a href="test_sales_chat.html" class="button button--secondary button--sm" target="_blank">Тестовый чат</a>
+                <a href="index.html" class="button button--secondary button--sm" target="_blank">Лендинг сайта</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: Active Human Handovers -->
+          <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 18px; margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+              <div>
+                <h3 style="margin: 0; font-size: 15px; display: flex; align-items: center; gap: 8px;">
+                  <span>👤 Перевод на живого менеджера (Human Handover)</span>
+                  <span class="badge badge--warning" id="handoversCountBadge">0 активных</span>
+                </h3>
+                <div style="font-size: 12px; color: var(--color-text-muted); margin-top: 4px;">
+                  Когда клиент просит связать с оператором, ИИ передает диалог человеку и замораживает автоответы. Менеджер может возобновить работу бота в один клик.
+                </div>
+              </div>
+              <button type="button" class="button button--secondary button--sm" onclick="loadHandovers()">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-sync.svg#icon-sync"></use></svg>
+                <span>Обновить список</span>
+              </button>
+            </div>
+            <div id="handoversListContainer">
+              <div style="padding: 16px; text-align: center; color: var(--color-text-muted); font-size: 13px;">
+                Активных запросов на живого менеджера нет. Все каналы обслуживаются AI-агентом автоматически.
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: Simulators -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px;" id="simulatorsGrid">
+            <!-- Instagram Simulator -->
+            <div id="simBlockInstagram" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 18px; display: flex; flex-direction: column;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--color-border); padding-bottom: 10px;">
+                <strong style="color: #c13584; display: flex; align-items: center; gap: 6px;">
+                  <span>📸</span> Симулятор Instagram Direct
+                </strong>
+                <span class="badge badge--neutral" style="font-size: 11px;">Тестовый режим Meta</span>
+              </div>
+              <div style="margin-bottom: 10px; display: flex; gap: 8px;">
+                <input type="text" id="igSimSender" class="input input--sm" value="@diana_designer" placeholder="@username" style="width: 180px;">
+                <button type="button" class="button button--secondary button--sm" onclick="clearIgSimChat()">Очистить чат</button>
+              </div>
+              <!-- Chat log window -->
+              <div id="igSimMessages" style="height: 300px; overflow-y: auto; background: var(--color-surface-hover); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 10px; font-size: 13px; display: flex; flex-direction: column; gap: 8px;">
+                <div style="color: var(--color-text-muted); font-size: 12px; text-align: center;">Диалог в Instagram Direct. Нажмите на быстрый вопрос или введите сообщение.</div>
+              </div>
+              <!-- Quick prompts -->
+              <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;">
+                <button type="button" class="chip" onclick="sendIgSimPrompt('Здравствуйте! Сколько стоят шторы День и Ночь 150х200?')">💰 День-Ночь 150х200</button>
+                <button type="button" class="chip" onclick="sendIgSimPrompt('Диана, +998901234567, Юнусабадский район')">📝 Заявка на замер</button>
+                <button type="button" class="chip" onclick="sendIgSimPrompt('Позовите, пожалуйста, живого человека или менеджера')">👤 Позвать человека</button>
+                <button type="button" class="chip" onclick="sendIgSimPrompt('Salom! Qora va oq parda narxi qancha?')">🇺🇿 Savol (UZ)</button>
+              </div>
+              <!-- Input box -->
+              <div style="display: flex; gap: 8px;">
+                <input type="text" id="igSimInput" class="input input--sm" placeholder="Напишите в Директ..." onkeydown="if(event.key==='Enter') sendIgSimMessage()">
+                <button type="button" class="button button--primary button--sm" onclick="sendIgSimMessage()">Отправить</button>
+              </div>
+            </div>
+
+            <!-- Telegram Simulator -->
+            <div id="simBlockTelegram" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 18px; display: flex; flex-direction: column;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--color-border); padding-bottom: 10px;">
+                <strong style="color: #0088cc; display: flex; align-items: center; gap: 6px;">
+                  <span>✈️</span> Симулятор Telegram Bot
+                </strong>
+                <span class="badge badge--neutral" style="font-size: 11px;">Тестовый режим Bot API</span>
+              </div>
+              <div style="margin-bottom: 10px; display: flex; gap: 8px;">
+                <input type="text" id="tgSimUser" class="input input--sm" value="@jasur_tashkent" placeholder="@username" style="width: 180px;">
+                <button type="button" class="button button--secondary button--sm" onclick="clearTgSimChat()">Очистить чат</button>
+              </div>
+              <!-- Chat log window -->
+              <div id="tgSimMessages" style="height: 300px; overflow-y: auto; background: var(--color-surface-hover); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 10px; font-size: 13px; display: flex; flex-direction: column; gap: 8px;">
+                <div style="color: var(--color-text-muted); font-size: 12px; text-align: center;">Диалог в Telegram Bot. Нажмите команду или отправьте сообщение.</div>
+              </div>
+              <!-- Quick prompts -->
+              <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;">
+                <button type="button" class="chip" onclick="sendTgSimCommand('/start')">🚀 /start</button>
+                <button type="button" class="chip" onclick="sendTgSimCommand('/catalog')">📚 /catalog</button>
+                <button type="button" class="chip" onclick="sendTgSimCommand('/manager')">👤 /manager</button>
+                <button type="button" class="chip" onclick="sendTgSimContact('+998971112233', 'Жасур')">📱 Поделиться номером</button>
+                <button type="button" class="chip" onclick="sendTgSimCommand('/lang uz')">🇺🇿 /lang uz</button>
+              </div>
+              <!-- Input box -->
+              <div style="display: flex; gap: 8px;">
+                <input type="text" id="tgSimInput" class="input input--sm" placeholder="Сообщение или /команда..." onkeydown="if(event.key==='Enter') sendTgSimMessage()">
+                <button type="button" class="button button--primary button--sm" onclick="sendTgSimMessage()">Отправить</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -356,10 +567,19 @@
                   Официальные розничные коллекции: Рулонные (День и Ночь / Комбо, Ролло, Double, Римские), Тюлевые, Плиссе / Honeycomb и правила обслуживания.
                 </div>
               </div>
-              <div style="display: flex; gap: 8px;">
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <input type="file" id="retailPricingUploadInput" accept=".json" style="display: none;" onchange="uploadRetailPricingJson(event)">
+                <button type="button" class="button button--secondary button--sm" onclick="document.getElementById('retailPricingUploadInput').click()">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-upload.svg#icon-upload"></use></svg>
+                  <span>Загрузить розничный JSON</span>
+                </button>
                 <button type="button" class="button button--secondary button--sm" onclick="downloadRetailPricingJson()">
                   <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-download.svg#icon-download"></use></svg>
                   <span>Скачать retail_price_list.json</span>
+                </button>
+                <button type="button" class="button button--primary button--sm" onclick="saveRetailPricingToServer()">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg>
+                  <span>Сохранить розничный прайс</span>
                 </button>
               </div>
             </div>
@@ -492,6 +712,7 @@
     let allKbItems = [];
     let currentCategoryFilter = 'all';
     let allLeads = [];
+    let currentLeadChannelFilter = 'all';
     let currentPricing = { updatedAt: '', currency: 'UZS', isConfirmed: false, notes: '', items: [] };
 
     async function loadKb() {
@@ -525,23 +746,31 @@
     window.switchTab = function(tab) {
       const kbTab = document.getElementById('tabContentKb');
       const leadsTab = document.getElementById('tabContentLeads');
+      const omnichannelTab = document.getElementById('tabContentOmnichannel');
       const pricingTab = document.getElementById('tabContentPricing');
       const navKb = document.getElementById('navLinkKb');
       const navLeads = document.getElementById('navLinkLeads');
+      const navOmnichannel = document.getElementById('navLinkOmnichannel');
       const navPricing = document.getElementById('navLinkPricing');
 
       kbTab.style.display = 'none';
       leadsTab.style.display = 'none';
+      if (omnichannelTab) omnichannelTab.style.display = 'none';
       pricingTab.style.display = 'none';
 
       navKb.classList.remove('is-active');
       navLeads.classList.remove('is-active');
+      if (navOmnichannel) navOmnichannel.classList.remove('is-active');
       navPricing.classList.remove('is-active');
 
       if (tab === 'leads') {
         leadsTab.style.display = 'block';
         navLeads.classList.add('is-active');
         loadLeads();
+      } else if (tab === 'omnichannel') {
+        if (omnichannelTab) omnichannelTab.style.display = 'block';
+        if (navOmnichannel) navOmnichannel.classList.add('is-active');
+        loadHandovers();
       } else if (tab === 'pricing') {
         pricingTab.style.display = 'block';
         navPricing.classList.add('is-active');
@@ -669,18 +898,49 @@
       return `${n} окон`;
     }
 
+    window.setLeadChannelFilter = function(channel) {
+      currentLeadChannelFilter = channel;
+      document.querySelectorAll('[data-lead-channel]').forEach(btn => {
+        btn.setAttribute('aria-pressed', btn.getAttribute('data-lead-channel') === channel);
+      });
+      renderLeadsTable();
+    };
+
+    function renderChannelBadge(source) {
+      const s = (source || 'WEB').toUpperCase();
+      if (s === 'INSTAGRAM') {
+        return '<span class="channel-badge channel-badge--INSTAGRAM">📸 Instagram</span>';
+      }
+      if (s === 'TELEGRAM') {
+        return '<span class="channel-badge channel-badge--TELEGRAM">✈️ Telegram</span>';
+      }
+      return '<span class="channel-badge channel-badge--WEB">🌐 Сайт</span>';
+    }
+
     function renderLeadsTable() {
       const tbody = document.getElementById('leadsTableBody');
-      if (allLeads.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 30px; color: var(--color-text-muted);">Пока нет поступивших заявок. Проверьте отправку в Тестовом чате продаж!</td></tr>`;
+      if (!tbody) return;
+
+      let filteredLeads = allLeads;
+      if (currentLeadChannelFilter !== 'all') {
+        filteredLeads = allLeads.filter(l => (l.source || 'WEB').toUpperCase() === currentLeadChannelFilter.toUpperCase());
+      }
+
+      if (filteredLeads.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 30px; color: var(--color-text-muted);">По выбранному фильтру заявок не найдено.</td></tr>`;
         return;
       }
 
-      tbody.innerHTML = allLeads.map(lead => `
+      tbody.innerHTML = filteredLeads.map(lead => `
         <tr>
           <td>
             <strong>${lead.id}</strong><br>
             <small style="color: var(--color-text-muted);">${new Date(lead.createdAt).toLocaleString('ru-RU')}</small>
+          </td>
+          <td>
+            ${renderChannelBadge(lead.source)}
+            ${lead.notes && lead.notes.includes('[INSTAGRAM]') ? '<div style="font-size: 10px; color: var(--color-text-muted); margin-top: 2px;">Direct Lead</div>' : ''}
+            ${lead.notes && lead.notes.includes('[TELEGRAM]') ? '<div style="font-size: 10px; color: var(--color-text-muted); margin-top: 2px;">Bot Lead</div>' : ''}
           </td>
           <td>
             <strong>${escapeHtml(lead.name)}</strong><br>
@@ -1147,6 +1407,48 @@
       toastSuccess('Файл retail_price_list.json скачан');
     };
 
+    window.uploadRetailPricingJson = function(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed && (parsed.rollerBlinds || parsed.tables)) {
+            currentRetailPricing = parsed;
+            renderRetailTable();
+            toastSuccess('Розничный прайс успешно загружен из файла! Нажмите «Сохранить на сервере» для применения.');
+          } else {
+            throw new Error('Файл должен содержать структуру розничного прайса (rollerBlinds, tulleBlinds и т.д.)');
+          }
+        } catch (err) {
+          toastError('Ошибка чтения retail JSON: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    };
+
+    window.saveRetailPricingToServer = async function() {
+      if (!currentRetailPricing) return;
+      try {
+        const res = await fetch('/api/pricing/retail', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(currentRetailPricing)
+        });
+        const json = await res.json();
+        if (json.success) {
+          toastSuccess('Розничный прайс-лист успешно сохранен на сервере и синхронизирован со всеми каналами продаж!');
+        } else {
+          toastError(json.error || 'Ошибка при сохранении розничного прайса');
+        }
+      } catch (err) {
+        toastError('Ошибка сети: ' + err.message);
+      }
+    };
+
     window.downloadPricingJson = function() {
       if (!currentPricing) return;
       const jsonStr = JSON.stringify(currentPricing, null, 2);
@@ -1162,6 +1464,268 @@
       toastSuccess('Файл combo_uz_pricing.json скачан');
     };
 
+    // =========================================================================
+    // OMNICHANNEL CHANNELS & SIMULATORS
+    // =========================================================================
+    window.checkChannelStatus = async function(channel) {
+      try {
+        const res = await fetch('/api/omnichannel/status');
+        const json = await res.json();
+        if (json.success) {
+          if (channel === 'instagram') {
+            const igBadge = document.getElementById('igStatusBadge');
+            const isLive = json.instagram && json.instagram.mode === 'LIVE';
+            if (igBadge) {
+              igBadge.textContent = isLive ? '🟢 Подключен (LIVE)' : '🟡 Песочница (Sandbox)';
+              igBadge.style.color = isLive ? '#16a34a' : '#d97706';
+            }
+            toastInfo(`Instagram Direct: ${isLive ? 'LIVE режим' : 'Тестовый режим (готов к подключению)'}. Webhook: ${json.instagram.webhookPath}`);
+          } else if (channel === 'telegram') {
+            const tgBadge = document.getElementById('tgStatusBadge');
+            const isLive = json.telegram && json.telegram.mode === 'LIVE';
+            if (tgBadge) {
+              tgBadge.textContent = isLive ? '🟢 Подключен (LIVE)' : '🟡 Песочница (Sandbox)';
+              tgBadge.style.color = isLive ? '#16a34a' : '#d97706';
+            }
+            toastInfo(`Telegram Bot: ${isLive ? 'LIVE режим' : 'Тестовый режим (готов к подключению)'}. Webhook: ${json.telegram.webhookPath}`);
+          }
+        }
+      } catch (err) {
+        toastError('Ошибка проверки статуса: ' + err.message);
+      }
+    };
+
+    window.scrollToSimulator = function(channel) {
+      const block = channel === 'instagram' ? document.getElementById('simBlockInstagram') : document.getElementById('simBlockTelegram');
+      if (block) block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    window.loadHandovers = async function() {
+      try {
+        const res = await fetch('/api/omnichannel/status');
+        const json = await res.json();
+        const container = document.getElementById('handoversListContainer');
+        const countBadge = document.getElementById('handoversCountBadge');
+        if (!container || !json.success || !json.activeHandovers) return;
+
+        const handovers = json.activeHandovers;
+        if (countBadge) countBadge.textContent = `${handovers.length} активных`;
+
+        if (handovers.length === 0) {
+          container.innerHTML = `
+            <div style="padding: 16px; text-align: center; color: var(--color-text-muted); font-size: 13px;">
+              Активных запросов на живого менеджера нет. Все каналы обслуживаются AI-агентом автоматически.
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = `
+          <div class="leads-table-container">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>Канал</th>
+                  <th>Клиент (ID / username)</th>
+                  <th>Причина вызова</th>
+                  <th>Время запроса</th>
+                  <th>Действие менеджера</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${handovers.map(h => `
+                  <tr>
+                    <td>${renderChannelBadge(h.channel)}</td>
+                    <td><strong>${escapeHtml(h.senderId)}</strong></td>
+                    <td>${escapeHtml(h.reason || 'Запрос живого оператора')}</td>
+                    <td><small style="color: var(--color-text-muted);">${new Date(h.handedOverAt).toLocaleTimeString('ru-RU')}</small></td>
+                    <td>
+                      <button type="button" class="button button--secondary button--sm" onclick="resumeBotHandover('${escapeHtml(h.channel)}', '${escapeHtml(h.senderId)}')">
+                        🟢 Возобновить работу ИИ
+                      </button>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+      } catch (err) {
+        console.warn('Ошибка загрузки handovers:', err);
+      }
+    };
+
+    window.resumeBotHandover = async function(channel, senderId) {
+      try {
+        const res = await fetch('/api/handover', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ channel, senderId, shouldHandover: false, operatorName: 'Менеджер админки' })
+        });
+        const json = await res.json();
+        if (json.success) {
+          toastSuccess(`Автоответчик ИИ успешно возобновлен для ${senderId}`);
+          loadHandovers();
+        } else {
+          toastError(json.error || 'Ошибка возобновления');
+        }
+      } catch (err) {
+        toastError('Ошибка сети: ' + err.message);
+      }
+    };
+
+    // Instagram Simulator Chat
+    window.clearIgSimChat = function() {
+      const box = document.getElementById('igSimMessages');
+      if (box) box.innerHTML = '<div style="color: var(--color-text-muted); font-size: 12px; text-align: center;">Чат очищен.</div>';
+    };
+
+    window.sendIgSimPrompt = function(text) {
+      const input = document.getElementById('igSimInput');
+      if (input) {
+        input.value = text;
+        sendIgSimMessage();
+      }
+    };
+
+    window.sendIgSimMessage = async function() {
+      const input = document.getElementById('igSimInput');
+      const senderInput = document.getElementById('igSimSender');
+      const box = document.getElementById('igSimMessages');
+      const text = (input ? input.value : '').trim();
+      const sender = (senderInput ? senderInput.value : '@diana_designer').trim();
+      if (!text) return;
+
+      box.innerHTML += `
+        <div class="sim-bubble sim-bubble--user">
+          <strong>${escapeHtml(sender)}:</strong> ${escapeHtml(text)}
+        </div>
+      `;
+      box.scrollTop = box.scrollHeight;
+      input.value = '';
+
+      try {
+        const res = await fetch('/api/instagram/simulate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ senderId: sender, messageText: text })
+        });
+        const data = await res.json();
+        if (data.success && data.results && data.results[0]) {
+          const agentRes = data.results[0].agentResponse;
+          const replyText = agentRes.reply || (data.results[0].suppressed ? '🔒 [Автоответ заглушен — диалог передан живому менеджеру]' : 'Нет ответа');
+          box.innerHTML += `
+            <div class="sim-bubble sim-bubble--agent">
+              <strong style="color: #c13584;">COMBO.UZ (Instagram Direct):</strong><br>
+              ${escapeHtml(replyText).replace(/\n/g, '<br>')}
+              ${agentRes.leadData ? '<div style="margin-top: 6px; padding: 4px 6px; background: rgba(34,197,94,0.1); border-radius: 4px; font-size: 11px; color: #16a34a; font-weight: 600;">✅ Заявка зафиксирована в CRM COMBO.UZ</div>' : ''}
+              ${agentRes.isHandover ? '<div style="margin-top: 6px; padding: 4px 6px; background: rgba(245,158,11,0.1); border-radius: 4px; font-size: 11px; color: #d97706; font-weight: 600;">⚠️ Диалог передан живому менеджеру</div>' : ''}
+            </div>
+          `;
+          box.scrollTop = box.scrollHeight;
+          if (agentRes.leadData) loadLeads();
+          if (agentRes.isHandover) loadHandovers();
+        }
+      } catch (err) {
+        toastError('Ошибка Instagram симулятора: ' + err.message);
+      }
+    };
+
+    // Telegram Simulator Chat
+    window.clearTgSimChat = function() {
+      const box = document.getElementById('tgSimMessages');
+      if (box) box.innerHTML = '<div style="color: var(--color-text-muted); font-size: 12px; text-align: center;">Чат очищен.</div>';
+    };
+
+    window.sendTgSimCommand = function(cmd) {
+      const input = document.getElementById('tgSimInput');
+      if (input) {
+        input.value = cmd;
+        sendTgSimMessage();
+      }
+    };
+
+    window.sendTgSimContact = async function(phone, first_name) {
+      const userInput = document.getElementById('tgSimUser');
+      const box = document.getElementById('tgSimMessages');
+      const username = (userInput ? userInput.value : '@jasur_tashkent').trim();
+
+      box.innerHTML += `
+        <div class="sim-bubble sim-bubble--user">
+          <strong>${escapeHtml(username)}:</strong> 📱 Поделился контактом: ${phone} (${first_name})
+        </div>
+      `;
+      box.scrollTop = box.scrollHeight;
+
+      try {
+        const res = await fetch('/api/telegram/simulate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chatId: '777000',
+            username,
+            contact: { phone_number: phone, first_name }
+          })
+        });
+        const data = await res.json();
+        if (data.success && data.agentResponse) {
+          box.innerHTML += `
+            <div class="sim-bubble sim-bubble--agent">
+              <strong style="color: #0088cc;">COMBO.UZ (Telegram Bot):</strong><br>
+              ${escapeHtml(data.agentResponse.reply).replace(/\n/g, '<br>')}
+              <div style="margin-top: 6px; padding: 4px 6px; background: rgba(34,197,94,0.1); border-radius: 4px; font-size: 11px; color: #16a34a; font-weight: 600;">✅ Лид получен через Contact Sharing и сохранен в CRM</div>
+            </div>
+          `;
+          box.scrollTop = box.scrollHeight;
+          loadLeads();
+        }
+      } catch (err) {
+        toastError('Ошибка Telegram симулятора: ' + err.message);
+      }
+    };
+
+    window.sendTgSimMessage = async function() {
+      const input = document.getElementById('tgSimInput');
+      const userInput = document.getElementById('tgSimUser');
+      const box = document.getElementById('tgSimMessages');
+      const text = (input ? input.value : '').trim();
+      const username = (userInput ? userInput.value : '@jasur_tashkent').trim();
+      if (!text) return;
+
+      box.innerHTML += `
+        <div class="sim-bubble sim-bubble--user">
+          <strong>${escapeHtml(username)}:</strong> ${escapeHtml(text)}
+        </div>
+      `;
+      box.scrollTop = box.scrollHeight;
+      input.value = '';
+
+      try {
+        const res = await fetch('/api/telegram/simulate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chatId: '777000', username, text })
+        });
+        const data = await res.json();
+        if (data.success && data.agentResponse) {
+          box.innerHTML += `
+            <div class="sim-bubble sim-bubble--agent">
+              <strong style="color: #0088cc;">COMBO.UZ (Telegram Bot):</strong><br>
+              ${escapeHtml(data.agentResponse.reply).replace(/\n/g, '<br>')}
+              ${data.replyKeyboard ? '<div style="margin-top: 6px; font-size: 11px; color: var(--color-text-muted);">🔘 [Клавиатура Bot API сгенерирована]</div>' : ''}
+              ${data.agentResponse.leadData ? '<div style="margin-top: 6px; padding: 4px 6px; background: rgba(34,197,94,0.1); border-radius: 4px; font-size: 11px; color: #16a34a; font-weight: 600;">✅ Заявка зафиксирована в CRM COMBO.UZ</div>' : ''}
+              ${data.agentResponse.isHandover ? '<div style="margin-top: 6px; padding: 4px 6px; background: rgba(245,158,11,0.1); border-radius: 4px; font-size: 11px; color: #d97706; font-weight: 600;">⚠️ Чат переведен на живого менеджера</div>' : ''}
+            </div>
+          `;
+          box.scrollTop = box.scrollHeight;
+          if (data.agentResponse.leadData) loadLeads();
+          if (data.agentResponse.isHandover) loadHandovers();
+        }
+      } catch (err) {
+        toastError('Ошибка Telegram симулятора: ' + err.message);
+      }
+    };
+
     // Init
     loadKb();
     loadLeads();
@@ -1171,12 +1735,15 @@
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash;
       if (hash === '#tab-leads') switchTab('leads');
+      else if (hash === '#tab-omnichannel') switchTab('omnichannel');
       else if (hash === '#tab-pricing') switchTab('pricing');
       else switchTab('kb');
     });
 
-    const initParams = new URLSearchParams(window.location.search);if if (window.location.hash === '#tab-leads') {
+    if (window.location.hash === '#tab-leads') {
       switchTab('leads');
+    } else if (window.location.hash === '#tab-omnichannel') {
+      switchTab('omnichannel');
     } else if (window.location.hash === '#tab-pricing') {
       switchTab('pricing');
     }

@@ -62,6 +62,20 @@ function writeJsonFile(filePath, data) {
   }
 }
 
+function mirrorLeadToJson(lead, isNew) {
+  if (!lead || !lead.id) return;
+  try {
+    const leads = readJsonFile(LEADS_FILE, []);
+    const idx = leads.findIndex(x => x.id === lead.id);
+    if (idx >= 0) {
+      leads[idx] = { ...leads[idx], ...lead };
+    } else {
+      leads.unshift(lead);
+    }
+    writeJsonFile(LEADS_FILE, leads);
+  } catch (e) {}
+}
+
 // -----------------------------------------------------------------------------
 // LEADS
 // -----------------------------------------------------------------------------
@@ -81,11 +95,16 @@ async function getLeads() {
         FROM leads
         ORDER BY created_at DESC
       `);
-      return res.rows.map(r => ({
+      const mapped = res.rows.map(r => ({
         ...r,
         quantity: Number(r.quantity) || 1,
         totalEstimateUZS: Number(r.totalEstimateUZS) || 0
       }));
+      // Keep local JSON in sync
+      if (mapped.length > 0) {
+        writeJsonFile(LEADS_FILE, mapped);
+      }
+      return mapped;
     } catch (err) {
       console.warn('⚠️ Neon query error in getLeads, using JSON fallback:', err.message);
     }
@@ -159,6 +178,7 @@ async function saveLead(data) {
         if (row) {
           row.quantity = Number(row.quantity) || 1;
           row.totalEstimateUZS = Number(row.totalEstimateUZS) || 0;
+          mirrorLeadToJson(row, false);
         }
         return { lead: row, isNew: false };
       } else {
@@ -200,6 +220,7 @@ async function saveLead(data) {
         if (row) {
           row.quantity = Number(row.quantity) || 1;
           row.totalEstimateUZS = Number(row.totalEstimateUZS) || 0;
+          mirrorLeadToJson(row, true);
         }
         return { lead: row, isNew: true };
       }
@@ -225,17 +246,17 @@ async function saveLead(data) {
     const existing = leads[existingIndex];
     const updated = {
       ...existing,
-      name: String(data.name || existing.name).slice(0, 100),
-      phone: String(data.phone || existing.phone).slice(0, 50),
-      district: String(data.district || existing.district).slice(0, 100),
-      address: String(data.address || existing.address).slice(0, 300),
-      model: String(data.model || existing.model).slice(0, 100),
-      fabricCollection: String(data.fabricCollection || existing.fabricCollection || '').slice(0, 100),
-      corniceType: String(data.corniceType || existing.corniceType || '').slice(0, 100),
-      dimensions: String(data.dimensions || existing.dimensions).slice(0, 200),
-      quantity: Number(data.quantity) || existing.quantity || 1,
-      totalEstimateUZS: Number(data.totalEstimateUZS) || existing.totalEstimateUZS || 0,
-      notes: String(data.notes || existing.notes).slice(0, 500),
+      name: (data.name !== undefined && data.name !== null && data.name !== '') ? String(data.name).slice(0, 100) : existing.name,
+      phone: (data.phone !== undefined && data.phone !== null && data.phone !== '') ? String(data.phone).slice(0, 50) : existing.phone,
+      district: (data.district !== undefined && data.district !== null && data.district !== '') ? String(data.district).slice(0, 100) : existing.district,
+      address: (data.address !== undefined && data.address !== null) ? String(data.address).slice(0, 300) : existing.address,
+      model: (data.model !== undefined && data.model !== null && data.model !== '') ? String(data.model).slice(0, 100) : existing.model,
+      fabricCollection: (data.fabricCollection !== undefined && data.fabricCollection !== null) ? String(data.fabricCollection).slice(0, 100) : (existing.fabricCollection || ''),
+      corniceType: (data.corniceType !== undefined && data.corniceType !== null) ? String(data.corniceType).slice(0, 100) : (existing.corniceType || ''),
+      dimensions: (data.dimensions !== undefined && data.dimensions !== null && data.dimensions !== '') ? String(data.dimensions).slice(0, 200) : existing.dimensions,
+      quantity: (data.quantity !== undefined && data.quantity !== null) ? (Number(data.quantity) || 1) : existing.quantity,
+      totalEstimateUZS: (data.totalEstimateUZS !== undefined && data.totalEstimateUZS !== null) ? (Number(data.totalEstimateUZS) || 0) : existing.totalEstimateUZS,
+      notes: (data.notes !== undefined && data.notes !== null) ? String(data.notes).slice(0, 500) : existing.notes,
       updatedAt: new Date().toISOString()
     };
     leads[existingIndex] = updated;

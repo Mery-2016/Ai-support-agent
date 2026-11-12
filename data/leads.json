@@ -1,5 +1,62 @@
 [
   {
+    "id": "LEAD-1794478589055",
+    "name": "Рустам",
+    "phone": "+998901234567",
+    "district": "Чиланзар",
+    "address": "",
+    "model": "Рулонные шторы День и Ночь",
+    "fabricCollection": "Базовая",
+    "corniceType": "Общий карниз",
+    "dimensions": "150×200 см",
+    "quantity": 1,
+    "day": "В ближайшее время",
+    "totalEstimateUZS": 300000,
+    "source": "AI_TEST_SALES_CHAT",
+    "notes": "Клиент просит приехать завтра в 18:00",
+    "status": "NEW",
+    "createdAt": "2026-11-12T10:16:28.300Z",
+    "updatedAt": "2026-11-12T10:24:08.623Z"
+  },
+  {
+    "id": "LEAD-1794478447567",
+    "name": "Клиент",
+    "phone": "",
+    "district": "",
+    "address": "",
+    "model": "Рулонные шторы COMBO",
+    "fabricCollection": "",
+    "corniceType": "",
+    "dimensions": "",
+    "quantity": 1,
+    "day": "В ближайшее время",
+    "totalEstimateUZS": 0,
+    "source": "AI_TEST_SALES_CHAT",
+    "notes": "Клиент просит приехать завтра в 18:00",
+    "status": "NEW",
+    "createdAt": "2026-11-12T10:14:10.571Z",
+    "updatedAt": "2026-11-12T10:14:10.571Z"
+  },
+  {
+    "id": "LEAD-1794466932121",
+    "name": "Рустам",
+    "phone": "+998901234567",
+    "district": "Чиланзар",
+    "address": "",
+    "model": "Рулонные шторы День и Ночь",
+    "fabricCollection": "Базовая",
+    "corniceType": "Общий карниз",
+    "dimensions": "150×200 см",
+    "quantity": 1,
+    "day": "В ближайшее время",
+    "totalEstimateUZS": 300000,
+    "source": "AI_TEST_SALES_CHAT",
+    "notes": "Клиент просит приехать завтра в 18:00",
+    "status": "NEW",
+    "createdAt": "2026-11-12T07:02:11.234Z",
+    "updatedAt": "2026-11-12T07:02:47.463Z"
+  },
+  {
     "id": "LEAD-1794390416940",
     "name": "Рустам",
     "phone": "+998901234567",
@@ -44,6 +101,8 @@
     "district": "Чиланзарский",
     "address": "",
     "model": "День-Ночь",
+    "fabricCollection": "",
+    "corniceType": "",
     "dimensions": "",
     "quantity": 2,
     "day": "В ближайшее время",
@@ -51,7 +110,8 @@
     "source": "AI_SUPPORT_AGENT",
     "notes": "",
     "status": "NEW",
-    "createdAt": "2026-11-09T10:12:50.843Z"
+    "createdAt": "2026-11-09T10:12:50.843Z",
+    "updatedAt": "2026-11-12T06:57:50.909Z"
   },
   {
     "id": "LEAD-1794217210981",
@@ -60,6 +120,8 @@
     "district": "Чиланзарский (Chilonzor)",
     "address": "Chilonzor 9-mavze",
     "model": "Blackout 100% кассетные",
+    "fabricCollection": "",
+    "corniceType": "",
     "dimensions": "3 ta deraza (yotoqxona)",
     "quantity": 3,
     "day": "В ближайшее время",
@@ -67,7 +129,8 @@
     "source": "AI_SALES_CHAT_UZ",
     "notes": "Mijoz ertalab soat 10:00 da o‘lchovchi kelishini so‘radi",
     "status": "NEW",
-    "createdAt": "2026-11-09T09:40:10.981Z"
+    "createdAt": "2026-11-09T09:40:10.981Z",
+    "updatedAt": "2026-11-12T06:57:51.163Z"
   },
   {
     "id": "LEAD-1794217210974",
@@ -76,6 +139,8 @@
     "district": "Юнусабадский",
     "address": "Юнусабад, 7 квартал",
     "model": "«День-Ночь» (Зебра)",
+    "fabricCollection": "",
+    "corniceType": "",
     "dimensions": "2 окна (150x170 см)",
     "quantity": 2,
     "day": "В ближайшее время",
@@ -93,6 +158,8 @@
     "district": "Чиланзарский",
     "address": "",
     "model": "День-Ночь",
+    "fabricCollection": "",
+    "corniceType": "",
     "dimensions": "",
     "quantity": 2,
     "day": "В ближайшее время",
@@ -100,7 +167,8 @@
     "source": "AI_SUPPORT_AGENT",
     "notes": "",
     "status": "NEW",
-    "createdAt": "2026-11-09T09:35:02.553Z"
+    "createdAt": "2026-11-09T09:35:02.553Z",
+    "updatedAt": "2026-11-12T06:57:51.690Z"
   },
   {
     "id": "LEAD-101",
@@ -109,12 +177,16 @@
     "district": "Мирзо-Улугбекский",
     "address": "ул. Буюк Ипак Йули, дом 45, кв. 18",
     "model": "«День-Ночь» (Зебра)",
+    "fabricCollection": "",
+    "corniceType": "",
     "dimensions": "2 окна (150x170 см)",
     "quantity": 2,
+    "day": "",
     "totalEstimateUZS": 1122000,
     "source": "AI_SALES_CHAT",
-    "status": "NEW",
     "notes": "Клиент просит выезд мастера после 18:00 с каталогом под цвет светлого дуба",
-    "createdAt": "2026-11-09T09:34:27.695Z"
+    "status": "NEW",
+    "createdAt": "2026-11-09T09:34:27.695Z",
+    "updatedAt": "2026-11-12T06:57:51.919Z"
   }
 ]

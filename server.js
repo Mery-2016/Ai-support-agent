@@ -62,6 +62,7 @@ for (const envF of [ENV_FILE, ENV_LOCAL_FILE]) {
 }
 
 const db = require('./services/db');
+const { handleApiRequest } = require('./services/api-handler');
 
 // Ensure data folder and files exist
 if (!fs.existsSync(DATA_DIR)) {
@@ -184,257 +185,23 @@ const server = http.createServer(async (req, res) => {
   const pathname = decodeURIComponent(url.pathname);
 
   // =========================================================================
-  // API: PRICING (Официальный прайс-лист)
+  // OMNICHANNEL API ROUTES (Instagram Direct, Telegram, Web, CRM, Catalog)
+  // Endpoints:
+  // - /api/pricing (GET/POST)
+  // - /api/retail-pricing (GET/POST)
+  // - /api/knowledge-base (GET/POST)
+  // - /api/knowledge-base/item (POST/DELETE)
+  // - /api/leads (GET/POST)
+  // - /api/leads/update-status (POST/PATCH)
+  // - /api/webhook/instagram (GET/POST)
+  // - /api/webhook/telegram (POST)
+  // - /api/catalog (GET)
+  // - /api/handover (POST)
+  // - /api/manager-callback (POST)
+  // - /api/config (GET/POST)
   // =========================================================================
-
-  // GET /api/pricing - Get pricing configuration
-  if (pathname === '/api/pricing' && req.method === 'GET') {
-    const pricing = readJsonFile(PRICING_FILE, { updatedAt: new Date().toISOString(), currency: 'UZS', isConfirmed: false, items: [] });
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ success: true, data: pricing }));
-    return;
-  }
-
-  // GET /api/retail-pricing - Get official retail price list (Excel)
-  if (pathname === '/api/retail-pricing' && req.method === 'GET') {
-    const retailPricing = readJsonFile(RETAIL_PRICING_FILE, {
-      title: 'COMBO.UZ — Официальный розничный прайс-лист',
-      currency: 'UZS',
-      rollerBlinds: [],
-      tulleBlinds: [],
-      plisseAndHoneycomb: [],
-      rules: []
-    });
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ success: true, data: retailPricing }));
-    return;
-  }
-
-  // POST /api/retail-pricing - Save/update official retail price list
-  if (pathname === '/api/retail-pricing' && req.method === 'POST') {
-    try {
-      const data = await parseJsonBody(req);
-      if (!data) {
-        res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: false, error: 'Ожидается объект розничного прайс-листа' }));
-        return;
-      }
-      data.updatedAt = new Date().toISOString();
-      writeJsonFile(RETAIL_PRICING_FILE, data);
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: true, message: 'Розничный прайс-лист успешно сохранен', data }));
-    } catch (err) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: false, error: err.message }));
-    }
-    return;
-  }
-
-  // POST /api/pricing - Update/save official price list
-  if (pathname === '/api/pricing' && req.method === 'POST') {
-    try {
-      const data = await parseJsonBody(req);
-      if (!data || !Array.isArray(data.items)) {
-        res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: false, error: 'Ожидается объект с массивом items' }));
-        return;
-      }
-      data.updatedAt = new Date().toISOString();
-      writeJsonFile(PRICING_FILE, data);
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: true, message: 'Официальный прайс-лист успешно сохранен', data }));
-    } catch (err) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: false, error: err.message }));
-    }
-    return;
-  }
-
-  // =========================================================================
-  // API: KNOWLEDGE BASE
-  // =========================================================================
-
-  // GET /api/knowledge-base - Get full knowledge base
-  if (pathname === '/api/knowledge-base' && req.method === 'GET') {
-    const kb = await db.getKnowledgeBase();
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ success: true, count: kb.length, data: kb }));
-    return;
-  }
-
-  // POST /api/knowledge-base - Save/replace full knowledge base
-  if (pathname === '/api/knowledge-base' && req.method === 'POST') {
-    try {
-      const data = await parseJsonBody(req);
-      if (!Array.isArray(data)) {
-        res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: false, error: 'Expected JSON array of items' }));
-        return;
-      }
-      for (const item of data) {
-        await db.saveKnowledgeBaseItem(item);
-      }
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: true, count: data.length, message: 'База знаний успешно сохранена' }));
-    } catch (err) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: false, error: err.message }));
-    }
-    return;
-  }
-
-  // POST /api/knowledge-base/item - Add or update a single question/answer
-  if (pathname === '/api/knowledge-base/item' && req.method === 'POST') {
-    try {
-      const item = await parseJsonBody(req);
-      if (!item.question_ru && !item.question_uz) {
-        res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: false, error: 'Необходимо указать вопрос' }));
-        return;
-      }
-
-      const result = await db.saveKnowledgeBaseItem(item);
-
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({
-        success: true,
-        item: result.item,
-        message: 'Статья успешно сохранена в базе знаний'
-      }));
-    } catch (err) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: false, error: err.message }));
-    }
-    return;
-  }
-
-  // DELETE /api/knowledge-base/item/:id - Delete an item by ID
-  if (pathname.startsWith('/api/knowledge-base/item/') && (req.method === 'DELETE' || req.method === 'POST')) {
-    const idToDelete = pathname.split('/').pop();
-    const result = await db.deleteKnowledgeBaseItem(idToDelete);
-
-    if (result.notFound) {
-      res.writeHead(404, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: false, error: 'Статья не найдена' }));
-      return;
-    }
-
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ success: true, message: `Статья ${idToDelete} удалена` }));
-    return;
-  }
-
-  // =========================================================================
-  // API: CONFIG & GEMINI API KEY
-  // =========================================================================
-  if (pathname === '/api/config' && req.method === 'GET') {
-    const key = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || '';
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({
-      hasApiKey: Boolean(key),
-      apiKey: key || undefined
-    }));
-    return;
-  }
-
-  if (pathname === '/api/config' && req.method === 'POST') {
-    try {
-      const body = await parseJsonBody(req);
-      if (body && body.apiKey) {
-        const cleanKey = String(body.apiKey).trim().replace(/^["']|["']$/g, '');
-        fs.writeFileSync(ENV_FILE, `GEMINI_API_KEY=${cleanKey}\n`, 'utf-8');
-        process.env.GEMINI_API_KEY = cleanKey;
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: true, message: 'Google AI Studio API ключ сохранен в .env' }));
-        return;
-      } else {
-        res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: false, error: 'Ключ не передан' }));
-        return;
-      }
-    } catch (err) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: false, error: err.message }));
-      return;
-    }
-  }
-
-  // =========================================================================
-  // API: LEADS (Заявки для менеджера)
-  // =========================================================================
-
-  // GET /api/leads - Get all leads
-  if (pathname === '/api/leads' && req.method === 'GET') {
-    const leads = await db.getLeads();
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ success: true, count: leads.length, leads, data: leads }));
-    return;
-  }
-
-  // POST /api/leads - Create new lead (from Landing or Sales AI Chat)
-  if (pathname === '/api/leads' && req.method === 'POST') {
-    try {
-      const data = await parseJsonBody(req);
-      const result = await db.saveLead(data);
-
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({
-        success: true,
-        message: result.isNew
-          ? 'Заявка на бесплатный замер успешно зарегистрирована! Менеджер свяжется с вами в течение 10 минут.'
-          : 'Заявка успешно обновлена в журнале менеджера.',
-        leadId: result.lead.id,
-        lead: result.lead,
-        isUpdated: !result.isNew
-      }));
-    } catch (err) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: false, error: err.message }));
-    }
-    return;
-  }
-
-  // PATCH /api/leads/:id or POST /api/leads/update-status - Update lead status
-  if ((pathname.startsWith('/api/leads/') || pathname === '/api/leads/update-status') && (req.method === 'PATCH' || req.method === 'POST')) {
-    try {
-      const data = await parseJsonBody(req);
-      const targetId = data.id || pathname.split('/').pop();
-      const updated = await db.updateLeadStatus(targetId, data.status);
-
-      if (!updated) {
-        res.writeHead(404, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: false, error: 'Заявка не найдена' }));
-        return;
-      }
-
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: true, message: 'Статус заявки обновлен', lead: updated }));
-    } catch (err) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: false, error: err.message }));
-    }
-    return;
-  }
-
-  // =========================================================================
-  // API: ESCALATION CALLBACK
-  // =========================================================================
-  if (pathname === '/api/manager-callback' && req.method === 'POST') {
-    try {
-      const data = await parseJsonBody(req);
-      const result = await db.saveCallback(data);
-
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({
-        success: true,
-        message: 'Запрос успешно передан дежурному менеджеру. Ожидайте звонка в течение 5–10 минут.',
-        escalationId: result.id
-      }));
-    } catch (err) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: false, error: err.message }));
-    }
-    return;
+  if (pathname.startsWith('/api/') && !pathname.startsWith('/api/v1/')) {
+    return handleApiRequest(req, res);
   }
 
   // =========================================================================
