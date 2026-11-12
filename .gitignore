@@ -23,3 +23,8 @@ repo.zip
 # Environment variables
 .env
 .env.local
+.neon
+.vercel
+
+.vercel
+.env*

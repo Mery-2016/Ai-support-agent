@@ -39,24 +39,29 @@ const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
 const PRICING_FILE = path.join(DATA_DIR, 'pricing.json');
 const RETAIL_PRICING_FILE = path.join(DATA_DIR, 'retail_price_list.json');
 const ENV_FILE = path.join(ROOT_DIR, '.env');
+const ENV_LOCAL_FILE = path.join(ROOT_DIR, '.env.local');
 
-// Auto-load .env file if present
-if (fs.existsSync(ENV_FILE)) {
-  try {
-    const envContent = fs.readFileSync(ENV_FILE, 'utf-8');
-    for (const line of envContent.split('\n')) {
-      const trimmed = line.trim();
-      if (trimmed && !trimmed.startsWith('#')) {
-        const idx = trimmed.indexOf('=');
-        if (idx > 0) {
-          const key = trimmed.slice(0, idx).trim();
-          const val = trimmed.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
-          if (key) process.env[key] = val;
+// Auto-load .env and .env.local files if present
+for (const envF of [ENV_FILE, ENV_LOCAL_FILE]) {
+  if (fs.existsSync(envF)) {
+    try {
+      const envContent = fs.readFileSync(envF, 'utf-8');
+      for (const line of envContent.split('\n')) {
+        const trimmed = line.trim();
+        if (trimmed && !trimmed.startsWith('#')) {
+          const idx = trimmed.indexOf('=');
+          if (idx > 0) {
+            const key = trimmed.slice(0, idx).trim();
+            const val = trimmed.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
+            if (key && !process.env[key]) process.env[key] = val;
+          }
         }
       }
-    }
-  } catch (err) {}
+    } catch (err) {}
+  }
 }
+
+const db = require('./services/db');
 
 // Ensure data folder and files exist
 if (!fs.existsSync(DATA_DIR)) {
@@ -251,7 +256,7 @@ const server = http.createServer(async (req, res) => {
 
   // GET /api/knowledge-base - Get full knowledge base
   if (pathname === '/api/knowledge-base' && req.method === 'GET') {
-    const kb = readJsonFile(KB_FILE, []);
+    const kb = await db.getKnowledgeBase();
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ success: true, count: kb.length, data: kb }));
     return;
@@ -266,7 +271,9 @@ const server = http.createServer(async (req, res) => {
         res.end(JSON.stringify({ success: false, error: 'Expected JSON array of items' }));
         return;
       }
-      writeJsonFile(KB_FILE, data);
+      for (const item of data) {
+        await db.saveKnowledgeBaseItem(item);
+      }
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ success: true, count: data.length, message: 'База знаний успешно сохранена' }));
     } catch (err) {
@@ -286,45 +293,13 @@ const server = http.createServer(async (req, res) => {
         return;
       }
 
-      const kb = readJsonFile(KB_FILE, []);
-      let isNew = false;
-      let existingIndex = -1;
-
-      if (item.id) {
-        existingIndex = kb.findIndex(x => x.id === item.id);
-      }
-
-      const cleanItem = {
-        id: item.id || `kb-${String(kb.length + 1).padStart(3, '0')}`,
-        category: item.category || 'general',
-        subcategory: item.subcategory || 'general',
-        keywords: Array.isArray(item.keywords) ? item.keywords : String(item.keywords || '').split(',').map(s => s.trim()).filter(Boolean),
-        question_ru: String(item.question_ru || '').trim(),
-        answer_ru: String(item.answer_ru || '').trim(),
-        question_uz: String(item.question_uz || '').trim(),
-        answer_uz: String(item.answer_uz || '').trim(),
-        requires_admin: Boolean(
-          item.requires_admin ||
-          (item.answer_ru && item.answer_ru.includes('[Требуется заполнение')) ||
-          (item.answer_uz && item.answer_uz.includes('[Administrator'))
-        )
-      };
-
-      if (existingIndex >= 0) {
-        kb[existingIndex] = cleanItem;
-      } else {
-        isNew = true;
-        kb.push(cleanItem);
-      }
-
-      writeJsonFile(KB_FILE, kb);
+      const result = await db.saveKnowledgeBaseItem(item);
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({
         success: true,
-        isNew,
-        item: cleanItem,
-        message: isNew ? 'Вопрос успешно добавлен в базу знаний' : 'Статья успешно обновлена'
+        item: result.item,
+        message: 'Статья успешно сохранена в базе знаний'
       }));
     } catch (err) {
       res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -336,19 +311,16 @@ const server = http.createServer(async (req, res) => {
   // DELETE /api/knowledge-base/item/:id - Delete an item by ID
   if (pathname.startsWith('/api/knowledge-base/item/') && (req.method === 'DELETE' || req.method === 'POST')) {
     const idToDelete = pathname.split('/').pop();
-    const kb = readJsonFile(KB_FILE, []);
-    const initialLen = kb.length;
-    const filtered = kb.filter(x => x.id !== idToDelete);
+    const result = await db.deleteKnowledgeBaseItem(idToDelete);
 
-    if (filtered.length === initialLen) {
+    if (result.notFound) {
       res.writeHead(404, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ success: false, error: 'Статья не найдена' }));
       return;
     }
 
-    writeJsonFile(KB_FILE, filtered);
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ success: true, message: `Статья ${idToDelete} удалена`, count: filtered.length }));
+    res.end(JSON.stringify({ success: true, message: `Статья ${idToDelete} удалена` }));
     return;
   }
 
@@ -393,7 +365,7 @@ const server = http.createServer(async (req, res) => {
 
   // GET /api/leads - Get all leads
   if (pathname === '/api/leads' && req.method === 'GET') {
-    const leads = readJsonFile(LEADS_FILE, []);
+    const leads = await db.getLeads();
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ success: true, count: leads.length, leads, data: leads }));
     return;
@@ -403,85 +375,17 @@ const server = http.createServer(async (req, res) => {
   if (pathname === '/api/leads' && req.method === 'POST') {
     try {
       const data = await parseJsonBody(req);
-      const leads = readJsonFile(LEADS_FILE, []);
-
-      const targetId = data.id || data.leadId;
-      let existingIndex = -1;
-      const cleanPhone = (p) => String(p || '').replace(/[^\d]/g, '');
-      const targetPhoneDigits = cleanPhone(data.phone);
-
-      if (targetId) {
-        existingIndex = leads.findIndex(x => x.id === targetId);
-      } else if (targetPhoneDigits && targetPhoneDigits.length >= 7) {
-        // Prevent duplicate leads from the same active chat within 30 minutes
-        const thirtyMinAgo = Date.now() - 30 * 60 * 1000;
-        existingIndex = leads.findIndex(x => {
-          const leadDigits = cleanPhone(x.phone);
-          const isPhoneMatch = leadDigits && (leadDigits.endsWith(targetPhoneDigits.slice(-7)) || targetPhoneDigits.endsWith(leadDigits.slice(-7)));
-          return isPhoneMatch && new Date(x.createdAt).getTime() > thirtyMinAgo;
-        });
-      }
-
-      if (existingIndex >= 0) {
-        // Update existing lead instead of creating duplicate
-        const existing = leads[existingIndex];
-        const updatedLead = {
-          ...existing,
-          name: String(data.name || existing.name).slice(0, 100),
-          phone: String(data.phone || existing.phone).slice(0, 50),
-          district: String(data.district || existing.district).slice(0, 100),
-          address: String(data.address || existing.address).slice(0, 300),
-          model: String(data.model || existing.model).slice(0, 100),
-          fabricCollection: String(data.fabricCollection || existing.fabricCollection || '').slice(0, 100),
-          corniceType: String(data.corniceType || existing.corniceType || '').slice(0, 100),
-          dimensions: String(data.dimensions || existing.dimensions).slice(0, 200),
-          quantity: Number(data.quantity) || existing.quantity || 1,
-          totalEstimateUZS: Number(data.totalEstimateUZS) || existing.totalEstimateUZS || 0,
-          notes: String(data.notes || existing.notes).slice(0, 500),
-          updatedAt: new Date().toISOString()
-        };
-        leads[existingIndex] = updatedLead;
-        writeJsonFile(LEADS_FILE, leads);
-
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({
-          success: true,
-          message: 'Заявка успешно обновлена в журнале менеджера.',
-          leadId: updatedLead.id,
-          lead: updatedLead,
-          isUpdated: true
-        }));
-        return;
-      }
-
-      const lead = {
-        id: targetId || ('LEAD-' + Date.now()),
-        name: String(data.name || 'Клиент').slice(0, 100),
-        phone: String(data.phone || '').slice(0, 50),
-        district: String(data.district || 'Ташкент').slice(0, 100),
-        address: String(data.address || '').slice(0, 300),
-        model: String(data.model || 'Жалюзи/Шторы COMBO.UZ').slice(0, 100),
-        fabricCollection: String(data.fabricCollection || '').slice(0, 100),
-        corniceType: String(data.corniceType || '').slice(0, 100),
-        dimensions: String(data.dimensions || '').slice(0, 200),
-        quantity: Number(data.quantity) || 1,
-        day: String(data.day || 'В ближайшее время').slice(0, 50),
-        totalEstimateUZS: Number(data.totalEstimateUZS) || 0,
-        source: String(data.source || 'AI_SUPPORT_AGENT').slice(0, 50),
-        notes: String(data.notes || '').slice(0, 500),
-        status: 'NEW',
-        createdAt: new Date().toISOString()
-      };
-
-      leads.unshift(lead); // latest first
-      writeJsonFile(LEADS_FILE, leads);
+      const result = await db.saveLead(data);
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({
         success: true,
-        message: 'Заявка на бесплатный замер успешно зарегистрирована! Менеджер свяжется с вами в течение 10 минут.',
-        leadId: lead.id,
-        lead
+        message: result.isNew
+          ? 'Заявка на бесплатный замер успешно зарегистрирована! Менеджер свяжется с вами в течение 10 минут.'
+          : 'Заявка успешно обновлена в журнале менеджера.',
+        leadId: result.lead.id,
+        lead: result.lead,
+        isUpdated: !result.isNew
       }));
     } catch (err) {
       res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -495,26 +399,16 @@ const server = http.createServer(async (req, res) => {
     try {
       const data = await parseJsonBody(req);
       const targetId = data.id || pathname.split('/').pop();
-      const newStatus = data.status;
-      const notes = data.notes;
+      const updated = await db.updateLeadStatus(targetId, data.status);
 
-      const leads = readJsonFile(LEADS_FILE, []);
-      const index = leads.findIndex(x => x.id === targetId);
-
-      if (index === -1) {
+      if (!updated) {
         res.writeHead(404, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: false, error: 'Заявка не найдена' }));
         return;
       }
 
-      if (newStatus) leads[index].status = newStatus;
-      if (notes !== undefined) leads[index].notes = notes;
-      leads[index].updatedAt = new Date().toISOString();
-
-      writeJsonFile(LEADS_FILE, leads);
-
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: true, message: 'Статус заявки обновлен', lead: leads[index] }));
+      res.end(JSON.stringify({ success: true, message: 'Статус заявки обновлен', lead: updated }));
     } catch (err) {
       res.writeHead(400, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ success: false, error: err.message }));
@@ -528,27 +422,13 @@ const server = http.createServer(async (req, res) => {
   if (pathname === '/api/manager-callback' && req.method === 'POST') {
     try {
       const data = await parseJsonBody(req);
-      const name = String(data.name || 'Клиент').slice(0, 100);
-      const phone = String(data.phone || '').slice(0, 50);
-      const reason = String(data.reason || 'Запрос консультации').slice(0, 500);
-      const category = String(data.category || 'general').slice(0, 50);
-
-      const record = {
-        id: 'ESC-' + Date.now(),
-        name,
-        phone,
-        reason,
-        category,
-        status: 'PENDING_MANAGER_CALL',
-        createdAt: new Date().toISOString()
-      };
-      escalationLog.push(record);
+      const result = await db.saveCallback(data);
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({
         success: true,
         message: 'Запрос успешно передан дежурному менеджеру. Ожидайте звонка в течение 5–10 минут.',
-        escalationId: record.id
+        escalationId: result.id
       }));
     } catch (err) {
       res.writeHead(400, { 'Content-Type': 'application/json' });
