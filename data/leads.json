@@ -1,5 +1,24 @@
 [
   {
+    "id": "LEAD-1794654781814",
+    "name": "Рустам",
+    "phone": "+998901234567",
+    "district": "Чиланзар",
+    "address": "",
+    "model": "Рулонные шторы День и Ночь",
+    "fabricCollection": "Базовая",
+    "corniceType": "Общий карниз",
+    "dimensions": "150×200 см",
+    "quantity": 1,
+    "day": "В ближайшее время",
+    "totalEstimateUZS": 300000,
+    "source": "AI_TEST_SALES_CHAT",
+    "notes": "Клиент просит приехать завтра в 18:00",
+    "status": "NEW",
+    "createdAt": "2026-11-14T11:13:01.009Z",
+    "updatedAt": "2026-11-14T11:21:09.231Z"
+  },
+  {
     "id": "LEAD-1794642183760",
     "name": "Рустам",
     "phone": "+998901234567",

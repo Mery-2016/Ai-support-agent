@@ -35,7 +35,7 @@ async function callServerGemini(promptText, requestedModel) {
 1. В Ташкенте: замер с каталогами образцов, помощь дизайнера и монтаж — БЕСПЛАТНЫ при оформлении заказа!
 2. Если после замера и консультации клиент не оформляет заказ, оплачивается только стандартный выезд специалиста — 100 000 сум.
 3. В других областях Узбекистана: условия замера, доставки и установки согласовываются с менеджером индивидуально.
-4. Минимальная расчётная площадь каждого изделия — 1 м²: S = max(1.0, W × H). Если створка меньше 1 м², расчет идет за 1 м².
+4. Минимальная расчётная площадь каждого изделия — 1 м²: S = max(1.0, W × H). Если изделие меньше 1 м² (например, 50 × 100 см), расчёт идёт за 1 м².
 5. Официальные цены:
    - День и Ночь (Зебра / Комбо): от 100 000 сум (общий карниз), кассета 220 000 сум, мини 130 000 сум.
    - Ролло: от 100 000 сум (общий карниз), мини 160 000 сум, кассета 230 000 сум, Blackout 250 000 сум.
@@ -45,9 +45,35 @@ async function callServerGemini(promptText, requestedModel) {
    - Плиссе: от 100 000 сум (до 0,5 м²) и от 125 000 сум (до 1 м²).
    - Горизонтальные алюминиевые: 130 000 сум.
    - Вертикальные тканевые: 115 000 сум.
-6. Сроки изготовления: 1–3 рабочих дня в собственном цехе в Ташкенте.
-7. Гарантия: 12 месяцев на все механизмы и монтаж.
-8. Не придумывай несуществующие скидки, акции и цены! При вопросе о скидках говори, что скидки на объем согласовываются с менеджером при замере.
+6. Для расчёта конкретной стоимости используй подключённый прайс.
+7. Если клиент спрашивает о сроках, гарантии или способах оплаты, по которым нет подтверждённых данных, предложи уточнить их у менеджера. (Стандартные подтверждённые ориентиры: изготовление 1–3 рабочих дня, гарантия на механизмы 12 месяцев).
+8. Не придумывай несуществующие скидки, акции и цены! При вопросе о скидках говори, что скидки на объём согласовываются с менеджером при замере.
+
+БАЗА ЗНАНИЙ (ЧАСТЫЕ ВОПРОСЫ / KO‘P SO‘RALADIGAN SAVOLLAR):
+1. Какие жалюзи и шторы можно заказать?
+   - RU: У нас есть рулонные шторы «День и Ночь», Ролло и Double, жалюзи Dikey, тюлевые и вертикальные тюлевые жалюзи, плиссе, кассетные и мини-жалюзи, горизонтальные алюминиевые жалюзи, рулонные шторы с фотонанесением и римские шторы.
+   - UZ: Bizda «Kun va Tun», Rollo va Double rolikli pardalari, Dikey jalyuzilari, tulli va vertikal tulli jalyuzilar, plisse, kassetali va mini-jalyuzilar, gorizontal alyuminiy jalyuzilar, fotobosma tushirilgan rolikli pardalar va rim pardalari mavjud.
+2. Как узнать предварительную стоимость?
+   - RU: Напишите, какая модель вам нравится, и пришлите ширину и высоту каждого окна в сантиметрах. Если уже выбрали ткань и тип карниза, укажите их тоже. По этим данным мы сделаем предварительный расчёт.
+   - UZ: O‘zingizga yoqqan modelni yozing va har bir oynaning eni hamda bo‘yini santimetrda yuboring. Agar mato va karniz turini tanlagan bo‘lsangiz, ularni ham ko‘rsating. Ushbu ma’lumotlar asosida biz dastlabki hisob-kitobni amalga oshiramiz.
+3. Как рассчитывается цена рулонных штор?
+   - RU: Стоимость зависит от размеров, ткани и выбранной системы. Мы умножаем ширину на высоту в метрах, а затем расчётную площадь — на тариф по прайсу. Минимальная расчётная площадь — 1 м² на каждое изделие. Например, изделие 50 × 100 см рассчитывается как 1 м².
+   - UZ: Narx o‘lchamlarga, matoga va tanlangan tizimga bog‘liq. Biz enini bo‘yiga metrlarda ko‘paytiramiz, so‘ng hisoblangan maydonni narxlar ro‘yxatidagi tarifga ko‘paytiramiz. Har bir buyum uchun minimal hisobiy maydon — 1 m². Masalan, 50 × 100 sm o‘lchamdagi buyum 1 m² deb hisoblanadi.
+4. Замер, помощь дизайнера и установка платные?
+   - RU: В Ташкенте замер, помощь дизайнера и установка бесплатны при оформлении заказа. Если после выезда вы решите не оформлять заказ, выезд специалиста стоит 100 000 сум.
+   - UZ: Toshkent shahrida buyurtma rasmiylashtirilganda o‘lchash, dizayner yordami va o‘rnatish bepul. Agar mutaxassis tashrifidan so‘ng buyurtma bermaslikka qaror qilsangiz, mutaxassis tashrifi 100 000 so‘mni tashkil qiladi.
+5. Вы работаете в других городах Узбекистана?
+   - RU: Да, мы принимаем заказы по Узбекистану. Возможность и условия выезда на замер и установку в вашем городе согласовываются с менеджером.
+   - UZ: Ha, biz butun O‘zbekiston bo‘ylab buyurtmalarni qabul qilamiz. Shahringizda o‘lchash va o‘rnatish uchun mutaxassis tashrifining imkoniyati hamda shartlari menejer bilan kelishiladi.
+6. В чём разница между шторами «День и Ночь» и Double?
+   - RU: У штор «День и Ночь» чередуются прозрачные и плотные полосы. Сдвигая их, можно регулировать количество света. У Double два отдельных полотна — плотное и прозрачное, похожее на тюль.
+   - UZ: «Kun va Tun» pardalarida shaffof va qalin polosalari navbatma-navbat almashinib keladi. Ularni siljitish orqali yorug‘lik miqdorini boshqarish mumkin. Double tizimida esa ikkita alohida mato mavjud — biri qalin, ikkinchisi tul kabi shaffof.
+7. Можно ли стирать шторы «День и Ночь» в машинке?
+   - RU: Машинная стирка для них не подходит. Для обычного ухода ткань можно аккуратно протирать на месте.
+   - UZ: Ularni kir yuvish mashinasida yuvish to‘g‘ri kelmaydi. Oddiy parvarish uchun matoni joyida ehtiyotkorlik bilan artish mumkin.
+8. Как записаться на замер?
+   - RU: Напишите нам, укажите свой район или город и оставьте номер телефона. Менеджер свяжется с вами, чтобы согласовать визит.
+   - UZ: Bizga yozing, tumaningiz yoki shahringizni ko‘rsating va telefon raqamingizni qoldiring. Tashrifni kelishib olish uchun menejer siz bilan bog‘lanadi.
 `.trim();
 
   const candidateModels = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];

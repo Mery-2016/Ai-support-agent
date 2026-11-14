@@ -22,16 +22,19 @@
     "category": "models",
     "subcategory": "zebra_day_night",
     "keywords": [
-      "день-ночь",
-      "чистка",
+      "стирать в машинке",
       "стирка",
-      "зебра уход",
-      "yuvish"
+      "машинная стирка",
+      "протирать на месте",
+      "уход",
+      "kir yuvish mashinasida",
+      "yuvish",
+      "parvarish"
     ],
-    "question_ru": "Можно ли стирать шторы День-Ночь в стиральной машине?",
-    "answer_ru": "Категорически нет! Ткани штор «День-Ночь» имеют специальную заводскую пылеотталкивающую и антистатическую пропитку. Машинная стирка смоет защитный слой и деформирует полосы. Для ухода достаточно сухой чистки мягкой щеткой, пылесосом на минимальной мощности или протирания слегка влажной микрофиброй без агрессивной химии.",
-    "question_uz": "Kun-Tun pardalarini kir yuvish mashinasida yuvish mumkinmi?",
-    "answer_uz": "Aslo mumkin emas! Kun-Tun matolari chang o‘tirmaydigan va antistatik maxsus zavod singdirmasiga ega. Mashinada yuvish bu qatlamni buzadi va matoni deformatsiya qiladi. Tozalash uchun yumshoq cho‘tka, changyutgichning past quvvati yoki biroz namlangan mikrofigra mato yetarli.",
+    "question_ru": "Можно ли стирать шторы «День и Ночь» в машинке?",
+    "answer_ru": "Машинная стирка для них не подходит. Для обычного ухода ткань можно аккуратно протирать на месте.",
+    "question_uz": "«Kun va Tun» pardalarini kir yuvish mashinasida yuvsa bo‘ladimi?",
+    "answer_uz": "Ularni kir yuvish mashinasida yuvish to‘g‘ri kelmaydi. Oddiy parvarish uchun matoni joyida ehtiyotkorlik bilan artish mumkin.",
     "requires_admin": false
   },
   {
@@ -375,18 +378,18 @@
     "category": "models",
     "subcategory": "double",
     "keywords": [
-      "double",
-      "дабл",
-      "двойные шторы",
-      "рулонные шторы double",
-      "duo",
-      "dabl",
-      "ikkitalik parda"
+      "разница день и ночь и double",
+      "отличие",
+      "зебра и дабл",
+      "полосы и два полотна",
+      "farqi nimada",
+      "double va zebra",
+      "kun va tun"
     ],
-    "question_ru": "Что представляют собой рулонные шторы Double (Дабл)?",
-    "answer_ru": "Рулонные шторы Double (Дабл) — система с двумя полотнами: одно плотное, второе прозрачное, как тюль. Оба полотна намотаны на независимые валы в одном компактном кронштейне. Днем можно использовать прозрачное тюлевое полотно для уютного мягкого освещения, а ночью или во время отдыха опускать плотное полотно для полной приватности и темноты.",
-    "question_uz": "Double (Dabl) rolikli pardalari qanday tuzilgan va nima?",
-    "answer_uz": "Double (Dabl) rolikli pardalari — ikkita matoli tizim: bittasi zich, ikkinchisi tul kabi shaffof. Ikkala mato mustaqil vallarga o‘ralgan bo‘lib, kunduzi tul matosi orqali yumshoq yorug‘likdan bahramand bo‘lish, kechasi esa to‘liq to‘sish va qorong‘ilik uchun zich matoni tushirish imkonini beradi.",
+    "question_ru": "В чём разница между шторами «День и Ночь» и Double?",
+    "answer_ru": "У штор «День и Ночь» чередуются прозрачные и плотные полосы. Сдвигая их, можно регулировать количество света. У Double два отдельных полотна — плотное и прозрачное, похожее на тюль.",
+    "question_uz": "«Kun va Tun» va Double pardalari orasidagi farq nimada?",
+    "answer_uz": "«Kun va Tun» pardalarida shaffof va qalin polosalari navbatma-navbat almashinib keladi. Ularni siljitish orqali yorug‘lik miqdorini boshqarish mumkin. Double tizimida esa ikkita alohida mato mavjud — biri qalin, ikkinchisi xuddi tul kabi shaffof.",
     "requires_admin": false
   },
   {
@@ -673,17 +676,21 @@
   {
     "id": "kb-041",
     "category": "models",
-    "subcategory": "wood_vertical",
+    "subcategory": "catalog_overview",
     "keywords": [
-      "вертикальные",
-      "замена полосы",
-      "ремонт",
-      "lamel almashtirish"
+      "какие жалюзи",
+      "виды штор",
+      "что можно заказать",
+      "каталог",
+      "ассортимент",
+      "qanday jalyuzi",
+      "turlari",
+      "buyurtma"
     ],
-    "question_ru": "Что делать, если одна полоса вертикальных жалюзи порвалась или испачкалась?",
-    "answer_ru": "Вам не нужно менять все жалюзи целиком! Каждая вертикальная ламель подвешена независимо. Вы можете заказать у нас замену одной или нескольких поврежденных полос по минимальной стоимости.",
-    "question_uz": "Agar vertikal jalyuzining bitta chizig‘i yirtilsa yoki kirlansa nima qilish kerak?",
-    "answer_uz": "Butun jalyuzini almashtirish shart emas! Har bir mato chizig‘i alohida ilingan. Siz bizdan aynan shikastlangan bitta yoki bir nechta lamelni arzon narxda qayta buyurtma qilishingiz mumkin.",
+    "question_ru": "Какие жалюзи и шторы можно заказать?",
+    "answer_ru": "У нас есть рулонные шторы «День и Ночь», Ролло и Double, жалюзи Dikey, тюлевые и вертикальные тюлевые жалюзи, плиссе, кассетные и мини-жалюзи, горизонтальные алюминиевые жалюзи, рулонные шторы с фотонанесением и римские шторы.",
+    "question_uz": "Qanday jalyuzi va pardalarni buyurtma qilish mumkin?",
+    "answer_uz": "Bizda «Kun va Tun», Rollo va Double rolikli pardalari, Dikey jalyuzilari, tul va vertikal tul jalyuzilari, plisse, kassetali va mini-jalyuzilar, gorizontal alyuminiy jalyuzilar, fotobosmali rolikli pardalar hamda rim pardalari mavjud.",
     "requires_admin": false
   },
   {
@@ -691,16 +698,20 @@
     "category": "measuring_install",
     "subcategory": "measure_visit",
     "keywords": [
-      "замерщик",
-      "выезд замерщика",
-      "бесплатно",
-      "каталоги",
-      "olchovchi bepul"
+      "замер платный",
+      "помощь дизайнера",
+      "установка платная",
+      "100 000 сум",
+      "бесплатно при оформлении",
+      "olchash pullikmi",
+      "dizayner",
+      "ornatish",
+      "bepul"
     ],
-    "question_ru": "Сколько стоит выезд замерщика с каталогами образцов в COMBO.UZ?",
-    "answer_ru": "Выезд замерщика и дизайнера с каталогами образцов по г. Ташкенту — БЕСПЛАТНЫЙ при оформлении заказа! Специалист привезет все образцы тканей и каталоги, снимет точные размеры лазерной рулеткой и поможет подобрать идеальную модель. Если после консультации и подбора вы решите не оформлять заказ, стоимость выезда специалиста составляет 100 000 сум.",
-    "question_uz": "COMBO.UZ da namunalar bilan o‘lchovchi ustaning kelishi qancha turadi?",
-    "answer_uz": "Toshkent shahri bo‘ylab o‘lchovchi va dizaynerning namunalar bilan tashrifi — buyurtma rasmiylashtirilganda BEPUL! Mutaxassis barcha mato kataloglarini olib keladi, lazerli o‘lchagichda aniq o‘lchaydi va mos modelni tanlashga yordam beradi. Agar konsultatsiyadan so‘ng buyurtma berilmasa, mutaxassis tashrifi narxi 100 000 so‘mni tashkil etadi.",
+    "question_ru": "Замер, помощь дизайнера и установка платные?",
+    "answer_ru": "В Ташкенте замер, помощь дизайнера и установка бесплатны при оформлении заказа. Если после выезда вы решите не оформлять заказ, выезд специалиста стоит 100 000 сум.",
+    "question_uz": "O‘lchash, dizayner yordami va o‘rnatish pullikmi?",
+    "answer_uz": "Toshkentda o‘lchash, dizayner yordami va o‘rnatish buyurtma rasmiylashtirilganda bepul. Agar mutaxassis tashrifidan so‘ng buyurtma bermaslikka qaror qilsangiz, mutaxassisning tashrifi 100 000 so‘m turadi.",
     "requires_admin": false
   },
   {
@@ -887,14 +898,18 @@
     "category": "measuring_install",
     "subcategory": "measure_booking",
     "keywords": [
+      "как записаться на замер",
       "записаться на замер",
-      "как вызвать мастера",
-      "olchovga yozilish"
+      "вызвать замерщика",
+      "согласовать визит",
+      "olchovga yozilish",
+      "tashrif kelishish",
+      "raqam qoldirish"
     ],
-    "question_ru": "Как быстро вызвать замерщика COMBO.UZ?",
-    "answer_ru": "Вы можете нажать кнопку «Записаться на замер» на сайте, указать имя, телефон и район, либо написать нашему AI-консультанту в чате. Менеджер свяжется с вами в течение 10–15 минут для согласования удобного часа приезда мастера.",
-    "question_uz": "COMBO.UZ o‘lchovchisini qanday chaqirish mumkin?",
-    "answer_uz": "Saytdagi «O‘lchovga yozilish» tugmasini bosib ismingiz, telefoningiz va tumaningizni qoldirishingiz yoki shu chatda AI-konsultantimizga yozishingiz kifoya. Menejer 10–15 daqiqa ichida qulay vaqtni kelishish uchun bog‘lanadi.",
+    "question_ru": "Как записаться на замер?",
+    "answer_ru": "Напишите нам, укажите свой район или город и оставьте номер телефона. Менеджер свяжется с вами, чтобы согласовать визит.",
+    "question_uz": "O‘lchashga qanday yozilish mumkin?",
+    "answer_uz": "Bizga yozing, o‘z tumaningiz yoki shahringizni ko‘rsating va telefon raqamingizni qoldiring. Tashrif vaqtini kelishish uchun menejer siz bilan bog‘lanadi.",
     "requires_admin": false
   },
   {
@@ -933,31 +948,40 @@
     "category": "pricing_discounts",
     "subcategory": "price_formula",
     "keywords": [
-      "как считается цена",
+      "как рассчитывается цена",
       "формула цены",
-      "за квадрат",
-      "hisoblash formulasi"
+      "минимальная площадь",
+      "1 м2",
+      "расчетная площадь",
+      "narx hisoblash",
+      "formula",
+      "minimal maydon"
     ],
-    "question_ru": "Как рассчитывается стоимость жалюзи и рулонных штор?",
-    "answer_ru": "Стоимость рассчитывается за квадратный метр по простой формуле: ширина (м) × высота (м) × цена выбранной ткани за 1 м². Минимальная расчётная площадь каждого изделия составляет 1 м²: если площадь меньше 1 м², стоимость рассчитывается как за 1 м², а если больше 1 м² — используется фактическая площадь. Точные цены определяются строго по официальному прайс-листу компании.",
-    "question_uz": "Jalyuzi va rolikli pardalar narxi qanday hisoblanadi?",
-    "answer_uz": "Narx kvadrat metr uchun oddiy formula bo‘yicha hisoblanadi: eni (m) × bo‘yi (m) × tanlangan matoning 1 m² narxi. Har bir mahsulot uchun minimal hisob maydoni — 1 m²: agar maydon 1 m² dan kam bo‘lsa, qiymat 1 m² deb hisoblanadi, agar 1 m² dan ko‘p bo‘lsa, haqiqiy maydon ishlatiladi. Aniq narxlar qat’iy ravishda kompaniyaning rasmiy narxlar ro‘yxati (prays-list) bo‘yicha belgilanadi.",
+    "question_ru": "Как рассчитывается цена рулонных штор?",
+    "answer_ru": "Стоимость зависит от размеров, ткани и выбранной системы. Мы умножаем ширину на высоту в метрах, а затем расчётную площадь — на тариф по прайсу. Минимальная расчётная площадь — 1 м² на каждое изделие. Например, изделие 50 × 100 см рассчитывается как 1 м².",
+    "question_uz": "Rolikli pardalar narxi qanday hisoblanadi?",
+    "answer_uz": "Narx o‘lchamlarga, matoga va tanlangan tizimga bog‘liq. Biz eni va bo‘yini metrda o‘zaro ko‘paytiramiz, so‘ng hisoblangan maydonni narxlar ro‘yxatidagi tarifga ko‘paytiramiz. Har bir mahsulot uchun minimal hisobiy maydon — 1 m². Masalan, 50 × 100 sm o‘lchamdagi mahsulot 1 m² deb hisoblanadi.",
     "requires_admin": false
   },
   {
     "id": "kb-058",
     "category": "pricing_discounts",
-    "subcategory": "why_no_fixed_price",
+    "subcategory": "estimate_calc",
     "keywords": [
-      "почему нет фиксированной цены",
-      "сколько стоит на стандартное окно",
-      "aniq narx"
+      "предварительная стоимость",
+      "узнать стоимость",
+      "узнать цену",
+      "расчет",
+      "ширина и высота",
+      "dastlabki narx",
+      "narxni bilish",
+      "olchamlari"
     ],
-    "question_ru": "Почему нельзя назвать точную цену без замера окон?",
-    "answer_ru": "Все изделия COMBO.UZ производятся по индивидуальным размерам с точностью до 1 мм. В типовых домах Ташкента окна часто отличаются на 2–5 см. Кроме того, цена зависит от выбранной коллекции ткани (в каталоге более 300 вариантов от бюджетных до премиум-жаккарда) и типа механизма. [Точная стоимость рассчитывается после выбора ткани на замере].",
-    "question_uz": "Nima uchun deraza o‘lchamini bilmasdan aniq narx aytib bo‘lmaydi?",
-    "answer_uz": "COMBO.UZ barcha mahsulotlarni har bir deraza uchun 1 mm gacha aniqlikda individual tayyorlaydi. Hatto bir xil domlarda ham derazalar 2–5 sm farq qiladi. Shuningdek, narx siz tanlagan mato toifasi (300 dan ortiq turlari bor) va mexanizm turiga bog‘liq. [Aniq narx o‘lchovdan so‘ng hisoblab beriladi].",
-    "requires_admin": true
+    "question_ru": "Как узнать предварительную стоимость?",
+    "answer_ru": "Напишите, какая модель вам нравится, и пришлите ширину и высоту каждого окна в сантиметрах. Если уже выбрали ткань и тип карниза, укажите их тоже. По этим данным мы сделаем предварительный расчёт.",
+    "question_uz": "Dastlabki narxni qanday bilish mumkin?",
+    "answer_uz": "Sizga qaysi model ma’qul kelganini yozing hamda har bir derazaning eni va bo‘yini santimetrda yuboring. Agar mato va karniz turini tanlagan bo‘lsangiz, ularni ham ko‘rsating. Ushbu ma’lumotlar asosida biz dastlabki hisob-kitobni tayyorlab beramiz.",
+    "requires_admin": false
   },
   {
     "id": "kb-059",
@@ -987,12 +1011,14 @@
       "uzum",
       "карты",
       "перечисление",
-      "tolov usullari"
+      "уточнить у менеджера",
+      "tolov usullari",
+      "menejerdan aniqlash"
     ],
     "question_ru": "Какие способы оплаты вы принимаете в COMBO.UZ?",
-    "answer_ru": "Мы принимаем все удобные способы оплаты в сумах (UZS): мобильные платежи через Click, Payme, Uzum Bank, банковские карты Uzcard и Humo, наличный расчет мастеру по факту, а также оплату по безналичному расчету (перечислением) для юридических лиц с предоставлением электронных счетов-фактур.",
+    "answer_ru": "Мы принимаем оплату через Click, Payme, Uzum Bank, банковские карты Uzcard/Humo, наличными, а также перечислением для юрлиц. Если у вас нестандартный способ оплаты или индивидуальные условия по безналичному расчету, по которым нет подтверждённых данных, рекомендуем уточнить их у нашего менеджера.",
     "question_uz": "COMBO.UZ qanday to‘lov turlarini qabul qiladi?",
-    "answer_uz": "Biz so‘mda barcha qulay to‘lov usullarini qabul qilamiz: Click, Payme, Uzum Bank ilovalari, Uzcard va Humo kartalari, usta o‘rnatgandan so‘ng naqd pul, shuningdek yuridik shaxslar uchun elektron hisob-faktura (Didox) orqali pul o‘tkazish yo‘li bilan.",
+    "answer_uz": "Biz to‘lovlarni Click, Payme, Uzum Bank, Uzcard/Humo kartalari, naqd pul hamda yuridik shaxslar uchun pul o‘tkazish orqali qabul qilamiz. Agar sizda tasdiqlangan ma’lumotlar bo‘lmagan nostandart to‘lov usuli yoki shartlar bo‘lsa, ularni menejerimizdan aniqlashtirishni tavsiya qilamiz.",
     "requires_admin": false
   },
   {
@@ -1126,12 +1152,15 @@
     "keywords": [
       "срок изготовления",
       "сколько дней ждать",
-      "tayyorlash muddati"
+      "1-3 дня",
+      "уточнить у менеджера",
+      "tayyorlash muddati",
+      "ish kuni"
     ],
     "question_ru": "Какой срок изготовления жалюзи и штор с момента замера?",
-    "answer_ru": "Благодаря собственному производственному цеху в Ташкенте стандартный срок изготовления составляет от нескольких рабочих дней. [Точный срок изготовления по видам продукции уточняется администратором]. В экстренных случаях возможен срочный заказ.",
+    "answer_ru": "Стандартный срок изготовления составляет от 1 до 3 рабочих дней благодаря собственному цеху в Ташкенте. Если требуются индивидуальные сроки или по вашему заказу нет подтверждённых данных, рекомендуем уточнить их у менеджера.",
     "question_uz": "O‘lchov olingandan keyin pardalar necha kunda tayyor bo‘ladi?",
-    "answer_uz": "Toshkentdagi shaxsiy ishlab chiqarish sexrimiz evaziga standart tayyorlash muddati bir necha ish kunini tashkil etadi. [Mahsulotlar bo‘yicha aniq tayyorlanish muddati administrator tomonidan to‘ldirilishi kerak]. Zarur hollarda shoshilinch tayyorlab berish ham mumkin.",
+    "answer_uz": "Standart tayyorlash muddati Toshkentdagi shaxsiy ishlab chiqarish sexrimiz evaziga 1 dan 3 ish kunigacha davom etadi. Agar alohida muddatlar talab etilsa yoki tasdiqlangan ma’lumotlar bo‘lmasa, ularni menejerdan aniqlashtirishni tavsiya qilamiz.",
     "requires_admin": true
   },
   {
@@ -1140,14 +1169,16 @@
     "subcategory": "warranty_period",
     "keywords": [
       "гарантия",
-      "сколько гарантия",
+      "12 месяцев",
       "гарантийный срок",
-      "kafolat muddati"
+      "уточнить у менеджера",
+      "kafolat muddati",
+      "12 oy"
     ],
     "question_ru": "Какая официальная гарантия предоставляется на жалюзи в COMBO.UZ?",
-    "answer_ru": "Мы предоставляем официальную гарантию качества на подъемные механизмы, карнизы, полотно и монтажные работы. [Точный гарантийный срок в месяцах/годах уточняется администратором]. В течение гарантийного срока любые производственные дефекты устраняются бесплатно.",
+    "answer_ru": "Официальная гарантия на механизмы составляет 12 месяцев. Если у вас нестандартный проект или особые условия эксплуатации, по которым нет подтверждённых данных, рекомендуем уточнить детали гарантии у менеджера.",
     "question_uz": "COMBO.UZ da jalyuzilar uchun qancha rasmiy kafolat beriladi?",
-    "answer_uz": "Biz ko‘tarish mexanizmlari, karnizlar, mato sifati va o‘rnatish ishlariga rasmiy kafolat beramiz. [Aniq kafolat muddati oylar/yillar hisobida administrator tomonidan to‘ldirilishi kerak]. Kafolat davrida zavod nuqsonlari bepul bartaraf etiladi.",
+    "answer_uz": "Mexanizmlarga rasmiy kafolat 12 oy beriladi. Agar tasdiqlangan ma’lumotlar bo‘lmagan nostandart loyiha yoki alohida sharoitlar bo‘lsa, kafolat tafsilotlarini menejerdan aniqlashtirishni tavsiya qilamiz.",
     "requires_admin": true
   },
   {
@@ -1185,16 +1216,19 @@
     "category": "timeline_delivery_warranty",
     "subcategory": "delivery_regions",
     "keywords": [
-      "доставка в регионы",
-      "самараканд",
-      "бухара",
+      "другие города",
+      "регионы",
       "области",
-      "viloyatlarga yetkazish"
+      "узбекистан",
+      "выезд в регионы",
+      "boshqa shaharlar",
+      "viloyatlar",
+      "ozbekiston boylab"
     ],
-    "question_ru": "Отправляете ли вы жалюзи в другие города и регионы Узбекистана?",
-    "answer_ru": "Да! Компания COMBO.UZ принимает заказы по всему Узбекистану. Мы можем изготовить изделия по вашим размерам и отправить их в любой город и область (Самарканд, Бухара, Фергана, Андижан, Наманган и др.). Условия замера, выезда и установки за пределами Ташкента согласовываются с менеджером индивидуально (бесплатный выезд в регионы не гарантируется).",
-    "question_uz": "O‘zbekistonning boshqa viloyat va shaharlariga ham yetkazib berasizlarmi?",
-    "answer_uz": "Ha! COMBO.UZ kompaniyasi butun O‘zbekiston bo‘ylab buyurtmalarni qabul qiladi. Mahsulotlarni sizning o‘lchamlaringiz bo‘yicha tayyorlab, istalgan viloyat va shaharga yetkazib bera olamiz (Samarqand, Buxoro, Farg‘ona, Andijon, Namangan va h.k.). Toshkentdan tashqarida o‘lchash, mutaxassis tashrifi va o‘rnatish shartlari menejer bilan alohida kelishiladi (viloyatlarga bepul tashrif kafolatlanmaydi).",
+    "question_ru": "Вы работаете в других городах Узбекистана?",
+    "answer_ru": "Да, мы принимаем заказы по Узбекистану. Возможность и условия выезда на замер и установку в вашем городе согласовываются с менеджером.",
+    "question_uz": "O‘zbekistonning boshqa shaharlarida ham ishlaysizmi?",
+    "answer_uz": "Ha, biz butun O‘zbekiston bo‘ylab buyurtmalarni qabul qilamiz. Shahringizda o‘lchash va o‘rnatish uchun mutaxassis tashrifining imkoniyati hamda shartlari menejer bilan kelishiladi.",
     "requires_admin": false
   },
   {

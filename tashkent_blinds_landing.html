@@ -818,14 +818,39 @@
         <!-- ======================================================== -->
         <!-- РАЗДЕЛ 5: ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ (FAQ ТАШКЕНТ) (#faq) -->
         <!-- ======================================================== -->
+        <!-- РАЗДЕЛ 5: ЧАСТЫЕ ВОПРОСЫ (#faq) -->
+        <!-- ======================================================== -->
         <section id="faq" class="section">
           <div class="section-head">
             <div>
-              <span class="badge badge--primary">Часто задаваемые вопросы</span>
-              <h2 style="margin-top: var(--space-2);">Все, что нужно знать о жалюзи и шторах в Ташкенте</h2>
-              <p>Честные ответы на главные вопросы покупателей: от замеров и монтажа без сверления рам Akfa до защиты от чилли +45°C и оплаты через Click/Payme.</p>
+              <span class="badge badge--primary">Частые вопросы • Ko‘p so‘raladigan savollar</span>
+              <h2 style="margin-top: var(--space-2);">Частые вопросы и ответы / Savol-javoblar</h2>
+              <p>Официальные ответы COMBO.UZ на русском и узбекском языках: ассортимент, расчёт стоимости по прайсу, условия замера и монтажа, уход и оформление заказа.</p>
+              
+              <!-- Переключатель языков FAQ -->
+              <div class="faq-lang-tabs" style="display: flex; gap: var(--space-2); margin-top: var(--space-3); flex-wrap: wrap;">
+                <button type="button" class="button button--sm button--primary faq-lang-btn active" data-lang="all" onclick="setFaqLanguage('all')">
+                  <span>🌐 Все языки / Ikkala til</span>
+                </button>
+                <button type="button" class="button button--sm button--ghost faq-lang-btn" data-lang="ru" onclick="setFaqLanguage('ru')">
+                  <span>🇷🇺 Русский</span>
+                </button>
+                <button type="button" class="button button--sm button--ghost faq-lang-btn" data-lang="uz" onclick="setFaqLanguage('uz')">
+                  <span>🇺🇿 O‘zbekcha (Lotin)</span>
+                </button>
+              </div>
+
+              <!-- Информационный блок по прайсу и менеджеру -->
+              <div class="faq-notice-banner" style="background: var(--color-surface-2); border-left: 4px solid var(--color-primary); padding: var(--space-3) var(--space-4); border-radius: var(--radius-sm); margin-top: var(--space-3); font-size: 13px; line-height: 1.5; color: var(--color-text);">
+                <div class="faq-lang-ru">
+                  <strong>📋 Важная информация:</strong> Для расчёта конкретной стоимости используется подключённый официальный прайс-лист. Если вас интересуют индивидуальные сроки изготовления, условия расширенной гарантии или специальные способы оплаты, по которым нет подтверждённых данных, вы всегда можете уточнить их у дежурного менеджера.
+                </div>
+                <div class="faq-lang-uz" style="margin-top: var(--space-2);">
+                  <strong>📋 Muhim ma’lumot:</strong> Aniq narxni hisoblash uchun ulangan rasmiy narxlar ro‘yxatidan foydalaniladi. Agar sizni tasdiqlangan ma’lumotlar bo‘lmagan individual tayyorlash muddatlari, kengaytirilgan kafolat shartlari yoki maxsus to‘lov usullari qiziqtirsa, ularni navbatchi menejerdan aniqlashtirishingiz mumkin.
+                </div>
+              </div>
             </div>
-            <button type="button" class="button button--ghost" onclick="askAIAboutFAQ('Расскажи главные правила выбора штор для квартиры в Ташкенте')">
+            <button type="button" class="button button--ghost" onclick="askAIAboutFAQ('Расскажи главные условия заказа, замера и расчёта штор в COMBO.UZ')">
               <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
               <span>Задать свой вопрос ИИ</span>
             </button>
@@ -833,153 +858,217 @@
 
           <div class="faq-grid">
             
-            <!-- FAQ 1: Бесплатный замер -->
-            <div class="faq-card">
-              <div>
-                <div class="faq-card-head">
-                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-calendar.svg#icon-calendar"></use></svg>
-                  <h3 class="faq-card-title">Действительно ли замер бесплатный во все 12 районов Ташкента?</h3>
-                </div>
-                <p class="faq-card-body">
-                  В Ташкенте замер, помощь дизайнера с каталогами 500+ образцов тканей и монтаж осуществляются <strong>БЕСПЛАТНО при оформлении заказа</strong>. Специалист приезжает с лазерной рулеткой и каталогом тканей. Если по результатам выезда заказ не оформляется, оплачивается только стандартный выезд мастера — <strong>100 000 сум</strong>. В других областях Узбекистана условия согласовываются с менеджером.
-                </p>
-              </div>
-              <div class="faq-card-foot">
-                <span class="faq-badge">0 сум при заказе (100 000 сум без заказа)</span>
-                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Сколько стоит выезд замерщика по Ташкенту и что мастер привозит с собой?')">
-                  <span>Спросить у ИИ</span> &rarr;
-                </button>
-              </div>
-            </div>
-
-            <!-- FAQ 2: Монтаж без сверления Akfa -->
-            <div class="faq-card">
-              <div>
-                <div class="faq-card-head">
-                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-shield.svg#icon-shield"></use></svg>
-                  <h3 class="faq-card-title">Можно ли установить рулонные шторы на рамы Akfa или Imzo без сверления?</h3>
-                </div>
-                <p class="faq-card-body">
-                  Да! Для поворотно-откидных створок пластиковых и алюминиевых окон Akfa / Imzo / Engelberg мы используем накидные зажимные клипсы и специальный немецкий двусторонний скотч 3M промышленной фиксации. Профиль не повреждается дырами, а заводская гарантия на ваши пластиковые окна сохраняется на 100%.
-                </p>
-              </div>
-              <div class="faq-card-foot">
-                <span class="faq-badge">Без нарушения гарантии окон</span>
-                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Как устанавливаются рулонные шторы на окна Akfa без сверления?')">
-                  <span>Спросить у ИИ</span> &rarr;
-                </button>
-              </div>
-            </div>
-
-            <!-- FAQ 3: Защита от солнца и чилли +45°C -->
-            <div class="faq-card">
-              <div>
-                <div class="faq-card-head">
-                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-flame.svg#icon-flame"></use></svg>
-                  <h3 class="faq-card-title">Не выгорят ли ткани на палящем солнце Ташкента при +45°C в чиллю?</h3>
-                </div>
-                <p class="faq-card-body">
-                  Нет. Мы используем сертифицированные турецкие и южнокорейские ткани с устойчивыми к выгоранию УФ-стабилизаторами и антистатиком. Для окон на солнечной стороне (юг, юго-запад) рекомендуем ткани <strong>Blackout 100%</strong> со светоотражающим слоем с уличной стороны — они снижают нагрев комнаты на 5–8°C и берегут кондиционер.
-                </p>
-              </div>
-              <div class="faq-card-foot">
-                <span class="faq-badge">Ткани Турция / Корея</span>
-                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Какие шторы лучше всего защищают от солнца в ташкентскую чиллю при +45°C?')">
-                  <span>Спросить у ИИ</span> &rarr;
-                </button>
-              </div>
-            </div>
-
-            <!-- FAQ 4: Откидные окна на проветривание -->
-            <div class="faq-card">
-              <div>
-                <div class="faq-card-head">
-                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check-circle.svg#icon-check-circle"></use></svg>
-                  <h3 class="faq-card-title">Что происходит со шторами, когда окно открыто на проветривание?</h3>
-                </div>
-                <p class="faq-card-body">
-                  Шторы не болтаются и не хлопают от ветра. В кассетных системах (Uni-1 / Uni-2) ткань удерживается алюминиевыми боковыми направляющими. В открытых рулонных системах (Mini) мы устанавливаем боковую натяжную леску или нижние неодимовые магниты, которые фиксируют планку параллельно стеклу под любым углом откидывания.
-                </p>
-              </div>
-              <div class="faq-card-foot">
-                <span class="faq-badge">Направляющие и магниты</span>
-                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Будут ли шторы стучать или провисать при проветривании окна?')">
-                  <span>Спросить у ИИ</span> &rarr;
-                </button>
-              </div>
-            </div>
-
-            <!-- FAQ 5: Сроки изготовления цеха и монтаж -->
-            <div class="faq-card">
-              <div>
-                <div class="faq-card-head">
-                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-clock.svg#icon-clock"></use></svg>
-                  <h3 class="faq-card-title">Сколько дней занимает изготовление и входит ли установка?</h3>
-                </div>
-                <p class="faq-card-body">
-                  Срок изготовления составляет всего <strong>1–3 рабочих дня</strong> благодаря собственному цеху в Ташкенте. Профессиональная установка нашими мастерами осуществляется <strong>БЕСПЛАТНО при оформлении заказа</strong> на любое количество изделий. Если заказ не оформляется, выезд специалиста стоит 100 000 сум; по другим областям условия согласовываются с менеджером.
-                </p>
-              </div>
-              <div class="faq-card-foot">
-                <span class="faq-badge">1-3 дня цех • Монтаж 0 сум при заказе</span>
-                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Какой срок изготовления рулонных штор и условия бесплатного монтажа?')">
-                  <span>Спросить у ИИ</span> &rarr;
-                </button>
-              </div>
-            </div>
-
-            <!-- FAQ 6: Способы оплаты Click, Payme, юрлица -->
+            <!-- FAQ 1: Ассортимент моделей -->
             <div class="faq-card">
               <div>
                 <div class="faq-card-head">
                   <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-box.svg#icon-box"></use></svg>
-                  <h3 class="faq-card-title">Какие способы оплаты принимаются в Ташкенте?</h3>
+                  <div>
+                    <h3 class="faq-card-title faq-lang-ru">1. Какие жалюзи и шторы можно заказать?</h3>
+                    <h3 class="faq-card-title faq-lang-uz" style="color: var(--color-primary); margin-top: 4px;">1. Qanday jalyuzi va pardalarni buyurtma qilish mumkin?</h3>
+                  </div>
                 </div>
-                <p class="faq-card-body">
-                  Мы принимаем все удобные способы: <strong>Click</strong> (Click Up / QR), <strong>Payme</strong>, <strong>Uzum Bank</strong>, банковские карты Uzcard и Humo, а также наличный расчет в сумах. Для организаций, офисов и оптовых заказчиков оформляем официальный договор с НДС и электронными счет-фактурами через Didox / Faktura.uz.
-                </p>
+                <div class="faq-card-body">
+                  <p class="faq-lang-ru" style="margin-bottom: var(--space-2);">
+                    У нас есть рулонные шторы «День и Ночь», Ролло и Double, жалюзи Dikey, тюлевые и вертикальные тюлевые жалюзи, плиссе, кассетные и мини-жалюзи, горизонтальные алюминиевые жалюзи, рулонные шторы с фотонанесением и римские шторы.
+                  </p>
+                  <p class="faq-lang-uz" style="color: var(--color-text-muted); border-top: 1px dashed var(--color-border-soft); padding-top: var(--space-2); margin-bottom: 0;">
+                    <span class="badge badge--neutral" style="font-size: 10px; padding: 1px 6px; margin-right: 6px;">O‘zbekcha</span>Bizda «Kun va Tun», Rollo va Double rolikli pardalari, Dikey jalyuzilari, tulli va vertikal tulli jalyuzilar, plisse, kassetali va mini-jalyuzilar, gorizontal alyuminiy jalyuzilar, fotobosma tushirilgan rolikli pardalar va rim pardalari mavjud.
+                  </p>
+                </div>
               </div>
               <div class="faq-card-foot">
-                <span class="faq-badge">Click / Payme / Didox</span>
-                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Можно ли оплатить шторы через Click или Payme, и как оформить договор для юрлица?')">
+                <span class="faq-badge">Каталог моделей • Modellar</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Какие жалюзи и шторы можно заказать?')">
                   <span>Спросить у ИИ</span> &rarr;
                 </button>
               </div>
             </div>
 
-            <!-- FAQ 7: Уход и стирка -->
+            <!-- FAQ 2: Предварительная стоимость -->
+            <div class="faq-card">
+              <div>
+                <div class="faq-card-head">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
+                  <div>
+                    <h3 class="faq-card-title faq-lang-ru">2. Как узнать предварительную стоимость?</h3>
+                    <h3 class="faq-card-title faq-lang-uz" style="color: var(--color-primary); margin-top: 4px;">2. Dastlabki narxni qanday bilish mumkin?</h3>
+                  </div>
+                </div>
+                <div class="faq-card-body">
+                  <p class="faq-lang-ru" style="margin-bottom: var(--space-2);">
+                    Напишите, какая модель вам нравится, и пришлите ширину и высоту каждого окна в сантиметрах. Если уже выбрали ткань и тип карниза, укажите их тоже. По этим данным мы сделаем предварительный расчёт.
+                  </p>
+                  <p class="faq-lang-uz" style="color: var(--color-text-muted); border-top: 1px dashed var(--color-border-soft); padding-top: var(--space-2); margin-bottom: 0;">
+                    <span class="badge badge--neutral" style="font-size: 10px; padding: 1px 6px; margin-right: 6px;">O‘zbekcha</span>O‘zingizga yoqqan modelni yozing va har bir oynaning eni hamda bo‘yini santimetrda yuboring. Agar mato va karniz turini tanlagan bo‘lsangiz, ularni ham ko‘rsating. Ushbu ma’lumotlar asosida biz dastlabki hisob-kitobni amalga oshiramiz.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-card-foot">
+                <span class="faq-badge">Предварительный расчёт • Hisob-kitob</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Как узнать предварительную стоимость?')">
+                  <span>Спросить у ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- FAQ 3: Расчет цены рулонных штор и 1 м² -->
             <div class="faq-card">
               <div>
                 <div class="faq-card-head">
                   <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-filter.svg#icon-filter"></use></svg>
-                  <h3 class="faq-card-title">Как ухаживать за рулонными шторами и жалюзи? Можно ли стирать в машинке?</h3>
+                  <div>
+                    <h3 class="faq-card-title faq-lang-ru">3. Как рассчитывается цена рулонных штор?</h3>
+                    <h3 class="faq-card-title faq-lang-uz" style="color: var(--color-primary); margin-top: 4px;">3. Rolikli pardalar narxi qanday hisoblanadi?</h3>
+                  </div>
                 </div>
-                <p class="faq-card-body">
-                  Стирать рулонные ткани в стиральной машине <strong>категорически запрещено</strong>, так как вода смывает тефлоновую пылеотталкивающую пропитку. Для регулярного ухода достаточно пройтись пылесосом с мягкой мебельной насадкой. Случайные пятна удаляются влажной микрофиброй с нейтральной мыльной пеной без абразивов и хлора.
-                </p>
+                <div class="faq-card-body">
+                  <p class="faq-lang-ru" style="margin-bottom: var(--space-2);">
+                    Стоимость зависит от размеров, ткани и выбранной системы. Мы умножаем ширину на высоту в метрах, а затем расчётную площадь — на тариф по прайсу. Минимальная расчётная площадь — 1 м² на каждое изделие. Например, изделие 50 × 100 см рассчитывается как 1 м².
+                  </p>
+                  <p class="faq-lang-uz" style="color: var(--color-text-muted); border-top: 1px dashed var(--color-border-soft); padding-top: var(--space-2); margin-bottom: 0;">
+                    <span class="badge badge--neutral" style="font-size: 10px; padding: 1px 6px; margin-right: 6px;">O‘zbekcha</span>Narx o‘lchamlarga, matoga va tanlangan tizimga bog‘liq. Biz enini bo‘yiga metrlarda ko‘paytiramiz, so‘ng hisoblangan maydonni narxlar ro‘yxatidagi tarifga ko‘paytiramiz. Har bir buyum uchun minimal hisobiy maydon — 1 m². Masalan, 50 × 100 sm o‘lchamdagi buyum 1 m² deb hisoblanadi.
+                  </p>
+                </div>
               </div>
               <div class="faq-card-foot">
-                <span class="faq-badge">Сухая чистка + мыльная пена</span>
-                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Как правильно чистить рулонные шторы от пыли и пятен?')">
+                <span class="faq-badge">Мин. площадь 1 м² • Min. 1 m²</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Как рассчитывается цена рулонных штор?')">
                   <span>Спросить у ИИ</span> &rarr;
                 </button>
               </div>
             </div>
 
-            <!-- FAQ 8: Моторизация и умный дом (Алиса) -->
+            <!-- FAQ 4: Замер, помощь дизайнера и монтаж -->
             <div class="faq-card">
               <div>
                 <div class="faq-card-head">
-                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-cpu.svg#icon-cpu"></use></svg>
-                  <h3 class="faq-card-title">Можно ли сделать шторы автоматическими и управлять ими через Алису?</h3>
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-calendar.svg#icon-calendar"></use></svg>
+                  <div>
+                    <h3 class="faq-card-title faq-lang-ru">4. Замер, помощь дизайнера и установка платные?</h3>
+                    <h3 class="faq-card-title faq-lang-uz" style="color: var(--color-primary); margin-top: 4px;">4. O‘lchash, dizayner yordami va o‘rnatish pullikmi?</h3>
+                  </div>
                 </div>
-                <p class="faq-card-body">
-                  Да! Мы устанавливаем бесшумные электроприводы Dooya и Somfy. Доступны беспроводные двигатели со встроенным аккумулятором (зарядка от Type-C раз в 4–6 месяцев, никаких штроблений стен) или проводные 220V. Управление осуществляется с элегантного пульта, через смартфон или голосом с <strong>Яндекс Алисой</strong> и Apple Home.
-                </p>
+                <div class="faq-card-body">
+                  <p class="faq-lang-ru" style="margin-bottom: var(--space-2);">
+                    В Ташкенте замер, помощь дизайнера и установка бесплатны при оформлении заказа. Если после выезда вы решите не оформлять заказ, выезд специалиста стоит 100 000 сум.
+                  </p>
+                  <p class="faq-lang-uz" style="color: var(--color-text-muted); border-top: 1px dashed var(--color-border-soft); padding-top: var(--space-2); margin-bottom: 0;">
+                    <span class="badge badge--neutral" style="font-size: 10px; padding: 1px 6px; margin-right: 6px;">O‘zbekcha</span>Toshkent shahrida buyurtma rasmiylashtirilganda o‘lchash, dizayner yordami va o‘rnatish bepul. Agar mutaxassis tashrifidan so‘ng buyurtma bermaslikka qaror qilsangiz, mutaxassis tashrifi 100 000 so‘mni tashkil qiladi.
+                  </p>
+                </div>
               </div>
               <div class="faq-card-foot">
-                <span class="faq-badge">Алиса / Somfy / Dooya</span>
-                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Как подключить рулонные шторы к Умному Дому и Яндекс Алисе?')">
+                <span class="faq-badge">0 сум при заказе (100 000 сум без заказа)</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Замер, помощь дизайнера и установка платные?')">
+                  <span>Спросить у ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- FAQ 5: Другие города Узбекистана -->
+            <div class="faq-card">
+              <div>
+                <div class="faq-card-head">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-shield.svg#icon-shield"></use></svg>
+                  <div>
+                    <h3 class="faq-card-title faq-lang-ru">5. Вы работаете в других городах Узбекистана?</h3>
+                    <h3 class="faq-card-title faq-lang-uz" style="color: var(--color-primary); margin-top: 4px;">5. O‘zbekistonning boshqa shaharlarida ham ishlaysizmi?</h3>
+                  </div>
+                </div>
+                <div class="faq-card-body">
+                  <p class="faq-lang-ru" style="margin-bottom: var(--space-2);">
+                    Да, мы принимаем заказы по Узбекистану. Возможность и условия выезда на замер и установку в вашем городе согласовываются с менеджером.
+                  </p>
+                  <p class="faq-lang-uz" style="color: var(--color-text-muted); border-top: 1px dashed var(--color-border-soft); padding-top: var(--space-2); margin-bottom: 0;">
+                    <span class="badge badge--neutral" style="font-size: 10px; padding: 1px 6px; margin-right: 6px;">O‘zbekcha</span>Ha, biz butun O‘zbekiston bo‘ylab buyurtmalarni qabul qilamiz. Shahringizda o‘lchash va o‘rnatish uchun mutaxassis tashrifining imkoniyati hamda shartlari menejer bilan kelishiladi.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-card-foot">
+                <span class="faq-badge">По Узбекистану • Butun O‘zbekiston</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Вы работаете в других городах Узбекистана?')">
+                  <span>Спросить у ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- FAQ 6: День и Ночь vs Double -->
+            <div class="faq-card">
+              <div>
+                <div class="faq-card-head">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check-circle.svg#icon-check-circle"></use></svg>
+                  <div>
+                    <h3 class="faq-card-title faq-lang-ru">6. В чём разница между шторами «День и Ночь» и Double?</h3>
+                    <h3 class="faq-card-title faq-lang-uz" style="color: var(--color-primary); margin-top: 4px;">6. «Kun va Tun» va Double pardalari orasidagi farq nimada?</h3>
+                  </div>
+                </div>
+                <div class="faq-card-body">
+                  <p class="faq-lang-ru" style="margin-bottom: var(--space-2);">
+                    У штор «День и Ночь» чередуются прозрачные и плотные полосы. Сдвигая их, можно регулировать количество света. У Double два отдельных полотна — плотное и прозрачное, похожее на тюль.
+                  </p>
+                  <p class="faq-lang-uz" style="color: var(--color-text-muted); border-top: 1px dashed var(--color-border-soft); padding-top: var(--space-2); margin-bottom: 0;">
+                    <span class="badge badge--neutral" style="font-size: 10px; padding: 1px 6px; margin-right: 6px;">O‘zbekcha</span>«Kun va Tun» pardalarida shaffof va qalin polosalari navbatma-navbat almashinib keladi. Ularni siljitish orqali yorug‘lik miqdorini boshqarish mumkin. Double tizimida esa ikkita alohida mato mavjud — biri qalin, ikkinchisi tul kabi shaffof.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-card-foot">
+                <span class="faq-badge">День и Ночь vs Double</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('В чём разница между шторами День и Ночь и Double?')">
+                  <span>Спросить у ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- FAQ 7: Машинная стирка и уход -->
+            <div class="faq-card">
+              <div>
+                <div class="faq-card-head">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-filter.svg#icon-filter"></use></svg>
+                  <div>
+                    <h3 class="faq-card-title faq-lang-ru">7. Можно ли стирать шторы «День и Ночь» в машинке?</h3>
+                    <h3 class="faq-card-title faq-lang-uz" style="color: var(--color-primary); margin-top: 4px;">7. «Kun va Tun» pardalarini kir yuvish mashinasida yuvsa bo‘ladimi?</h3>
+                  </div>
+                </div>
+                <div class="faq-card-body">
+                  <p class="faq-lang-ru" style="margin-bottom: var(--space-2);">
+                    Машинная стирка для них не подходит. Для обычного ухода ткань можно аккуратно протирать на месте.
+                  </p>
+                  <p class="faq-lang-uz" style="color: var(--color-text-muted); border-top: 1px dashed var(--color-border-soft); padding-top: var(--space-2); margin-bottom: 0;">
+                    <span class="badge badge--neutral" style="font-size: 10px; padding: 1px 6px; margin-right: 6px;">O‘zbekcha</span>Ularni kir yuvish mashinasida yuvish to‘g‘ri kelmaydi. Oddiy parvarish uchun matoni joyida ehtiyotkorlik bilan artish mumkin.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-card-foot">
+                <span class="faq-badge">Уход и чистка • Parvarish</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Можно ли стирать шторы День и Ночь в машинке?')">
+                  <span>Спросить у ИИ</span> &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- FAQ 8: Запись на замер -->
+            <div class="faq-card">
+              <div>
+                <div class="faq-card-head">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-clock.svg#icon-clock"></use></svg>
+                  <div>
+                    <h3 class="faq-card-title faq-lang-ru">8. Как записаться на замер?</h3>
+                    <h3 class="faq-card-title faq-lang-uz" style="color: var(--color-primary); margin-top: 4px;">8. O‘lchashga qanday yozilish mumkin?</h3>
+                  </div>
+                </div>
+                <div class="faq-card-body">
+                  <p class="faq-lang-ru" style="margin-bottom: var(--space-2);">
+                    Напишите нам, укажите свой район или город и оставьте номер телефона. Менеджер свяжется с вами, чтобы согласовать визит.
+                  </p>
+                  <p class="faq-lang-uz" style="color: var(--color-text-muted); border-top: 1px dashed var(--color-border-soft); padding-top: var(--space-2); margin-bottom: 0;">
+                    <span class="badge badge--neutral" style="font-size: 10px; padding: 1px 6px; margin-right: 6px;">O‘zbekcha</span>Bizga yozing, tumaningiz yoki shahringizni ko‘rsating va telefon raqamingizni qoldiring. Tashrifni kelishib olish uchun menejer siz bilan bog‘lanadi.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-card-foot">
+                <span class="faq-badge">Запись на замер • O‘lchash</span>
+                <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Как записаться на замер?')">
                   <span>Спросить у ИИ</span> &rarr;
                 </button>
               </div>
@@ -1563,6 +1652,33 @@
       if (input) {
         input.value = faqQuestion;
         handleChatSubmit();
+      }
+    };
+
+    window.setFaqLanguage = function(lang) {
+      const buttons = document.querySelectorAll('.faq-lang-btn');
+      buttons.forEach(b => {
+        if (b.getAttribute('data-lang') === lang) {
+          b.classList.remove('button--ghost');
+          b.classList.add('button--primary', 'active');
+        } else {
+          b.classList.remove('button--primary', 'active');
+          b.classList.add('button--ghost');
+        }
+      });
+
+      const ruElements = document.querySelectorAll('.faq-lang-ru');
+      const uzElements = document.querySelectorAll('.faq-lang-uz');
+
+      if (lang === 'ru') {
+        ruElements.forEach(el => el.style.display = '');
+        uzElements.forEach(el => el.style.display = 'none');
+      } else if (lang === 'uz') {
+        ruElements.forEach(el => el.style.display = 'none');
+        uzElements.forEach(el => el.style.display = '');
+      } else {
+        ruElements.forEach(el => el.style.display = '');
+        uzElements.forEach(el => el.style.display = '');
       }
     };
 
