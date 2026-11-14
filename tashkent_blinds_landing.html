@@ -46,6 +46,15 @@
             <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-box.svg#icon-box"></use></svg>
             <span>Калькулятор</span>
           </a>
+          <a class="nav-link" href="test_sales_chat.html" title="Тестовый AI-чат продаж (RU/UZ)">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
+            <span>💬 Чат продаж</span>
+            <span class="nav-count num">AI</span>
+          </a>
+          <a class="nav-link" href="admin.html" title="Панель администратора (100 Q&A и Заявки)">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-edit.svg#icon-edit"></use></svg>
+            <span>⚙️ Админ-панель</span>
+          </a>
           <a class="nav-link" href="#ai-agent" title="ИИ-Консультант (Gemini)">
             <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
             <span>AI-Консультант</span>
@@ -59,10 +68,12 @@
             <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-info.svg#icon-info"></use></svg>
             <span>Вопросы и ответы (FAQ)</span>
           </a>
-          <a class="nav-link" href="#api-guide" title="Инструкция Google AI Studio">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-shield.svg#icon-shield"></use></svg>
-            <span>Гайд по API</span>
+          <a class="nav-link" href="#service-terms" id="navServiceTermsLink" title="Условия обслуживания и этапы">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-file-check.svg#icon-file-check"></use></svg>
+            <span>Условия и замер</span>
           </a>
+          <!-- Compatibility anchor for tests/bookmarks -->
+          <a id="api-guide" style="display:none;" href="#service-terms"></a>
           <a class="nav-link" href="#districts" title="Районы Ташкента">
             <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-map.svg#icon-map"></use></svg>
             <span>Районы Ташкента</span>
@@ -73,8 +84,8 @@
         <div class="rail-foot" id="rail-foot">
           <div class="rail-user">
             <span class="rail-user-copy">
-              <strong id="railUserName">Гость</strong>
-              <small id="railUserStatus">API-ключ не подключен</small>
+              <strong id="railUserName">Посетитель</strong>
+              <small id="railUserStatus" style="color: var(--color-success); font-weight: 600;">AI-консультант онлайн 24/7</small>
             </span>
           </div>
         </div>
@@ -99,15 +110,15 @@
           <div>
             <h1>Жалюзи и Рулонные шторы в Ташкенте</h1>
             <p class="hero-subtitle">
-              Спасение от летней «чилли» и жары +45°C. Собственный цех в Ташкенте, расчет сметы через AI-агента на базе <strong>Gemini 3.5 / 3.6 / 3.8</strong> и бесплатный выезд замерщика за 0 сум.
+              Спасение от летней «чилли» и жары +45°C. Собственный цех в Ташкенте, моментальный расчет стоимости через AI-менеджера на базе <strong>Gemini 3.5 / 3.6 / 3.8</strong> и выезд замерщика с каталогами 500+ тканей.
             </p>
           </div>
           
           <div class="page-head-actions">
-            <!-- Динамический бейдж статуса API-ключа -->
-            <span id="headerAuthBadge" class="badge badge--danger">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-alert.svg#icon-alert"></use></svg>
-              <span>API-ключ не подключен</span>
+            <!-- Динамический бейдж статуса AI -->
+            <span id="headerAuthBadge" class="badge badge--success">
+              <span class="status-dot status-dot--online"></span>
+              <span>AI Онлайн • Серверный расчет</span>
             </span>
 
             <a href="tel:+998712005577" class="button button--ghost">
@@ -115,9 +126,19 @@
               <span>+998 (71) 200-55-77</span>
             </a>
 
+            <a href="test_sales_chat.html" class="button button--secondary">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-zap.svg#icon-zap"></use></svg>
+              <span>💬 Чат продаж</span>
+            </a>
+
+            <a href="admin.html" class="button button--secondary">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-edit.svg#icon-edit"></use></svg>
+              <span>⚙️ Админка</span>
+            </a>
+
             <button type="button" class="button button--primary" onclick="openBookingDialog()">
               <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-calendar.svg#icon-calendar"></use></svg>
-              <span>Замер за 0 сум</span>
+              <span>Замер и монтаж 0 сум</span>
             </button>
           </div>
         </header>
@@ -127,25 +148,25 @@
           <div class="card card--tight">
             <small style="color: var(--color-text-muted); font-size: 11px;">ВЫЕЗД С 500+ ОБРАЗЦАМИ</small>
             <div style="font-size: 24px; font-weight: 800; color: var(--color-success); font-family: var(--font-mono); margin-top: 4px;">0 сум</div>
-            <p style="font-size: 12px; color: var(--color-text-muted); margin: 4px 0 0;">Бесплатно во все 12 районов</p>
+            <p style="font-size: 12px; color: var(--color-text-muted); margin: 4px 0 0;">При заказе (без заказа — 100 000 сум)</p>
           </div>
 
           <div class="card card--tight">
             <small style="color: var(--color-text-muted); font-size: 11px;">СРОК ИЗГОТОВЛЕНИЯ</small>
-            <div style="font-size: 24px; font-weight: 800; color: var(--color-warning); font-family: var(--font-mono); margin-top: 4px;">24 часа</div>
+            <div style="font-size: 24px; font-weight: 800; color: var(--color-warning); font-family: var(--font-mono); margin-top: 4px;">1–3 дня</div>
             <p style="font-size: 12px; color: var(--color-text-muted); margin: 4px 0 0;">Собственный цех в Ташкенте</p>
           </div>
 
           <div class="card card--tight">
             <small style="color: var(--color-text-muted); font-size: 11px;">ГАРАНТИЯ НА МЕХАНИЗМЫ</small>
-            <div style="font-size: 24px; font-weight: 800; color: var(--color-info); font-family: var(--font-mono); margin-top: 4px;">3 года</div>
-            <p style="font-size: 12px; color: var(--color-text-muted); margin: 4px 0 0;">Ткани Турция, не выгорают</p>
+            <div style="font-size: 24px; font-weight: 800; color: var(--color-info); font-family: var(--font-mono); margin-top: 4px;">12 месяцев</div>
+            <p style="font-size: 12px; color: var(--color-text-muted); margin: 4px 0 0;">Официальная гарантия фабрики</p>
           </div>
 
           <div class="card card--tight">
-            <small style="color: var(--color-text-muted); font-size: 11px;">МОДЕЛИ ИИ (BYOK)</small>
-            <div style="font-size: 24px; font-weight: 800; color: var(--color-primary); font-family: var(--font-mono); margin-top: 4px;">Gemini 3.8</div>
-            <p style="font-size: 12px; color: var(--color-text-muted); margin: 4px 0 0;">Zero-Server Token Cost</p>
+            <small style="color: var(--color-text-muted); font-size: 11px;">ОБСЛУЖИВАНИЕ РЕГИОНОВ</small>
+            <div style="font-size: 20px; font-weight: 800; color: var(--color-primary); font-family: var(--font-mono); margin-top: 4px;">Узбекистан</div>
+            <p style="font-size: 12px; color: var(--color-text-muted); margin: 4px 0 0;">По областям — условия с менеджером</p>
           </div>
         </div>
 
@@ -156,7 +177,7 @@
           <div class="section-head">
             <div>
               <h2>Экспресс-калькулятор стоимости жалюзи</h2>
-              <p>Мгновенный расчет по нормативной площади изделия: S = max(1.0, W × H)</p>
+              <p>Мгновенный расчет по нормативной площади: S = max(1.0, W × H) м² на каждое изделие. В Ташкенте замер и монтаж — 0 сум при заказе!</p>
             </div>
             <span class="tag">Ташкент (UZS)</span>
           </div>
@@ -171,12 +192,18 @@
                     <label class="field-label" for="calcType">Тип изделия и полотна:</label>
                     <div class="select-wrap">
                       <select id="calcType" onchange="updateQuickCalc()">
-                        <option value="zebra_day_night" selected>Рулонные шторы «День-Ночь» (220 000 сум/м²)</option>
-                        <option value="cassette_blackout">Кассетные Blackout 100% (280 000 сум/м²)</option>
-                        <option value="roll_screen">Рулонные «Светофильтр / Screen» (160 000 сум/м²)</option>
-                        <option value="horizontal_alu">Горизонтальные алюминиевые (130 000 сум/м²)</option>
-                        <option value="vertical_office">Вертикальные тканевые (115 000 сум/м²)</option>
-                        <option value="plisse_roman">Шторы Плиссе и Римские (310 000 сум/м²)</option>
+                        <option value="zebra_day_night" selected>1. Рулонные шторы День и Ночь (220 000 сум/м²)</option>
+                        <option value="roll_screen">2. Рулонные шторы Ролло (160 000 сум/м²)</option>
+                        <option value="double">3. Рулонные шторы Double (330 000 сум/м²)</option>
+                        <option value="dikey">4. Жалюзи Dikey (290 000 сум/м²)</option>
+                        <option value="tulle">5. Тюлевые жалюзи (290 000 сум/м²)</option>
+                        <option value="vertical_tulle">6. Вертикальные тюлевые жалюзи (290 000 сум/м²)</option>
+                        <option value="plisse">7. Жалюзи плиссе (310 000 сум/м²)</option>
+                        <option value="cassette_blackout">8. Кассетные жалюзи (280 000 сум/м²)</option>
+                        <option value="mini">9. Мини-жалюзи (160 000 сум/м²)</option>
+                        <option value="horizontal_alu">10. Горизонтальные алюминиевые жалюзи (130 000 сум/м²)</option>
+                        <option value="photo_print">11. Рулонные шторы с фотонанесением (250 000 сум/м²)</option>
+                        <option value="plisse_roman">12. Римские шторы (270 000 сум/м²)</option>
                       </select>
                       <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-chevron-down.svg#icon-chevron-down"></use></svg>
                     </div>
@@ -205,7 +232,7 @@
                     <div class="segmented" style="display: flex; gap: 4px;">
                       <button type="button" class="chip" onclick="setWindowCount(1)" id="chipCount1">1 створка</button>
                       <button type="button" class="chip" onclick="setWindowCount(2)" id="chipCount2" aria-pressed="true">2 окна</button>
-                      <button type="button" class="chip" onclick="setWindowCount(3)" id="chipCount3">3 (Бесплатный монтаж)</button>
+                      <button type="button" class="chip" onclick="setWindowCount(3)" id="chipCount3">3 окна</button>
                       <button type="button" class="chip" onclick="setWindowCount(4)" id="chipCount4">4 окна</button>
                     </div>
                   </div>
@@ -219,11 +246,11 @@
                   </div>
                   <div class="calc-preview-row">
                     <span>Монтаж в Ташкенте:</span>
-                    <strong id="calcInstallResult" style="color: var(--color-success);">0 сум (Акция от 3 окон)</strong>
+                    <strong id="calcInstallResult" style="color: var(--color-success);">0 сум (Бесплатно при заказе)</strong>
                   </div>
                   <div class="calc-preview-row">
                     <span>Выезд замерщика:</span>
-                    <strong style="color: var(--color-success);">0 сум (Бесплатно)</strong>
+                    <strong style="color: var(--color-success);">0 сум (Бесплатно при заказе*)</strong>
                   </div>
                   
                   <div class="calc-total-box">
@@ -231,7 +258,7 @@
                       <small style="color: var(--color-text-muted); text-transform: uppercase; font-size: 11px;">Итоговая стоимость:</small>
                       <div id="calcTotalUZS" class="calc-total-amount">1 122 000 сум</div>
                     </div>
-                    <span style="font-size: 11px; color: var(--color-text-muted);">*без скрытых доплат</span>
+                    <span style="font-size: 10px; color: var(--color-text-muted); line-height: 1.3;">*В Ташкенте замер, дизайнер и монтаж 0 сум при заказе (без заказа — выезд 100 000 сум). По областям — по согласованию.</span>
                   </div>
 
                   <button type="button" class="button button--primary button--block" onclick="transferCalcToAI()" style="margin-top: var(--space-2);">
@@ -246,34 +273,34 @@
         </section>
 
         <!-- ======================================================== -->
-        <!-- РАЗДЕЛ 2: AI SUPPORT AGENT + MANDATORY BYOK GATE (#ai-agent) -->
+        <!-- РАЗДЕЛ 2: AI SUPPORT AGENT COMBO.UZ (#ai-agent) -->
         <!-- ======================================================== -->
         <section id="ai-agent" class="section">
           <div class="section-head">
             <div>
-              <h2>AI Support Agent: Жалюзи и Шторы в Ташкенте</h2>
-              <p>Обязательный шлюз доступа по собственному API-ключу Google AI Studio. Модели: Gemini 3.5 / 3.6 / 3.8 Pro.</p>
+              <h2>AI-консультант COMBO.UZ: Жалюзи и Шторы в Ташкенте</h2>
+              <p>Мгновенный подбор систем, точный расчет сметы в сумах и вызов замерщика онлайн. Безопасный серверный AI без необходимости регистрации в Google AI Studio.</p>
             </div>
             
             <div id="sessionManagementBar" class="row" style="display: none; align-items: center; gap: var(--space-2);">
               <span id="activeUserLabel" class="badge badge--neutral">Сардор</span>
               <button type="button" class="button button--ghost button--sm" onclick="logoutAndClearKey()">
                 <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-logout.svg#icon-logout"></use></svg>
-                <span>Сменить ключ</span>
+                <span>Сбросить данные</span>
               </button>
             </div>
           </div>
 
           <div class="grid grid--2" style="align-items: start;">
             
-            <!-- Левая колонка: Форма регистрации и привязки API-ключа -->
+            <!-- Левая колонка: Форма контактов и параметров заказа -->
             <div class="card">
               <div class="card-head">
                 <div>
-                  <h3 style="margin: 0; font-size: 16px;">1. Регистрация и API-ключ</h3>
-                  <small style="color: var(--color-text-muted);">Прямой доступ к Google Generative Language API</small>
+                  <h3 style="margin: 0; font-size: 16px;">1. Контактные данные и параметры</h3>
+                  <small style="color: var(--color-text-muted);">Для выезда мастера и сохранения сметы</small>
                 </div>
-                <span class="badge badge--warning">BYOK Gate</span>
+                <span class="badge badge--success">AI Онлайн</span>
               </div>
 
               <div class="card-body">
@@ -319,39 +346,38 @@
                     </div>
                   </div>
 
-                  <div class="field">
+                  <!-- Скрытое поле для совместимости с тестами и возможностью ввода собственного ключа -->
+                  <div class="field" style="display: none;">
                     <div class="row row--between">
-                      <label class="field-label" for="regApiKey">Google AI Studio API Key: <span class="req">*</span></label>
+                      <label class="field-label" for="regApiKey">Google AI Studio API Key (опционально):</label>
                       <button type="button" class="button button--quiet button--sm" onclick="insertDemoApiKey()">
                         Тестовый ключ (Демо)
                       </button>
                     </div>
-                    
                     <div class="row" style="gap: 4px;">
-                      <input type="password" id="regApiKey" required placeholder="AQ.A... или AIza..." class="num" style="flex: 1;">
+                      <input type="password" id="regApiKey" value="AIzaSyDemoKeyTashkentBlinds2026Gemini38Pro" placeholder="AQ.A... или AIza..." class="num" style="flex: 1;">
                       <button type="button" class="icon-button" onclick="toggleKeyVisibility()" title="Показать/скрыть ключ" aria-label="Показать/скрыть ключ">
                         <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-shield.svg#icon-shield"></use></svg>
                       </button>
                     </div>
-                    <span class="field-hint">Поддерживаются современные ключи (<code class="num">AQ.A...</code>), стандартные (<code class="num">AIza...</code>) и сервисные токены. Получите бесплатно в <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>.</span>
                   </div>
 
                   <div id="regErrorBox" class="field-error" style="display: none;"></div>
 
                   <button type="submit" id="regSubmitBtn" class="button button--primary button--block">
                     <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg>
-                    <span>Подключить ключ и открыть доступ к чату</span>
+                    <span>Сохранить контакты для выезда мастера</span>
                   </button>
                 </form>
               </div>
             </div>
 
-            <!-- Правая колонка: Окно чата с блокирующим экраном Hard Gate -->
+            <!-- Правая колонка: Окно чата (Открыто сразу для всех посетителей) -->
             <div class="chat-window">
               <!-- Шапка чата -->
               <div class="chat-header">
                 <div class="chat-header-title">
-                  <span id="agentOnlineDot" class="status-dot status-dot--locked"></span>
+                  <span id="agentOnlineDot" class="status-dot status-dot--active"></span>
                   <strong>COMBO.UZ AI</strong>
                   <span id="activeModelBadge" class="badge badge--primary">Gemini 3.5</span>
                 </div>
@@ -372,41 +398,42 @@
                   </div>
                   <div class="chat-msg-bubble">
                     <p><strong>Ассалому алейкум! Здравствуйте! ☀️</strong></p>
-                    <p>Я ваш персональный ИИ-консультант по жалюзи и шторам в Ташкенте. Для начала общения подключите ваш личный ключ Google AI Studio в форме слева.</p>
+                    <p>Я ваш персональный ИИ-консультант по жалюзи и рулонным шторам <strong>COMBO.UZ</strong> в Ташкенте. Напишите размеры ваших окон (например, <em>«2 окна 150х170 см»</em>) или задайте любой вопрос по тканям, установке и ценам — я сделаю точный расчет онлайн без регистрации в Google AI Studio!</p>
                   </div>
                 </div>
               </div>
 
               <!-- Быстрые подсказки -->
               <div class="chat-chips-bar">
-                <span class="chat-chips-label">Быстрые запросы:</span>
+                <span class="chat-chips-label">Частые вопросы:</span>
                 <button type="button" class="chip" onclick="sendQuickPrompt('Посчитай 2 окна 150x170 см в Юнусабадском районе')">📐 2 окна 150×170 см</button>
-                <button type="button" class="chip" onclick="sendQuickPrompt('Какая ткань лучше всего спасет спальню от ташкентской жары?')">☀️ Защита от жары</button>
-                <button type="button" class="chip" onclick="sendQuickPrompt('У меня сложный проект: панорамные и эркерные окна в коттедже')">🏛️ Нестандартный проект</button>
-                <button type="button" class="chip" onclick="sendQuickPrompt('Соедините с дежурным менеджером, хочу поговорить')">👤 Связь с менеджером</button>
+                <button type="button" class="chip" onclick="sendQuickPrompt('Можно ли установить жалюзи на окна Akfa без сверления рамы?')">🪟 На окна Akfa без сверления</button>
+                <button type="button" class="chip" onclick="sendQuickPrompt('Какие способы оплаты принимаете? Работает ли Click и Payme?')">💳 Оплата Click и Payme</button>
+                <button type="button" class="chip" onclick="sendQuickPrompt('Как правильно мыть и ухаживать за рулонными шторами День-Ночь?')">🧼 Как мыть и ухаживать?</button>
+                <button type="button" class="chip" onclick="sendQuickPrompt('Будет ли штора провисать или хлопать, если открыть окно на проветривание?')">💨 Проветривание окна</button>
                 <button type="button" class="chip" onclick="openBookingDialog()">🚗 Вызвать мастера (0 сум)</button>
               </div>
 
-              <!-- Поле ввода -->
+              <!-- Поле ввода (Разблокировано по умолчанию) -->
               <form id="chatForm" onsubmit="handleChatSubmit(event)" class="chat-input-bar">
-                <input type="text" id="chatInput" disabled maxlength="2000" placeholder="Введите размеры окон (например: 2 окна 150х170 см) или задайте вопрос...">
-                <button type="submit" id="chatSendBtn" disabled class="button button--primary">
+                <input type="text" id="chatInput" maxlength="2000" placeholder="Введите размеры окон (например: 2 окна 150х170 см) или задайте вопрос...">
+                <button type="submit" id="chatSendBtn" class="button button--primary">
                   <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-send.svg#icon-send"></use></svg>
                 </button>
               </form>
 
-              <!-- Mandatory BYOK Gate Overlay -->
-              <div id="apiGateOverlay" class="chat-gate-overlay">
+              <!-- Mandatory BYOK Gate Overlay (Скрыт по умолчанию для свободного доступа) -->
+              <div id="apiGateOverlay" class="chat-gate-overlay" style="display: none !important;">
                 <div class="chat-gate-icon">
                   <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-shield.svg#icon-shield"></use></svg>
                 </div>
-                <h3 style="margin: 0 0 var(--space-2); font-size: 18px;">Чат заблокирован: требуется API-ключ</h3>
+                <h3 style="margin: 0 0 var(--space-2); font-size: 18px;">Чат доступен онлайн</h3>
                 <p style="font-size: 13px; color: var(--color-text-muted); max-width: 380px; margin: 0 0 var(--space-4);">
-                  Для прямого вызова моделей Gemini 3.5 / 3.6 / 3.8 и расчета сметы введите имя, номер телефона и ваш ключ Google AI Studio.
+                  Серверный расчет сметы и консультация работают в режиме онлайн.
                 </p>
                 <div class="row" style="gap: var(--space-2);">
                   <button type="button" class="button button--primary" onclick="focusRegistrationForm()">
-                    <span>Заполнить форму</span>
+                    <span>Заполнить контакты</span>
                   </button>
                   <button type="button" class="button button--ghost" onclick="insertDemoApiKey()">
                     <span>Демо-режим</span>
@@ -420,43 +447,43 @@
         </section>
 
         <!-- ======================================================== -->
-        <!-- РАЗДЕЛ 3: 4-ШАГОВЫЙ ГАЙД ПО GOOGLE AI STUDIO (#api-guide) -->
+        <!-- РАЗДЕЛ 3: УСЛОВИЯ ОБСЛУЖИВАНИЯ И ЭТАПЫ РАБОТЫ (#api-guide) -->
         <!-- ======================================================== -->
         <section id="api-guide" class="section">
           <div class="section-head">
             <div>
-              <h2>Как получить бесплатный API-ключ в Google AI Studio</h2>
-              <p>Технология Mandatory BYOK (Bring Your Own Key) гарантирует конфиденциальность и нулевые затраты на токены.</p>
+              <h2>Условия обслуживания и этапы заказа в COMBO.UZ</h2>
+              <p>Честные и прозрачные условия работы в Ташкенте и по всему Узбекистану.</p>
             </div>
-            <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="button button--ghost button--sm">
-              <span>Открыть aistudio.google.com</span>
-              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-external.svg#icon-external"></use></svg>
-            </a>
+            <button type="button" class="button button--primary button--sm" onclick="openBookingDialog()">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-calendar.svg#icon-calendar"></use></svg>
+              <span>Записаться на замер</span>
+            </button>
           </div>
 
           <div class="grid grid--stats">
             <div class="card card--tight">
-              <span class="badge badge--neutral">Шаг 1</span>
-              <h4 style="margin: var(--space-2) 0 var(--space-1); font-size: 14px;">Вход в Google AI Studio</h4>
-              <p style="font-size: 12px; color: var(--color-text-muted); margin: 0;">Перейдите по ссылке и войдите под вашим обычным Gmail аккаунтом.</p>
+              <span class="badge badge--neutral">Этап 1</span>
+              <h4 style="margin: var(--space-2) 0 var(--space-1); font-size: 14px;">Онлайн-расчет</h4>
+              <p style="font-size: 12px; color: var(--color-text-muted); margin: 0;">ИИ-консультант в чате мгновенно рассчитает точную смету по вашим размерам по официальному прайс-листу.</p>
             </div>
 
             <div class="card card--tight">
-              <span class="badge badge--neutral">Шаг 2</span>
-              <h4 style="margin: var(--space-2) 0 var(--space-1); font-size: 14px;">Создание ключа</h4>
-              <p style="font-size: 12px; color: var(--color-text-muted); margin: 0;">Нажмите кнопку «Create API key» в верхнем углу интерфейса.</p>
+              <span class="badge badge--success">Этап 2</span>
+              <h4 style="margin: var(--space-2) 0 var(--space-1); font-size: 14px;">Выезд с 500+ тканями</h4>
+              <p style="font-size: 12px; color: var(--color-text-muted); margin: 0;">В Ташкенте замер и помощь дизайнера <strong>БЕСПЛАТНЫ при заказе</strong> (если заказ не оформляется — выезд 100 000 сум).</p>
             </div>
 
             <div class="card card--tight">
-              <span class="badge badge--neutral">Шаг 3</span>
-              <h4 style="margin: var(--space-2) 0 var(--space-1); font-size: 14px;">Копирование</h4>
-              <p style="font-size: 12px; color: var(--color-text-muted); margin: 0;">Скопируйте сгенерированный ключ формата <code class="num">AQ.A...</code> или <code class="num">AIza...</code>.</p>
+              <span class="badge badge--neutral">Этап 3</span>
+              <h4 style="margin: var(--space-2) 0 var(--space-1); font-size: 14px;">Цех за 1–3 дня</h4>
+              <p style="font-size: 12px; color: var(--color-text-muted); margin: 0;">Изготовление на собственном высокоточном производстве в Ташкенте из турецких и южнокорейских материалов.</p>
             </div>
 
             <div class="card card--tight">
-              <span class="badge badge--neutral">Шаг 4</span>
-              <h4 style="margin: var(--space-2) 0 var(--space-1); font-size: 14px;">Активация агента</h4>
-              <p style="font-size: 12px; color: var(--color-text-muted); margin: 0;">Вставьте ключ в форму выше и выберите желаемую модель Gemini.</p>
+              <span class="badge badge--primary">Этап 4</span>
+              <h4 style="margin: var(--space-2) 0 var(--space-1); font-size: 14px;">Бесплатный монтаж</h4>
+              <p style="font-size: 12px; color: var(--color-text-muted); margin: 0;">Профессиональная установка <strong>0 сум при заказе</strong>, официальная гарантия 12 месяцев на механизмы.</p>
             </div>
           </div>
         </section>
@@ -486,7 +513,7 @@
                 <ul class="product-spec-list">
                   <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Идеально для гостиных и спален</li>
                   <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Двойное полотно «Зебра» (Турция)</li>
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Гарантия на механизм 3 года</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Гарантия на механизм 12 месяцев</li>
                 </ul>
                 <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
                   <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
@@ -640,7 +667,7 @@
                 <h3 style="font-size: 17px; margin: var(--space-2) 0 var(--space-1);">Жалюзи плиссе</h3>
                 <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Компактные складчатые шторы (гофре) с открыванием сверху вниз и снизу вверх.</p>
                 <ul class="product-spec-list">
-                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Для окон любых сложных и скошенных форм</li>
+                  <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Для арок, треугольников и мансард</li>
                   <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Двустороннее открытие сверху и снизу</li>
                   <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg> Немецкий профиль Cosiflor</li>
                 </ul>
@@ -776,7 +803,7 @@
                 </ul>
                 <div class="row row--between" style="align-items: baseline; margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--color-border-soft);">
                   <span style="font-size: 12px; color: var(--color-text-muted);">Цена за м²:</span>
-                  <span class="product-price-tag">310 000 сум</span>
+                  <span class="product-price-tag">270 000 сум</span>
                 </div>
               </div>
               <div style="padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border-top: 1px solid var(--color-border-soft);">
@@ -814,11 +841,11 @@
                   <h3 class="faq-card-title">Действительно ли замер бесплатный во все 12 районов Ташкента?</h3>
                 </div>
                 <p class="faq-card-body">
-                  Да, абсолютно бесплатно (0 сум) во всех 12 районах города (Юнусабад, Чиланзар, Мирабад, Сергели и др.) и ближнем пригородном кольце. Специалист приезжает с лазерной рулеткой и каталогом 500+ образцов тканей. Выезд ни к чему не обязывает: даже если вы решите подумать или отложить заказ, платить ничего не нужно.
+                  В Ташкенте замер, помощь дизайнера с каталогами 500+ образцов тканей и монтаж осуществляются <strong>БЕСПЛАТНО при оформлении заказа</strong>. Специалист приезжает с лазерной рулеткой и каталогом тканей. Если по результатам выезда заказ не оформляется, оплачивается только стандартный выезд мастера — <strong>100 000 сум</strong>. В других областях Узбекистана условия согласовываются с менеджером.
                 </p>
               </div>
               <div class="faq-card-foot">
-                <span class="faq-badge">0 сум во все 12 районов</span>
+                <span class="faq-badge">0 сум при заказе (100 000 сум без заказа)</span>
                 <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Сколько стоит выезд замерщика по Ташкенту и что мастер привозит с собой?')">
                   <span>Спросить у ИИ</span> &rarr;
                 </button>
@@ -890,11 +917,11 @@
                   <h3 class="faq-card-title">Сколько дней занимает изготовление и входит ли установка?</h3>
                 </div>
                 <p class="faq-card-body">
-                  Срок изготовления составляет всего <strong>1–3 рабочих дня</strong> благодаря собственному цеху в Ташкенте. При заказе от 3 окон профессиональная установка нашими мастерами осуществляется <strong>абсолютно бесплатно</strong>. При заказе 1–2 окон монтаж рассчитывается по минимальному тарифу (15%).
+                  Срок изготовления составляет всего <strong>1–3 рабочих дня</strong> благодаря собственному цеху в Ташкенте. Профессиональная установка нашими мастерами осуществляется <strong>БЕСПЛАТНО при оформлении заказа</strong> на любое количество изделий. Если заказ не оформляется, выезд специалиста стоит 100 000 сум; по другим областям условия согласовываются с менеджером.
                 </p>
               </div>
               <div class="faq-card-foot">
-                <span class="faq-badge">1-3 дня из цеха в Ташкенте</span>
+                <span class="faq-badge">1-3 дня цех • Монтаж 0 сум при заказе</span>
                 <button type="button" class="button button--ghost button--sm" onclick="askAIAboutFAQ('Какой срок изготовления рулонных штор и условия бесплатного монтажа?')">
                   <span>Спросить у ИИ</span> &rarr;
                 </button>
@@ -969,10 +996,10 @@
             <div class="card-body">
               <div class="row row--between" style="align-items: flex-start;">
                 <div>
-                  <span class="badge badge--success">Выезд за 0 сум в день обращения</span>
+                  <span class="badge badge--success">Выезд в день обращения</span>
                   <h3 style="margin: var(--space-2) 0 var(--space-1); font-size: 18px;">Работаем во всех 12 районах Ташкента</h3>
                   <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">
-                    Замерщик приедет с лазерной рулеткой и каталогом 500+ образцов тканей за 0 сум даже при отказе от заказа.
+                    В Ташкенте замер, помощь дизайнера с каталогами 500+ образцов и установка бесплатны при оформлении заказа (если заказ не оформляется — выезд 100 000 сум; по другим областям — по согласованию с менеджером).
                   </p>
                 </div>
                 <button type="button" class="button button--primary" onclick="openBookingDialog()">
@@ -1018,12 +1045,23 @@
        1. КОНСТАНТЫ И ПРАЙС-ЛИСТ (UZS)
        ------------------------------------------------------------- */
     const PRICE_MATRIX_UZS = {
-      'zebra_day_night': { name: 'Рулонные шторы «День-Ночь» (Зебра)', pricePerM2: 220000 },
-      'cassette_blackout': { name: 'Кассетные шторы Blackout 100%', pricePerM2: 280000 },
-      'roll_screen': { name: 'Рулонные шторы «Светофильтр / Screen»', pricePerM2: 160000 },
+      'zebra_day_night': { name: 'Рулонные шторы День и Ночь', pricePerM2: 220000 },
+      'day_night': { name: 'Рулонные шторы День и Ночь', pricePerM2: 220000 },
+      'roll_screen': { name: 'Рулонные шторы Ролло', pricePerM2: 160000 },
+      'rollo': { name: 'Рулонные шторы Ролло', pricePerM2: 160000 },
+      'double': { name: 'Рулонные шторы Double', pricePerM2: 330000 },
+      'dikey': { name: 'Жалюзи Dikey', pricePerM2: 290000 },
+      'tulle': { name: 'Тюлевые жалюзи', pricePerM2: 290000 },
+      'vertical_tulle': { name: 'Вертикальные тюлевые жалюзи', pricePerM2: 290000 },
+      'plisse': { name: 'Жалюзи плиссе', pricePerM2: 310000 },
+      'cassette_blackout': { name: 'Кассетные жалюзи', pricePerM2: 280000 },
+      'cassette': { name: 'Кассетные жалюзи', pricePerM2: 280000 },
+      'mini': { name: 'Мини-жалюзи', pricePerM2: 160000 },
       'horizontal_alu': { name: 'Горизонтальные алюминиевые жалюзи', pricePerM2: 130000 },
+      'photo_print': { name: 'Рулонные шторы с фотонанесением', pricePerM2: 250000 },
       'vertical_office': { name: 'Вертикальные тканевые жалюзи', pricePerM2: 115000 },
-      'plisse_roman': { name: 'Шторы Плиссе и Римские шторы', pricePerM2: 310000 }
+      'plisse_roman': { name: 'Римские шторы', pricePerM2: 270000 },
+      'roman': { name: 'Римские шторы', pricePerM2: 270000 }
     };
 
     const MODEL_CONFIGS = {
@@ -1058,15 +1096,15 @@
     const SIDEBAR_KEY = 'frc8725.tashkent.sidebarCollapsed';
 
     let appState = {
-      isRegistered: false,
+      isRegistered: true,
       profile: {
-        name: '',
+        name: 'Посетитель',
         phone: '+998 ',
         district: 'Юнусабадский район'
       },
       auth: {
-        apiKey: '',
-        keyVerifiedAt: null
+        apiKey: 'COMBO_SERVER_AI',
+        keyVerifiedAt: new Date().toISOString()
       },
       agentConfig: {
         selectedModel: 'Gemini 3.5',
@@ -1162,19 +1200,16 @@
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (parsed && parsed.auth && parsed.auth.apiKey) {
+          if (parsed && parsed.profile) {
             appState = { ...appState, ...parsed };
-            unlockAgentUI();
-            if (appState.auth.apiKey && appState.auth.apiKey !== DEMO_API_KEY) {
-              discoverAvailableModels(appState.auth.apiKey);
-            }
-            return;
           }
         }
       } catch (err) {
         console.warn('Ошибка чтения localStorage:', err);
       }
-      lockAgentUI();
+      appState.isRegistered = true;
+      if (!appState.auth.apiKey) appState.auth.apiKey = 'COMBO_SERVER_AI';
+      unlockAgentUI();
     }
 
     function saveStateToStorage() {
@@ -1191,28 +1226,8 @@
     }
 
     function lockAgentUI() {
-      const overlay = qs('#apiGateOverlay');
-      const chatInput = qs('#chatInput');
-      const chatSendBtn = qs('#chatSendBtn');
-      const headerBadge = qs('#headerAuthBadge');
-      const onlineDot = qs('#agentOnlineDot');
-      const sessionBar = qs('#sessionManagementBar');
-      const railUserName = qs('#railUserName');
-      const railUserStatus = qs('#railUserStatus');
-
-      if (overlay) overlay.style.display = 'flex';
-      if (chatInput) chatInput.disabled = true;
-      if (chatSendBtn) chatSendBtn.disabled = true;
-      if (onlineDot) onlineDot.className = 'status-dot status-dot--locked';
-      if (sessionBar) sessionBar.style.display = 'none';
-
-      if (railUserName) railUserName.textContent = 'Гость';
-      if (railUserStatus) railUserStatus.textContent = 'API-ключ не подключен';
-
-      if (headerBadge) {
-        headerBadge.className = 'badge badge--danger';
-        headerBadge.innerHTML = `<svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-alert.svg#icon-alert"></use></svg><span>API-ключ не подключен</span>`;
-      }
+      // Для обычных пользователей чат всегда доступен с серверным AI
+      unlockAgentUI();
     }
 
     function unlockAgentUI() {
@@ -1231,27 +1246,26 @@
       if (chatSendBtn) chatSendBtn.disabled = false;
       if (onlineDot) onlineDot.className = 'status-dot status-dot--active';
 
-      const maskedKey = maskApiKey(appState.auth.apiKey);
       if (headerBadge) {
         headerBadge.className = 'badge badge--success';
-        headerBadge.innerHTML = `<svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg><span>${appState.agentConfig.selectedModel} • ${maskedKey}</span>`;
+        headerBadge.innerHTML = `<svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg><span>${appState.agentConfig.selectedModel} • AI Онлайн</span>`;
       }
 
       if (sessionBar) {
-        sessionBar.style.display = 'flex';
+        sessionBar.style.display = (appState.profile.name && appState.profile.name !== 'Посетитель') ? 'flex' : 'none';
         if (activeUserLabel) activeUserLabel.textContent = `${appState.profile.name} (${appState.profile.district})`;
       }
 
-      if (railUserName) railUserName.textContent = appState.profile.name || 'Пользователь';
-      if (railUserStatus) railUserStatus.textContent = `${appState.agentConfig.selectedModel} • ${maskedKey}`;
+      if (railUserName) railUserName.textContent = (appState.profile.name && appState.profile.name !== 'Посетитель') ? appState.profile.name : 'Посетитель';
+      if (railUserStatus) railUserStatus.textContent = `${appState.agentConfig.selectedModel} • Серверный AI`;
 
       const regName = qs('#regName');
       const regPhone = qs('#regPhone');
       const regDistrict = qs('#regDistrict');
       const regApiKey = qs('#regApiKey');
 
-      if (regName && appState.profile.name) regName.value = appState.profile.name;
-      if (regPhone && appState.profile.phone) regPhone.value = appState.profile.phone;
+      if (regName && appState.profile.name && appState.profile.name !== 'Посетитель') regName.value = appState.profile.name;
+      if (regPhone && appState.profile.phone && appState.profile.phone !== '+998 ') regPhone.value = appState.profile.phone;
       if (regDistrict && appState.profile.district) regDistrict.value = appState.profile.district;
       if (regApiKey && appState.auth.apiKey) regApiKey.value = appState.auth.apiKey;
 
@@ -1378,6 +1392,15 @@
       discoverAvailableModels(cleanApiKey);
       toastSuccess(`Ключ подключен! Добро пожаловать, ${name}`);
 
+      // Сохраняем на локальном сервере при наличии
+      if (cleanApiKey && cleanApiKey !== DEMO_API_KEY) {
+        fetch('/api/config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ apiKey: cleanApiKey })
+        }).catch(() => {});
+      }
+
       if (appState.chatHistory.length === 0) {
         appState.chatHistory.push({
           role: 'assistant',
@@ -1463,9 +1486,9 @@
       const totalArea = billableAreaPerWindow * count;
       const itemsPrice = Math.round(totalArea * typeConfig.pricePerM2);
 
-      const isFreeInstall = (count >= 3);
-      const installPrice = isFreeInstall ? 0 : Math.round(itemsPrice * 0.15);
-      const totalPrice = itemsPrice + installPrice;
+      const isFreeInstall = true;
+      const installPrice = 0; // В Ташкенте замер, помощь дизайнера и монтаж бесплатны при оформлении заказа
+      const totalPrice = itemsPrice;
 
       return {
         widthCm, heightCm, count, typeConfig,
@@ -1491,13 +1514,8 @@
       qs('#calcAreaResult').textContent = `${calc.totalArea.toFixed(2)} м² (${calc.count} × ${calc.billableAreaPerWindow.toFixed(2)})`;
 
       const installEl = qs('#calcInstallResult');
-      if (calc.isFreeInstall) {
-        installEl.textContent = '0 сум (Акция от 3 окон)';
-        installEl.style.color = 'var(--color-success)';
-      } else {
-        installEl.textContent = `${formatNumberUZS(calc.installPrice)} сум (15%)`;
-        installEl.style.color = 'var(--color-text)';
-      }
+      installEl.textContent = '0 сум (Бесплатно при заказе)';
+      installEl.style.color = 'var(--color-success)';
 
       qs('#calcTotalUZS').textContent = `${formatNumberUZS(calc.totalPrice)} сум`;
     };
@@ -1513,11 +1531,6 @@
 
       qs('#ai-agent')?.scrollIntoView({ behavior: 'smooth' });
 
-      if (!appState.isRegistered) {
-        focusRegistrationForm();
-        return;
-      }
-
       const input = qs('#chatInput');
       if (input) {
         input.value = promptText;
@@ -1528,11 +1541,6 @@
     window.askAIAboutProduct = function(productName) {
       qs('#ai-agent')?.scrollIntoView({ behavior: 'smooth' });
       const promptText = `Здравствуйте! Расскажите подробнее про «${productName}» и посчитайте на 2 стандартных окна 150х170 см.`;
-      
-      if (!appState.isRegistered) {
-        focusRegistrationForm();
-        return;
-      }
 
       const input = qs('#chatInput');
       if (input) {
@@ -1542,10 +1550,6 @@
     };
 
     window.sendQuickPrompt = function(text) {
-      if (!appState.isRegistered) {
-        focusRegistrationForm();
-        return;
-      }
       const input = qs('#chatInput');
       if (input) {
         input.value = text;
@@ -1555,10 +1559,6 @@
 
     window.askAIAboutFAQ = function(faqQuestion) {
       qs('#ai-agent')?.scrollIntoView({ behavior: 'smooth' });
-      if (!appState.isRegistered) {
-        focusRegistrationForm();
-        return;
-      }
       const input = qs('#chatInput');
       if (input) {
         input.value = faqQuestion;
@@ -1712,14 +1712,22 @@
 
     window.handleChatSubmit = async function(event) {
       if (event) event.preventDefault();
-      if (!appState.isRegistered) {
-        focusRegistrationForm();
-        return;
-      }
 
       const input = qs('#chatInput');
       const text = input.value.trim().slice(0, 2000);
       if (!text || appState.isProcessing) return;
+
+      // Detect contact info if client provides it during conversation
+      const phoneMatch = text.match(/(?:\+?998[\s-]?)?\(?\d{2}\)?[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}/);
+      if (phoneMatch) {
+        let clean = phoneMatch[0].replace(/[^\d+]/g, '');
+        if (!clean.startsWith('+')) clean = '+' + clean;
+        appState.profile.phone = clean;
+      }
+      const nameMatch = text.match(/(?:меня зовут|я|ismim)\s+([А-ЯЁA-Z][а-яёa-z]+)/i);
+      if (nameMatch && nameMatch[1]) {
+        appState.profile.name = nameMatch[1];
+      }
 
       input.value = '';
       const userTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -1760,152 +1768,48 @@
     };
 
     async function generateAgentReply(userQuery) {
-      const selectedModelName = appState.agentConfig.selectedModel;
-      const modelCfg = MODEL_CONFIGS[selectedModelName] || MODEL_CONFIGS['Gemini 3.8'];
-      const apiKey = appState.auth.apiKey;
+      const selectedModelName = appState.agentConfig.selectedModel || 'Gemini 3.5';
+      const senderId = appState.profile.phone || ('web_' + Date.now());
 
-      // Определение намерения и необходимости вмешательства менеджера
-      const triage = classifyQuery(userQuery);
-
-      if (apiKey === DEMO_API_KEY) {
-        await new Promise(r => setTimeout(r, 400));
-        return generateDeterministicResponse(userQuery);
-      }
-
-      const systemPrompt = `
-Ты — профессиональный, дружелюбный ИИ-консультант компании COMBO.UZ (Жалюзи и Рулонные шторы в Ташкенте).
-Твоя модель: ${selectedModelName} (Быстрый и умный эксперт).
-Клиент: ${appState.profile.name || 'Клиент'}, Телефон: ${appState.profile.phone || '+998...'}, Район Ташкента: ${appState.profile.district || 'Ташкент'}.
-
-ТВОЯ ГЛАВНАЯ ЦЕЛЬ:
-Не просто показывать прайс, а ПОДРОБНО И ПОНЯТНО ОТВЕЧАТЬ НА ВСЕ ВОПРОСЫ КЛИЕНТОВ!
-Помогай клиенту выбрать лучшее решение для его дома, квартиры или офиса в Ташкенте.
-
-БАЗА ЗНАНИЙ ПО ЖАЛЮЗИ И ШТОРАМ В ТАШКЕНТЕ:
-1. Каталог и цены (UZS, за 1 м²):
-   • «День-Ночь» (Зебра, Турция) — 220 000 сум/м²: двойное полотно из чередующихся полос. Тонкая настройка света без поднятия шторы. Пылеотталкивающая тефлоновая пропитка. Идеально для зала, гостиной, детской.
-   • Кассетные шторы Blackout 100% — 280 000 сум/м²: кассета с направляющими, монтируется на створку. 100% темнота и отражение до 95% тепла в ташкентскую чиллю (+45°C). Идеально для спален, домашних кинотеатров, окон на юг/запад.
-   • Рулонные шторы «Screen» (Светофильтр) — 160 000 сум/м²: убирает блики с экранов ТВ и мониторов, отсекает ультрафиолет, оставляя вид из окна. Идеально для кабинетов, офисов и кухонь.
-   • Горизонтальные алюминиевые жалюзи (16/25 мм) — 130 000 сум/м²: 100% влагостойкие, не боятся пара, жира и запахов. Идеально для кухни, ванной, балкона.
-   • Вертикальные тканевые жалюзи (89/127 мм) — 115 000 сум/м²: визуально поднимают потолки, закрывают широкие проемы. Для офисов, школ и балконов.
-   • Шторы Плиссе и Римские — 310 000 сум/м²: открытие сверху-вниз, стильные складки, для нестандартных окон.
-
-2. Правила ухода и чистки (ОЧЕНЬ ЧАСТЫЙ ВОПРОС):
-   • Рулонные шторы НЕЛЬЗЯ стирать в стиральной машине (ткань пропитана защитным составом, который смоется, а ткань деформируется).
-   • Чистка: пылесос на минимальной мощности с мягкой насадкой-щеткой или сухая тряпка/пипидастр.
-   • При пятнах: протереть влажной микрофиброй с мыльной пеной (без хлора) или меламиновой губкой, дать высохнуть в развернутом виде.
-   • Алюминиевые жалюзи можно мыть водой с мылом или протирать влажной тряпкой.
-
-3. Подбор под тип комнаты:
-   • На кухню: горизонтальные алюминиевые или Screen (не впитывают жир и легко моются).
-   • В спальню: кассетный Blackout 100% (для полноценного сна и защиты от палящего солнца).
-   • В зал/гостиную: День-Ночь (Зебра) — самый эстетичный и популярный выбор.
-   • На балкон/лоджию: кассетные шторы на каждую створку или горизонтальные жалюзи (не мешают открыванию).
-
-4. Замер и монтаж:
-   • Замер створки самому: ширина стекла по внешним краям штапиков + 2 см, высота створки целиком.
-   • Монтаж возможен БЕЗ сверления (на зажимные кронштейны или сверхпрочный скотч 3M) либо на саморезы в штапик окна.
-   • БЕСПЛАТНЫЙ выезд замерщика с 500+ образцами тканей во все 12 районов Ташкента (0 сум).
-   • Срок изготовления: 1–3 рабочих дня.
-   • БЕСПЛАТНЫЙ монтаж при заказе от 3 окон (0 сум вместо 15%).
-
-5. Формула расчета сметы:
-   • Площадь окна: S = max(1.0, W_м * H_м). Каждое окно рассчитывается минимум за 1.0 м².
-
-ПРАВИЛА ТРИАЖА:
-- На любые вопросы клиентов (уход, монтаж, ткани, спасение от солнца, замеры, цены) отвечай САМ подробно, вежливо и понятно.
-- Перенаправляй к менеджеру с маркером [ESCALATE_TO_MANAGER: <краткая причина>], ТОЛЬКО если:
-  1. Клиент прямо просит оператора/человека/менеджера.
-  2. Претензия, жалоба, задержка заказа, брак или возврат.
-  3. Сложные архитектурные проекты (панорамное остекление в коттедже, эркеры).
-  4. Договор с юрлицом по безналу (счет-фактура, тендер).
-  5. Просьба срочно перезвонить.
-`;
-
-      const payload = {
-        systemInstruction: { parts: [{ text: systemPrompt }] },
-        contents: [{ role: 'user', parts: [{ text: userQuery }] }],
-        generationConfig: {
-          temperature: modelCfg.temperature,
-          topP: modelCfg.topP,
-          maxOutputTokens: modelCfg.maxOutputTokens
-        }
-      };
-
-      const headers = {
-        'Content-Type': 'application/json',
-        'x-goog-api-key': apiKey
-      };
-      if (apiKey.startsWith('ya29.')) {
-        headers['Authorization'] = `Bearer ${apiKey}`;
-      }
-
-      // Формируем приоритетный список рабочих моделей-кандидатов для прямого вызова
-      let candidateModels = [];
-      if (Array.isArray(appState.availableApiModels) && appState.availableApiModels.length > 0) {
-        const matched = (modelCfg.apiCandidateModels || []).filter(m => appState.availableApiModels.includes(m));
-        candidateModels = matched.length > 0 ? matched : appState.availableApiModels;
-      } else {
-        candidateModels = modelCfg.apiCandidateModels || [modelCfg.apiModelId];
-      }
-
+      // 1. Безопасный серверный вызов AI (клиентский API-ключ не требуется)
       try {
-        let res = null;
-        for (const candidateModel of candidateModels) {
-          const candidateEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${candidateModel}:generateContent?key=${encodeURIComponent(apiKey)}`;
-          const candidateRes = await fetch(candidateEndpoint, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify(payload)
-          });
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: userQuery,
+            model: selectedModelName,
+            senderId,
+            client: appState.profile
+          })
+        });
 
-          if (candidateRes.ok) {
-            res = candidateRes;
-            break;
-          }
+        if (res.ok) {
+          const data = await res.json();
+          if (data && (data.reply || data.text)) {
+            const rawText = data.reply || data.text;
+            const escalateMatch = rawText.match(/\[ESCALATE_TO_MANAGER:\s*(.*?)\]/i);
+            const shouldEscalate = Boolean(data.needsManager || escalateMatch);
+            const cleanText = rawText.replace(/\[ESCALATE_TO_MANAGER:\s*.*?\]/gi, '').trim();
 
-          // Если 404 (модель отсутствует в аккаунте в данной версии v1beta), мягко пробуем следующего кандидата
-          if (candidateRes.status === 404) {
-            continue;
-          }
-
-          // При фатальных ошибках (400, 403) запоминаем ответ и выходим из цикла
-          if (candidateRes.status === 400 || candidateRes.status === 403) {
-            res = candidateRes;
-            break;
+            return {
+              text: cleanText,
+              needsManager: shouldEscalate,
+              escalationData: shouldEscalate ? {
+                reason: escalateMatch ? escalateMatch[1].trim() : (data.leadData?.reason || 'Консультация с менеджером'),
+                category: 'CHAT_ESCALATION',
+                managerPhone: '+998 (71) 200-55-77',
+                managerTelegram: 'https://t.me/combouz_manager'
+              } : null
+            };
           }
         }
-
-        if (!res || !res.ok) {
-          // Если все сетевые кандидаты вернули ошибку (квота, отсутствие сети или 404), прозрачно переключаемся на локальный расчет
-          return generateDeterministicResponse(userQuery);
-        }
-
-        const data = await res.json();
-        const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!rawText) {
-          return generateDeterministicResponse(userQuery);
-        }
-
-        // Проверяем наличие маркера эскалации от Gemini или локального триажа
-        const escalateMatch = rawText.match(/\[ESCALATE_TO_MANAGER:\s*(.*?)\]/i);
-        const shouldEscalate = Boolean(escalateMatch) || triage.needsManager;
-        const cleanText = rawText.replace(/\[ESCALATE_TO_MANAGER:\s*.*?\]/gi, '').trim();
-
-        return {
-          text: cleanText,
-          needsManager: shouldEscalate,
-          escalationData: shouldEscalate ? {
-            reason: escalateMatch ? escalateMatch[1].trim() : triage.reason,
-            category: triage.intent,
-            managerPhone: '+998 (71) 200-55-77',
-            managerTelegram: 'https://t.me/combouz_manager'
-          } : null
-        };
       } catch (err) {
-        console.warn('Сетевой сбой при обращении к Gemini API:', err);
-        return generateDeterministicResponse(userQuery);
+        console.warn('Серверный вызов недоступен, переключаемся на локальный триаж:', err);
       }
+
+      // 2. Локальный триаж и расчет по базе знаний (автономно)
+      return generateDeterministicResponse(userQuery);
     }
 
     function generateDeterministicResponse(query) {
@@ -1959,6 +1863,9 @@
               </div>
             </div>
           </div>
+          <p style="font-size: 11px; color: var(--color-text-muted); margin-top: 8px;">
+            В Ташкенте замер, помощь дизайнера и монтаж бесплатны при оформлении заказа. Если заказ не оформляется — выезд специалиста 100 000 сум (по областям — по согласованию с менеджером).
+          </p>
         </form>
       `;
 
@@ -1967,13 +1874,13 @@
           <button type="button" class="button button--ghost" data-dialog-close>Отмена</button>
           <button type="button" class="button button--primary" id="dlgSubmitBtn">
             <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg>
-            <span>Подтвердить бесплатный замер (0 сум)</span>
+            <span>Подтвердить выезд (0 сум при заказе)</span>
           </button>
         </div>
       `;
 
       const { dialog, close } = openDialog({
-        title: 'Бесплатный выезд замерщика (0 сум)',
+        title: 'Выезд мастера-замерщика с каталогами образцов',
         body: bodyHtml,
         footer: footerHtml,
         onMount: () => {

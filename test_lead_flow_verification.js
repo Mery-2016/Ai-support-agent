@@ -1,5 +1,6 @@
 import fs from 'fs';
 import http from 'http';
+import { spawn } from 'child_process';
 import { SalesAgent, SALES_STAGES, formatWindowCount } from './ui/sales-agent.js';
 
 const KNOWLEDGE_BASE_FILE = './data/knowledge_base.json';
@@ -13,6 +14,7 @@ const retailData = fs.existsSync(RETAIL_FILE) ? JSON.parse(fs.readFileSync(RETAI
 
 let passed = 0;
 let failed = 0;
+let testServerProcess = null;
 
 function check(condition, message) {
   if (condition) {
@@ -24,14 +26,14 @@ function check(condition, message) {
   }
 }
 
-async function apiRequest(path, method = 'GET', body = null) {
+async function apiRequest(path, method = 'GET', body = null, customHeaders = {}) {
   return new Promise((resolve, reject) => {
     const opts = {
       hostname: '127.0.0.1',
       port: 8080,
       path,
       method,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json', ...customHeaders }
     };
     const req = http.request(opts, (res) => {
       let raw = '';
@@ -50,7 +52,38 @@ async function apiRequest(path, method = 'GET', body = null) {
   });
 }
 
+async function ensureServerRunning() {
+  try {
+    const res = await apiRequest('/api/status', 'GET');
+    if (res.status === 200) return;
+  } catch (err) {}
+
+  return new Promise((resolve, reject) => {
+    testServerProcess = spawn('node', ['server.js'], {
+      cwd: process.cwd(),
+      stdio: ['ignore', 'pipe', 'pipe'],
+      env: { ...process.env, PORT: '8080' }
+    });
+
+    const timeout = setTimeout(() => {
+      reject(new Error('Не удалось запустить сервер для тестов за 8 секунд'));
+    }, 8000);
+
+    const interval = setInterval(async () => {
+      try {
+        const checkRes = await apiRequest('/api/status', 'GET');
+        if (checkRes.status === 200) {
+          clearInterval(interval);
+          clearTimeout(timeout);
+          resolve();
+        }
+      } catch (e) {}
+    }, 300);
+  });
+}
+
 async function run() {
+  await ensureServerRunning();
   console.log('================================================================');
   console.log('🚀 ТЕСТИРОВАНИЕ: ПРОВЕРКА И УЛУЧШЕНИЕ СОХРАНЕНИЯ ЗАЯВОК COMBO.UZ');
   console.log('================================================================\n');
@@ -149,10 +182,19 @@ async function run() {
   check(serverUpdateRes.data.isUpdated === true, 'Сервер: Флаг isUpdated === true (заявка обновлена, а не сдублирована)');
   check(serverUpdateRes.data.leadId === savedLeadId, 'Сервер: ID заявки остался прежним');
 
-  // --- 4. Проверка журнала заявок (GET /api/leads) ---
-  console.log('\n--- 4. Проверка журнала заявок в админ-панели ---');
-  const leadsListRes = await apiRequest('/api/leads', 'GET');
-  check(leadsListRes.status === 200, 'GET /api/leads возвращает 200 OK');
+  // --- 4. Проверка журнала заявок (GET /api/leads) и защиты доступа ---
+  console.log('\n--- 4. Проверка журнала заявок в админ-панели и защиты доступа ---');
+  
+  // 4.1. Проверка защиты: запрос без авторизации отклоняется кодом 401
+  const unauthRes = await apiRequest('/api/leads', 'GET');
+  check(unauthRes.status === 401, 'Защита админ-панели: GET /api/leads без пароля возвращает 401 Unauthorized');
+
+  // 4.2. Авторизованный запрос сотрудника
+  const adminSecret = process.env.ADMIN_PASSWORD || 'combo2026admin';
+  const leadsListRes = await apiRequest('/api/leads', 'GET', null, {
+    'Authorization': `Bearer ${adminSecret}`
+  });
+  check(leadsListRes.status === 200, 'GET /api/leads с авторизацией возвращает 200 OK');
   const allLeads = leadsListRes.data.leads || [];
   const foundLead = allLeads.find(l => l.id === savedLeadId);
   check(Boolean(foundLead), 'Созданная заявка присутствует в списке заявок');
@@ -174,10 +216,17 @@ async function run() {
   console.log(`ИТОГИ ТЕСТИРОВАНИЯ: Пройдено ${passed} из ${passed + failed} проверок (${Math.round((passed / (passed + failed)) * 100)}%)`);
   console.log('================================================================');
 
+  if (testServerProcess) {
+    try { testServerProcess.kill(); } catch (e) {}
+  }
+
   if (failed > 0) process.exit(1);
 }
 
 run().catch(err => {
+  if (testServerProcess) {
+    try { testServerProcess.kill(); } catch (e) {}
+  }
   console.error('Fatal test error:', err);
   process.exit(1);
 });

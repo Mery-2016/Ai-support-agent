@@ -20,6 +20,10 @@ function getManagerChatId() {
   return process.env.TELEGRAM_MANAGER_CHAT_ID || '';
 }
 
+function isLiveEnabled() {
+  return process.env.TELEGRAM_LIVE_ENABLED === 'true';
+}
+
 /**
  * Standard Reply Keyboard for Telegram Users
  */
@@ -54,11 +58,13 @@ function getTelegramKeyboard(lang = 'ru') {
  */
 async function callTelegramApi(method, payload) {
   const token = getBotToken();
+  const live = isLiveEnabled();
 
-  if (!token) {
-    // Sandbox / Test Mode
+  if (!token || !live) {
+    // Sandbox / Test / Safe Mode: token not set or live auto-replies paused
     return {
       simulated: true,
+      liveEnabled: false,
       method,
       payload,
       timestamp: new Date().toISOString()
@@ -325,9 +331,14 @@ async function simulateTelegramMessage(chatId, username, text, contact = null) {
 
 function getTelegramStatus() {
   const token = getBotToken();
+  const live = isLiveEnabled();
   return {
     configured: Boolean(token),
-    mode: token ? 'LIVE' : 'SIMULATION_SANDBOX',
+    liveEnabled: live,
+    mode: (token && live) ? 'LIVE' : (token ? 'PREPARED_PAUSED' : 'SIMULATION_SANDBOX'),
+    statusText: (token && live)
+      ? 'Подключен и активен (Telegram Bot API)'
+      : 'Подготовлен к подключению (Safe Mode: автоответы клиентам в Telegram приостановлены)',
     webhookPath: '/api/webhook/telegram',
     managerChatId: getManagerChatId() || 'Not set',
     commands: ['/start', '/calc', '/catalog', '/manager', '/lang', '/help'],

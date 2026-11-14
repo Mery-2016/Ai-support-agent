@@ -1470,7 +1470,7 @@ export class SalesAgent {
           `• **Karniz turi:** ${corniceRu}\n` +
           `• **O‘lcham va miqdor:** ${sizeTextUz}\n` +
           (order.totalEstimateUZS ? `• **Dastlabki hisob:** ${order.totalEstimateUZS.toLocaleString('ru-RU')} so‘m\n` : '') +
-          `\n🚗 **Eslatma:** Toshkentda o‘lchash, dizayner yordami va o‘rnatish buyurtma rasmiylashtirilganda BEPUL (agar buyurtma berilmasa — 100 000 so‘m).\n` +
+          `\n🚗 **Eslatma:** Toshkentda o‘lchash, dizayner yordami va o‘rnatish buyurtma rasmiylashtirilganda BEPUL (agar buyurtma berilmasa — 100 000 so‘m; boshqa viloyatlarda shartlar menejer bilan kelishiladi).\n` +
           `Navbatchi menejerimiz 10–15 daqiqa ichida siz bilan bog‘lanadi!`;
       } else {
         const titleText = isFirstSubmission ? `🎉 **Спасибо, ${client.name}! Ваша заявка успешно принята.**` : `✅ **${client.name}, данные вашей заявки обновлены.**`;
@@ -1483,7 +1483,7 @@ export class SalesAgent {
           `• **Тип карниза:** ${corniceRu}\n` +
           `• **Объем заказа:** ${sizeTextRu}\n` +
           (order.totalEstimateUZS ? `• **Предварительная сумма:** ${order.totalEstimateUZS.toLocaleString('ru-RU')} сум\n` : '') +
-          `\n🚗 **Напоминание:** Замер, помощь дизайнера и установка в Ташкенте — БЕСПЛАТНО при оформлении заказа (если заказ не оформляется — выезд специалиста 100 000 сум).\n` +
+          `\n🚗 **Напоминание:** Замер, помощь дизайнера и установка в Ташкенте — БЕСПЛАТНО при оформлении заказа (если заказ не оформляется — выезд специалиста 100 000 сум; в других областях Узбекистана условия согласовываются с менеджером).\n` +
           `Дежурный менеджер COMBO.UZ перезвонит вам в течение 10–15 минут для согласования деталей!`;
       }
 

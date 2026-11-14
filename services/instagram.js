@@ -24,6 +24,10 @@ function getAppSecret() {
   return process.env.INSTAGRAM_APP_SECRET || '';
 }
 
+function isLiveEnabled() {
+  return process.env.INSTAGRAM_LIVE_ENABLED === 'true';
+}
+
 /**
  * Handle Meta Webhook Verification (GET request)
  */
@@ -54,11 +58,14 @@ function verifyWebhook(queryParams) {
  */
 async function sendMetaGraphMessage(recipientId, messagePayload, tag = null) {
   const accessToken = getPageAccessToken();
+  const live = isLiveEnabled();
 
-  if (!accessToken) {
-    // Sandbox / Test Mode: tokens not configured yet
+  if (!accessToken || !live) {
+    // Sandbox / Test / Safe Mode: tokens not configured yet or live auto-replies paused
     return {
       simulated: true,
+      liveEnabled: false,
+      targetAccount: '@combo.uzb',
       recipientId,
       payload: messagePayload,
       timestamp: new Date().toISOString()
@@ -222,9 +229,15 @@ async function simulateDirectMessage(senderUsername, text) {
 
 function getInstagramStatus() {
   const token = getPageAccessToken();
+  const live = isLiveEnabled();
   return {
+    account: '@combo.uzb',
     configured: Boolean(token),
-    mode: token ? 'LIVE' : 'SIMULATION_SANDBOX',
+    liveEnabled: live,
+    mode: (token && live) ? 'LIVE' : (token ? 'PREPARED_PAUSED' : 'SIMULATION_SANDBOX'),
+    statusText: (token && live)
+      ? 'Подключен и активен (@combo.uzb)'
+      : 'Подготовлен к подключению @combo.uzb (Safe Mode: автоответы клиентам приостановлены)',
     verifyToken: getVerifyToken(),
     webhookPath: '/api/webhook/instagram',
     permissions: [

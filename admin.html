@@ -220,6 +220,10 @@
               <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg>
               <span>+ Добавить Q&A</span>
             </button>
+            <button type="button" class="button button--ghost button--sm" onclick="adminLogout()" title="Выйти из админ-панели">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-logout.svg#icon-logout"></use></svg>
+              <span>Выйти</span>
+            </button>
           </div>
         </header>
 
@@ -704,6 +708,35 @@
     </div>
   </div>
 
+  <!-- Защитный экран авторизации администратора -->
+  <div id="adminAuthOverlay" style="display: flex; align-items: center; justify-content: center; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(8px); z-index: 9999;">
+    <div class="card" style="max-width: 440px; width: 92%; box-shadow: var(--shadow-lg); border: 1px solid var(--color-border); border-radius: var(--radius-lg); background: var(--color-surface); padding: var(--space-4);">
+      <div style="text-align: center; margin-bottom: var(--space-3);">
+        <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(59, 130, 246, 0.12); color: var(--color-primary); display: inline-flex; align-items: center; justify-content: center; margin-bottom: var(--space-2);">
+          <svg style="width: 28px; height: 28px;" viewBox="0 0 24 24"><use href="assets/icons/icon-shield.svg#icon-shield"></use></svg>
+        </div>
+        <h3 style="margin: 0; font-size: 18px;">Вход в панель управления COMBO.UZ</h3>
+        <p style="font-size: 12px; color: var(--color-text-muted); margin-top: 6px; line-height: 1.5;">
+          Доступ к клиентским заявкам, персональным номерам телефонов и настройкам каталога разрешён только авторизованным сотрудникам.
+        </p>
+      </div>
+
+      <form id="adminLoginForm" onsubmit="handleAdminLogin(event)" class="form">
+        <div class="field">
+          <label class="field-label" for="adminPasswordInput">Пароль администратора / сотрудника: <span class="req">*</span></label>
+          <input type="password" id="adminPasswordInput" required placeholder="Введите пароль доступа" style="width: 100%;" autocomplete="current-password">
+        </div>
+
+        <div id="adminAuthError" class="field-error" style="display: none; margin-bottom: var(--space-2); font-size: 12px; color: var(--color-danger); background: rgba(239, 68, 68, 0.08); padding: 8px; border-radius: var(--radius-sm);"></div>
+
+        <button type="submit" id="adminLoginBtn" class="button button--primary button--block">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><use href="assets/icons/icon-check.svg#icon-check"></use></svg>
+          <span>Войти в систему</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
   <div class="toast-region" id="toast-region"></div>
 
   <script type="module">
@@ -715,9 +748,93 @@
     let currentLeadChannelFilter = 'all';
     let currentPricing = { updatedAt: '', currency: 'UZS', isConfirmed: false, notes: '', items: [] };
 
+    function getAdminToken() {
+      return sessionStorage.getItem('combo_admin_token') || localStorage.getItem('combo_admin_token') || '';
+    }
+
+    function showAuthOverlay(errMsg = '') {
+      const overlay = document.getElementById('adminAuthOverlay');
+      const errBox = document.getElementById('adminAuthError');
+      if (overlay) overlay.style.display = 'flex';
+      if (errBox) {
+        if (errMsg) {
+          errBox.textContent = errMsg;
+          errBox.style.display = 'block';
+        } else {
+          errBox.style.display = 'none';
+        }
+      }
+      setTimeout(() => document.getElementById('adminPasswordInput')?.focus(), 100);
+    }
+
+    function hideAuthOverlay() {
+      const overlay = document.getElementById('adminAuthOverlay');
+      if (overlay) overlay.style.display = 'none';
+    }
+
+    window.handleAdminLogin = async function(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById('adminPasswordInput');
+      const errBox = document.getElementById('adminAuthError');
+      const pass = (input?.value || '').trim();
+      if (!pass) return;
+
+      if (errBox) errBox.style.display = 'none';
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pass })
+        });
+        const data = await res.json();
+        if (data.success && data.token) {
+          sessionStorage.setItem('combo_admin_token', data.token);
+          hideAuthOverlay();
+          toastSuccess('Авторизация успешна!');
+          loadKb();
+          loadLeads();
+          loadPricing();
+          loadRetailPricing();
+          loadOmnichannelStatus();
+        } else {
+          if (errBox) {
+            errBox.textContent = data.error || 'Неверный пароль администратора';
+            errBox.style.display = 'block';
+          }
+        }
+      } catch (err) {
+        if (errBox) {
+          errBox.textContent = 'Ошибка авторизации: ' + err.message;
+          errBox.style.display = 'block';
+        }
+      }
+    };
+
+    window.adminLogout = function() {
+      sessionStorage.removeItem('combo_admin_token');
+      localStorage.removeItem('combo_admin_token');
+      allLeads = [];
+      renderLeadsTable();
+      showAuthOverlay('Вы вышли из системы');
+    };
+
+    async function adminFetch(url, options = {}) {
+      const token = getAdminToken();
+      const headers = {
+        ...(options.headers || {}),
+        'Authorization': `Bearer ${token}`
+      };
+      const res = await fetch(url, { ...options, headers });
+      if (res.status === 401) {
+        showAuthOverlay('Доступ запрещён: требуется повторная авторизация');
+        throw new Error('Unauthorized');
+      }
+      return res;
+    }
+
     async function loadKb() {
       try {
-        const res = await fetch('/api/knowledge-base');
+        const res = await adminFetch('/api/knowledge-base');
         const json = await res.json();
         if (json.success && Array.isArray(json.data)) {
           allKbItems = json.data;
@@ -731,7 +848,7 @@
 
     async function loadLeads() {
       try {
-        const res = await fetch('/api/leads');
+        const res = await adminFetch('/api/leads');
         const json = await res.json();
         if (json.success && Array.isArray(json.data)) {
           allLeads = json.data;
@@ -979,7 +1096,7 @@
 
     window.updateLeadStatus = async function(leadId, newStatus) {
       try {
-        const res = await fetch('/api/leads/update-status', {
+        const res = await adminFetch('/api/leads/update-status', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id: leadId, status: newStatus })
@@ -1044,7 +1161,7 @@
       };
 
       try {
-        const res = await fetch('/api/knowledge-base/item', {
+        const res = await adminFetch('/api/knowledge-base/item', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -1066,7 +1183,7 @@
       if (!confirm(`Вы действительно хотите удалить вопрос [${id}] из базы знаний?`)) return;
 
       try {
-        const res = await fetch(`/api/knowledge-base/item/${id}`, { method: 'DELETE' });
+        const res = await adminFetch(`/api/knowledge-base/item/${id}`, { method: 'DELETE' });
         const json = await res.json();
         if (json.success) {
           toastSuccess(json.message || 'Статья удалена');
@@ -1097,7 +1214,7 @@
     // =========================================================================
     async function loadPricing() {
       try {
-        const res = await fetch('/api/pricing');
+        const res = await adminFetch('/api/pricing');
         const json = await res.json();
         if (json.success && json.data) {
           currentPricing = json.data;
@@ -1217,7 +1334,7 @@
     window.savePricing = async function() {
       if (!currentPricing) return;
       try {
-        const res = await fetch('/api/pricing', {
+        const res = await adminFetch('/api/pricing', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(currentPricing)
@@ -1265,7 +1382,7 @@
 
     async function loadRetailPricing() {
       try {
-        const res = await fetch('/api/retail-pricing');
+        const res = await adminFetch('/api/retail-pricing');
         const json = await res.json();
         if (json.success && json.data) {
           currentRetailPricing = json.data;
@@ -1433,7 +1550,7 @@
     window.saveRetailPricingToServer = async function() {
       if (!currentRetailPricing) return;
       try {
-        const res = await fetch('/api/pricing/retail', {
+        const res = await adminFetch('/api/pricing/retail', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(currentRetailPricing)
@@ -1469,7 +1586,7 @@
     // =========================================================================
     window.checkChannelStatus = async function(channel) {
       try {
-        const res = await fetch('/api/omnichannel/status');
+        const res = await adminFetch('/api/omnichannel/status');
         const json = await res.json();
         if (json.success) {
           if (channel === 'instagram') {
@@ -1479,7 +1596,7 @@
               igBadge.textContent = isLive ? '🟢 Подключен (LIVE)' : '🟡 Песочница (Sandbox)';
               igBadge.style.color = isLive ? '#16a34a' : '#d97706';
             }
-            toastInfo(`Instagram Direct: ${isLive ? 'LIVE режим' : 'Тестовый режим (готов к подключению)'}. Webhook: ${json.instagram.webhookPath}`);
+            toastInfo(`Instagram Direct: ${json.instagram.statusText || 'Готов к подключению'}. Webhook: ${json.instagram.webhookPath}`);
           } else if (channel === 'telegram') {
             const tgBadge = document.getElementById('tgStatusBadge');
             const isLive = json.telegram && json.telegram.mode === 'LIVE';
@@ -1487,7 +1604,7 @@
               tgBadge.textContent = isLive ? '🟢 Подключен (LIVE)' : '🟡 Песочница (Sandbox)';
               tgBadge.style.color = isLive ? '#16a34a' : '#d97706';
             }
-            toastInfo(`Telegram Bot: ${isLive ? 'LIVE режим' : 'Тестовый режим (готов к подключению)'}. Webhook: ${json.telegram.webhookPath}`);
+            toastInfo(`Telegram Bot: ${json.telegram.statusText || 'Готов к подключению'}. Webhook: ${json.telegram.webhookPath}`);
           }
         }
       } catch (err) {
@@ -1502,7 +1619,7 @@
 
     window.loadHandovers = async function() {
       try {
-        const res = await fetch('/api/omnichannel/status');
+        const res = await adminFetch('/api/omnichannel/status');
         const json = await res.json();
         const container = document.getElementById('handoversListContainer');
         const countBadge = document.getElementById('handoversCountBadge');
@@ -1557,7 +1674,7 @@
 
     window.resumeBotHandover = async function(channel, senderId) {
       try {
-        const res = await fetch('/api/handover', {
+        const res = await adminFetch('/api/handover', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ channel, senderId, shouldHandover: false, operatorName: 'Менеджер админки' })
@@ -1605,7 +1722,7 @@
       input.value = '';
 
       try {
-        const res = await fetch('/api/instagram/simulate', {
+        const res = await adminFetch('/api/instagram/simulate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ senderId: sender, messageText: text })
@@ -1658,7 +1775,7 @@
       box.scrollTop = box.scrollHeight;
 
       try {
-        const res = await fetch('/api/telegram/simulate', {
+        const res = await adminFetch('/api/telegram/simulate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -1701,7 +1818,7 @@
       input.value = '';
 
       try {
-        const res = await fetch('/api/telegram/simulate', {
+        const res = await adminFetch('/api/telegram/simulate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ chatId: '777000', username, text })
@@ -1733,11 +1850,33 @@
       }
     };
 
-    // Init
-    loadKb();
-    loadLeads();
-    loadPricing();
-    loadRetailPricing();
+    // Safe Init with Auth Verification
+    async function initAdminPanel() {
+      const token = getAdminToken();
+      if (!token) {
+        showAuthOverlay();
+        return;
+      }
+      try {
+        const res = await fetch('/api/admin/check-auth', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const json = await res.json();
+        if (json && json.authenticated) {
+          hideAuthOverlay();
+          loadKb();
+          loadLeads();
+          loadPricing();
+          loadRetailPricing();
+        } else {
+          showAuthOverlay('Сессия истекла. Введите пароль администратора.');
+        }
+      } catch (e) {
+        showAuthOverlay();
+      }
+    }
+
+    initAdminPanel();
 
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash;

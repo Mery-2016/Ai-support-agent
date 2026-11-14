@@ -3,12 +3,102 @@
  * Used by both local server (server.js) and Vercel Serverless (api/index.js)
  */
 const url = require('url');
+const https = require('https');
 const db = require('./db');
 const catalog = require('./catalog');
 const pricing = require('./pricing');
 const agentCore = require('./agent-core');
 const instagram = require('./instagram');
 const telegram = require('./telegram');
+
+function getAdminSecret() {
+  return (process.env.ADMIN_PASSWORD || process.env.ADMIN_SECRET || 'combo2026admin').trim();
+}
+
+function isAuthorizedAdmin(req) {
+  const authHeader = (req.headers && req.headers['authorization']) || '';
+  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : authHeader.trim();
+  const customKey = (req.headers && req.headers['x-admin-key']) ? req.headers['x-admin-key'].trim() : '';
+  const secret = getAdminSecret();
+  return (Boolean(token) && token === secret) || (Boolean(customKey) && customKey === secret);
+}
+
+async function callServerGemini(promptText, requestedModel) {
+  const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+  if (!apiKey) return null;
+
+  const systemPrompt = `
+Ты — официальный AI-консультант компании COMBO.UZ (Жалюзи и рулонные шторы в Ташкенте и Узбекистане).
+Отвечай вежливо, четко и профессионально на русском или узбекском (в зависимости от языка вопроса).
+
+СТРОГИЕ ПРАВИЛА И УСЛОВИЯ СЕРВИСА COMBO.UZ:
+1. В Ташкенте: замер с каталогами образцов, помощь дизайнера и монтаж — БЕСПЛАТНЫ при оформлении заказа!
+2. Если после замера и консультации клиент не оформляет заказ, оплачивается только стандартный выезд специалиста — 100 000 сум.
+3. В других областях Узбекистана: условия замера, доставки и установки согласовываются с менеджером индивидуально.
+4. Минимальная расчётная площадь каждого изделия — 1 м²: S = max(1.0, W × H). Если створка меньше 1 м², расчет идет за 1 м².
+5. Официальные цены:
+   - День и Ночь (Зебра / Комбо): от 100 000 сум (общий карниз), кассета 220 000 сум, мини 130 000 сум.
+   - Ролло: от 100 000 сум (общий карниз), мини 160 000 сум, кассета 230 000 сум, Blackout 250 000 сум.
+   - Римские шторы: 270 000 сум.
+   - Double: от 330 000 сум.
+   - Тюлевые / Dikey: от 240 000 до 700 000 сум.
+   - Плиссе: от 100 000 сум (до 0,5 м²) и от 125 000 сум (до 1 м²).
+   - Горизонтальные алюминиевые: 130 000 сум.
+   - Вертикальные тканевые: 115 000 сум.
+6. Сроки изготовления: 1–3 рабочих дня в собственном цехе в Ташкенте.
+7. Гарантия: 12 месяцев на все механизмы и монтаж.
+8. Не придумывай несуществующие скидки, акции и цены! При вопросе о скидках говори, что скидки на объем согласовываются с менеджером при замере.
+`.trim();
+
+  const candidateModels = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+  for (const model of candidateModels) {
+    try {
+      const payload = JSON.stringify({
+        systemInstruction: { parts: [{ text: systemPrompt }] },
+        contents: [{ role: 'user', parts: [{ text: promptText }] }],
+        generationConfig: {
+          temperature: 0.3,
+          maxOutputTokens: 1024
+        }
+      });
+
+      const resText = await new Promise((resolve) => {
+        const req = https.request({
+          hostname: 'generativelanguage.googleapis.com',
+          port: 443,
+          path: `/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': Buffer.byteLength(payload)
+          },
+          timeout: 6000
+        }, (res) => {
+          let str = '';
+          res.on('data', chunk => str += chunk);
+          res.on('end', () => {
+            if (res.statusCode >= 200 && res.statusCode < 300) {
+              try {
+                const j = JSON.parse(str);
+                const txt = j?.candidates?.[0]?.content?.parts?.[0]?.text;
+                resolve(txt || null);
+              } catch (e) { resolve(null); }
+            } else {
+              resolve(null);
+            }
+          });
+        });
+        req.on('error', () => resolve(null));
+        req.on('timeout', () => { req.destroy(); resolve(null); });
+        req.write(payload);
+        req.end();
+      });
+
+      if (resText) return resText;
+    } catch (e) {}
+  }
+  return null;
+}
 
 function parseBody(req) {
   return new Promise((resolve) => {
@@ -73,15 +163,114 @@ async function handleApiRequest(req, res) {
   }
 
   // ---------------------------------------------------------------------------
-  // 2. CONFIG & API KEY
+  // 2. CONFIG & AUTH FOR CLIENTS & ADMINS
   // ---------------------------------------------------------------------------
   if (pathname === '/api/config' && req.method === 'GET') {
     const key = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || '';
     res.setHeader('Content-Type', 'application/json');
     return res.end(JSON.stringify({
-      hasApiKey: Boolean(key),
-      apiKey: key || undefined
+      success: true,
+      service: 'COMBO.UZ Omnichannel AI Sales Manager',
+      serverAiReady: true,
+      hasServerApiKey: Boolean(key),
+      authRequiredForClients: false
     }));
+  }
+
+  // Admin login endpoint
+  if (pathname === '/api/admin/login' && req.method === 'POST') {
+    try {
+      const body = await parseBody(req);
+      const secret = getAdminSecret();
+      const pass = (body.password || body.token || '').trim();
+      if (pass && pass === secret) {
+        res.setHeader('Content-Type', 'application/json');
+        return res.end(JSON.stringify({
+          success: true,
+          token: secret,
+          role: 'admin',
+          message: 'Авторизация администратора успешна'
+        }));
+      }
+      res.statusCode = 401;
+      res.setHeader('Content-Type', 'application/json');
+      return res.end(JSON.stringify({ success: false, error: 'Неверный пароль администратора' }));
+    } catch (err) {
+      res.statusCode = 400;
+      res.setHeader('Content-Type', 'application/json');
+      return res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+  }
+
+  // Admin auth status check
+  if (pathname === '/api/admin/check-auth' && req.method === 'GET') {
+    const isAuth = isAuthorizedAdmin(req);
+    res.setHeader('Content-Type', 'application/json');
+    return res.end(JSON.stringify({
+      success: isAuth,
+      authenticated: isAuth,
+      role: isAuth ? 'admin' : 'guest'
+    }));
+  }
+
+  // ---------------------------------------------------------------------------
+  // WEB AI CHAT (Secure Server-Side AI — No Client API Key Required)
+  // ---------------------------------------------------------------------------
+  if (pathname === '/api/chat' && req.method === 'POST') {
+    try {
+      const body = await parseBody(req);
+      const userMessage = (body.message || body.text || '').trim();
+      const senderId = body.senderId || body.sessionId || ('web_' + Date.now());
+      const clientProfile = body.client || {};
+      const senderName = clientProfile.name || body.senderName || 'Посетитель сайта';
+
+      if (!userMessage) {
+        res.statusCode = 400;
+        res.setHeader('Content-Type', 'application/json');
+        return res.end(JSON.stringify({ success: false, error: 'Message cannot be empty' }));
+      }
+
+      // 1. Process via Unified Omnichannel Sales Agent Core
+      const agentResponse = await agentCore.processChannelMessage({
+        channel: agentCore.CHANNELS.WEB,
+        senderId,
+        senderName,
+        text: userMessage,
+        metadata: {
+          platform: 'web',
+          clientProfile,
+          selectedModel: body.model || 'Gemini 3.5'
+        }
+      });
+
+      let finalReply = agentResponse.reply || '';
+
+      // 2. If server has Gemini API Key, try optional server-side enhancement for complex questions
+      const serverKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+      if (serverKey && !agentResponse.isHandedOver && !agentResponse.isOrderReady && agentResponse.stage === 'INIT') {
+        const geminiCandidate = await callServerGemini(userMessage, body.model);
+        if (geminiCandidate && geminiCandidate.length > 20) {
+          finalReply = geminiCandidate;
+        }
+      }
+
+      res.setHeader('Content-Type', 'application/json');
+      return res.end(JSON.stringify({
+        success: true,
+        reply: finalReply,
+        text: finalReply,
+        photos: agentResponse.photos || [],
+        stage: agentResponse.stage,
+        isOrderReady: Boolean(agentResponse.isOrderReady),
+        leadData: agentResponse.leadData || null,
+        needsManager: Boolean(agentResponse.isHandedOver || agentResponse.needsManager),
+        timestamp: new Date().toISOString()
+      }));
+    } catch (err) {
+      res.statusCode = 500;
+      res.setHeader('Content-Type', 'application/json');
+      return res.end(JSON.stringify({ success: false, error: err.message }));
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -107,6 +296,11 @@ async function handleApiRequest(req, res) {
   }
 
   if ((pathname === '/api/pricing/retail' || pathname === '/api/retail-pricing') && req.method === 'POST') {
+    if (!isAuthorizedAdmin(req)) {
+      res.statusCode = 401;
+      res.setHeader('Content-Type', 'application/json');
+      return res.end(JSON.stringify({ success: false, error: 'Доступ запрещён: требуется авторизация администратора' }));
+    }
     try {
       const body = await parseBody(req);
       const result = pricing.updateRetailPricing(body);
@@ -126,6 +320,11 @@ async function handleApiRequest(req, res) {
   }
 
   if (pathname === '/api/pricing' && req.method === 'POST') {
+    if (!isAuthorizedAdmin(req)) {
+      res.statusCode = 401;
+      res.setHeader('Content-Type', 'application/json');
+      return res.end(JSON.stringify({ success: false, error: 'Доступ запрещён: требуется авторизация администратора' }));
+    }
     try {
       const body = await parseBody(req);
       const result = pricing.updateOfficialPricing(body);
@@ -230,6 +429,11 @@ async function handleApiRequest(req, res) {
   // 7. HUMAN HANDOVER (Manager Transfer)
   // ---------------------------------------------------------------------------
   if (pathname === '/api/handover' && req.method === 'POST') {
+    if (!isAuthorizedAdmin(req)) {
+      res.statusCode = 401;
+      res.setHeader('Content-Type', 'application/json');
+      return res.end(JSON.stringify({ success: false, error: 'Доступ запрещён: требуется авторизация администратора' }));
+    }
     try {
       const body = await parseBody(req);
       const { channel, senderId, shouldHandover, reason, operatorName } = body;
@@ -247,9 +451,17 @@ async function handleApiRequest(req, res) {
   }
 
   // ---------------------------------------------------------------------------
-  // 8. LEADS CRM
+  // 8. LEADS CRM (Protected Access for Staff)
   // ---------------------------------------------------------------------------
   if (pathname === '/api/leads' && req.method === 'GET') {
+    if (!isAuthorizedAdmin(req)) {
+      res.statusCode = 401;
+      res.setHeader('Content-Type', 'application/json');
+      return res.end(JSON.stringify({
+        success: false,
+        error: 'Доступ запрещён: доступ к клиентским заявкам разрешён только авторизованным сотрудникам'
+      }));
+    }
     try {
       const leads = await db.getLeads();
       res.setHeader('Content-Type', 'application/json');
@@ -288,6 +500,11 @@ async function handleApiRequest(req, res) {
   }
 
   if ((pathname.startsWith('/api/leads/') || pathname === '/api/leads/update-status') && (req.method === 'PATCH' || req.method === 'POST')) {
+    if (!isAuthorizedAdmin(req)) {
+      res.statusCode = 401;
+      res.setHeader('Content-Type', 'application/json');
+      return res.end(JSON.stringify({ success: false, error: 'Доступ запрещён: требуется авторизация администратора' }));
+    }
     try {
       const body = await parseBody(req);
       const targetId = body.id || pathname.split('/').pop();
@@ -330,6 +547,11 @@ async function handleApiRequest(req, res) {
   }
 
   if (pathname === '/api/knowledge-base/item' && req.method === 'POST') {
+    if (!isAuthorizedAdmin(req)) {
+      res.statusCode = 401;
+      res.setHeader('Content-Type', 'application/json');
+      return res.end(JSON.stringify({ success: false, error: 'Доступ запрещён: требуется авторизация администратора' }));
+    }
     try {
       const item = await parseBody(req);
       const result = await db.saveKnowledgeBaseItem(item);
@@ -347,6 +569,11 @@ async function handleApiRequest(req, res) {
   }
 
   if (pathname.startsWith('/api/knowledge-base/item/') && (req.method === 'DELETE' || req.method === 'POST')) {
+    if (!isAuthorizedAdmin(req)) {
+      res.statusCode = 401;
+      res.setHeader('Content-Type', 'application/json');
+      return res.end(JSON.stringify({ success: false, error: 'Доступ запрещён: требуется авторизация администратора' }));
+    }
     try {
       const idToDelete = pathname.split('/').pop();
       const result = await db.deleteKnowledgeBaseItem(idToDelete);
